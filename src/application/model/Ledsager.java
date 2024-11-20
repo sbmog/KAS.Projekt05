@@ -22,9 +22,18 @@ public class Ledsager extends Person {
         udflugter.remove(udflugt);
     }
 
+    public ArrayList<Udflugt>getUdflugter(){
+        return udflugter;
+    }
+
     public void setDeltager(Deltager deltager) {
         if (this.deltager!=deltager){
             this.deltager=deltager;
         }
+    }
+
+    @Override
+    public String toString() {
+        return getNavn();
     }
 }

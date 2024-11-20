@@ -1,14 +1,19 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 public class Tilmelding {
     private LocalDate ankomstDato;
     private LocalDate afrejseDato;
-    private boolean foredragsholder;
+    private boolean foredragsholder = false;
     private Deltager deltager;
     private Hotel hotel;
     private Konference konference;
+
+    private boolean hotelBad = false;
+    private boolean hotelWifi = false;
+    private boolean hotelMorgenmad = false;
 
     protected Tilmelding(LocalDate ankomstDato, Deltager deltager, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
         this.ankomstDato = ankomstDato;
@@ -32,10 +37,41 @@ public class Tilmelding {
         }
     }
 
-    public void setHotel(Hotel hotel) {
+    public void setHotel(Hotel hotel, boolean badValgt, boolean wifiValgt, boolean morgenmadValgt) {
         if (this.hotel != hotel) {
             this.hotel = hotel;
+            this.hotelBad = badValgt;
+            this.hotelWifi = wifiValgt;
+            this.hotelMorgenmad = morgenmadValgt;
             hotel.addTilmelding(this);
         }
+    }
+
+    public int getSamletPrisForDeltagelse() {
+        int sum = 0;
+        boolean dobbeltVærelse = false;
+        Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
+        sum += (int) (konference.getPrisPrDagForKonference() * (antalDage.count()));
+        if (deltager.getLedsager() != null) {
+            dobbeltVærelse = true;
+            for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
+                sum += udflugt.getPris();
+            }
+        }
+        if (hotel != null) {
+            sum += hotel.getPrisForBooking(this, dobbeltVærelse, hotelBad, hotelWifi, hotelMorgenmad);
+        }
+        return sum;
+    }
+
+    public int getPrisDeltagersUdgift() {
+        int sum = getSamletPrisForDeltagelse();
+        if (foredragsholder == true) {
+            sum -= konference.getPrisPrDagForKonference();
+        }
+        if (deltager.getFirma() != null) {
+            sum = 0;
+        }
+        return sum;
     }
 }

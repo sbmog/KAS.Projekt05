@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Controller {
 
+// Beregn pris metoder!
+
     public static Deltager createDeltager(String navn, String adresse, String telefonNummer) {
         Deltager deltager = new Deltager(navn, adresse, telefonNummer);
         Storage.addDeltager(deltager);
@@ -38,8 +40,8 @@ public class Controller {
         return Storage.getTilmeldinger();
     }
 
-    public static Hotel createHotel(String navn, String adresse, int pris, int badTillæg, int wifiTillæg, int morgenmadsTillæg) {
-        Hotel hotel = new Hotel(navn, adresse, pris, badTillæg, wifiTillæg, morgenmadsTillæg);
+    public static Hotel createHotel(String navn, String adresse, int prisForEnkeltVærelse, int prisForDobbeltVærelse, int badTillæg, int wifiTillæg, int morgenmadsTillæg, Konference konference) {
+        Hotel hotel = new Hotel(navn, adresse, prisForEnkeltVærelse,prisForDobbeltVærelse, badTillæg, wifiTillæg, morgenmadsTillæg,konference);
         Storage.addHotel(hotel);
         return hotel;
     }
@@ -71,8 +73,8 @@ public class Controller {
         return Storage.getLedsagere();
     }
 
-    public static Udflugt createUdflugt(String navn, String adresse, LocalDate dato, int pris){
-        Udflugt udflugt =new Udflugt(navn, adresse, dato, pris);
+    public static Udflugt createUdflugt(String navn, String adresse, LocalDate dato, int pris, Konference konference){
+        Udflugt udflugt =new Udflugt(navn, adresse, dato, pris, konference);
         Storage.addUdflugt(udflugt);
         return udflugt;
     }

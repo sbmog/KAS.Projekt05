@@ -9,15 +9,18 @@ public class Konference {
     private LocalDate startDato;
     private LocalDate slutDato;
 
+    private int prisPrDagForKonference;
+
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private ArrayList<Hotel> hoteller = new ArrayList<>();
     private ArrayList<Udflugt> udflugter = new ArrayList<>();
 
-    public Konference(String navn, String adresse, LocalDate startDato, LocalDate slutDato) {
+    public Konference(String navn, String adresse, LocalDate startDato, LocalDate slutDato, int prisPrDagForKonference) {
         this.navn = navn;
         this.adresse = adresse;
         this.startDato = startDato;
         this.slutDato = slutDato;
+        this.prisPrDagForKonference = prisPrDagForKonference;
     }
 
     public Tilmelding createTilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsHolder) {
@@ -43,5 +46,9 @@ public class Konference {
         if (!hoteller.contains(hotel)) {
             hoteller.add(hotel);
         }
+    }
+
+    public int getPrisPrDagForKonference() {
+        return prisPrDagForKonference;
     }
 }

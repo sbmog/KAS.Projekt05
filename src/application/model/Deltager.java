@@ -55,4 +55,12 @@ public class Deltager extends Person {
     public void setLedsager(Ledsager ledsager) {
         this.ledsager = ledsager;
     }
+
+    public Ledsager getLedsager() {
+        return ledsager;
+    }
+
+    public Firma getFirma() {
+        return firma;
+    }
 }

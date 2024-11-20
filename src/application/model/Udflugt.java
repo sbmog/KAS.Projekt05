@@ -11,11 +11,12 @@ public class Udflugt {
 
     private ArrayList<Ledsager>ledsagere=new ArrayList<>();
 
-    public Udflugt(String navn, String adresse, LocalDate dato, int pris) {
+    public Udflugt(String navn, String adresse, LocalDate dato, int pris, Konference konference) {
         this.navn = navn;
         this.adresse = adresse;
         this.dato = dato;
         this.pris = pris;
+        konference.addUdflugt(this);
     }
 
     public void addLedsager(Ledsager ledsager) {
@@ -23,5 +24,9 @@ public class Udflugt {
             ledsagere.add(ledsager);
             ledsager.addUdflugt(this);
         }
+    }
+
+    public int getPris() {
+        return pris;
     }
 }
