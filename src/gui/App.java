@@ -22,7 +22,6 @@ public class App {
     }
 
     public static void testGetSamletPrisForDeltagelse() {
-
         Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1500);
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
         Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
@@ -54,42 +53,5 @@ public class App {
         janMadsen.addUdflugt(egeskov);
         janMadsen.addUdflugt(byrundTur);
         System.out.println(loneJensen.getNavn() + " har en samlet pris på: " + loneTilmeling.getSamletPrisForDeltagelse() + ". Hun skal selv betale: " + loneTilmeling.getPrisDeltagersUdgift());
-
-
-        Konference konference = Controller.createKonference("Test Konference", "Test Adresse", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
-
-        Deltager deltager = Controller.createDeltager("Test Deltager", "Test Adresse", "12345678");
-
-        Tilmelding tilmelding = Controller.createTilmelding(deltager, LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, konference);
-
-        Hotel hotel = Controller.createHotel("Test Hotel", "Test Adresse", 1000, 1500, 100, 50, 200, konference);
-        tilmelding.setHotel(hotel, true, true, true);
-
-        int samletPris = tilmelding.getSamletPrisForDeltagelse();
-
-        System.out.println("Samlet pris for deltagelse: " + samletPris);
-
-
-        //Opret konference
-        Konference konference = Controller.createKonference("Test Konference", "Test Adresse", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
-
-        //Opret deltager
-        Deltager deltager = Controller.createDeltager("Test Deltager", "Test Adresse", "12345678");
-
-        //Opret tilmelding
-        Tilmelding tilmelding = Controller.createTilmelding(LocalDate.of(2024, 12, 16), deltager, LocalDate.of(2024, 12, 18), false, konference);
-
-        //Opret hotel
-        Hotel hotel = Controller.createHotel("Test Hotel", "Test Adresse", 1000, 1500, 100, 50, 200, konference);
-        tilmelding.setHotel(hotel, true, true, true);
-
-        //Opret ledsager og tilføj til deltager
-//        deltager.createLedsager("Test Ledsager");
-
-        //udregn samlet pris for deltagelse
-        int samletPris = tilmelding.getSamletPrisForDeltagelse();
-
-        //print samlet pris for deltagelse
-        System.out.println("Samlet pris for deltagelse: " + samletPris);
     }
 }
