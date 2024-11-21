@@ -53,7 +53,8 @@ public class Tilmelding {
         int sum = 0;
         boolean dobbeltVærelse = false;
         Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
-        sum += (int) (konference.getPrisPrDagForKonference() * (antalDage.count()));
+        int antalDageInt = (int) antalDage.count();
+        sum += (int) (konference.getPrisPrDagForKonference() * antalDageInt);
         if (deltager.getLedsager() != null) {
             dobbeltVærelse = true;
             for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
@@ -61,7 +62,7 @@ public class Tilmelding {
             }
         }
         if (hotel != null) {
-            sum += hotel.getPrisForBooking(this, dobbeltVærelse, hotelBad, hotelWifi, hotelMorgenmad);
+            sum += antalDageInt * hotel.getPrisForBooking(this, dobbeltVærelse, hotelBad, hotelWifi, hotelMorgenmad);
         }
         return sum;
     }
