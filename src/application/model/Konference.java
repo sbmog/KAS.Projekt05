@@ -59,4 +59,21 @@ public class Konference {
         }
         return deltagere;
     }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public LocalDate getStartdato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutdato() {
+        return slutDato;
+    }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

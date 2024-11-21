@@ -10,15 +10,15 @@ public class App {
     public static void main(String[] args) {
         initStorage();
         testGetSamletPrisForDeltagelse();
-//        Application.launch(StartWindow.class);
-        Application.launch(KonferenceOversigt.class);
+        Application.launch(StartWindow.class);
     }
 
-    public static void initStorage(){
-        Konference havOgHimmel = Controller.createKonference("Hav og Himmel","Odense Universitet", LocalDate.of(2024,12,16),LocalDate.of(2024,12,18),350);
-        Controller.createHotel("Den Hvide Svane","XX",1050,1250,0,50,0,havOgHimmel);
-        Controller.createHotel("Høtel Phønix","XX",700,800,200,75,0,havOgHimmel);
-        Controller.createHotel("Pension Tusindfryd","XX",500,600,0,0,100,havOgHimmel);
+    public static void initStorage() {
+        Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
+        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
+        Hotel phønix = Controller.createHotel("Høtel Phønix", "XX", 700, 800, 200, 75, 0, havOgHimmel);
+        Hotel tusindfryd = Controller.createHotel("Pension Tusindfryd", "XX", 500, 600, 0, 0, 100, havOgHimmel);
+
     }
 
     public static void testGetSamletPrisForDeltagelse() {
@@ -29,16 +29,16 @@ public class App {
         Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);
 
 
-        Deltager finnMadsen = Controller.createDeltager("Finn Madsen", "XX", "xxxxxxxx");
+        Deltager finnMadsen = Controller.createDeltager("Finn Madsen", "XX", "12341234");
         Tilmelding finnTilmelding = Controller.createTilmelding(finnMadsen, LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
         System.out.println(finnMadsen.getNavn() + " har en samlet pris på: " + finnTilmelding.getSamletPrisForDeltagelse());
 
-        Deltager nielsPetersen = Controller.createDeltager("Niels Petrsen", "XX", "xxxxxxxx");
+        Deltager nielsPetersen = Controller.createDeltager("Niels Petersen", "XX", "11223344");
         Tilmelding nielsTilmelding = nielsPetersen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
         nielsTilmelding.setHotel(denHvideSvane, false, false, false);
         System.out.println(nielsPetersen.getNavn() + " har en samlet pris på: " + nielsTilmelding.getSamletPrisForDeltagelse());
 
-        Deltager peterSommer = Controller.createDeltager("Peter Sommer", "XX", "xxxxxxxx");
+        Deltager peterSommer = Controller.createDeltager("Peter Sommer", "XX", "43214321");
         Tilmelding peterTilmelding = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
         peterTilmelding.setHotel(denHvideSvane, false, true, false);
         Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");
@@ -46,7 +46,7 @@ public class App {
         mieSommer.addUdflugt(trapholt);
         System.out.println(peterSommer.getNavn() + " har en samlet pris på: " + peterTilmelding.getSamletPrisForDeltagelse());
 
-        Deltager loneJensen = Controller.createDeltager("Lone Jensen", "XX", "xxxxxxxx");
+        Deltager loneJensen = Controller.createDeltager("Lone Jensen", "XX", "10203040");
         Tilmelding loneTilmeling = loneJensen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), true, havOgHimmel);
         loneTilmeling.setHotel(denHvideSvane, false, true, false);
         Ledsager janMadsen = loneJensen.createLedsager("Jan Madsen");

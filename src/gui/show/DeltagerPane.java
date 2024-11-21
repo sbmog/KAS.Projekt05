@@ -15,10 +15,12 @@ import java.time.format.FormatStyle;
 public class DeltagerPane extends GridPane {
     public DeltagerPane() {
         this.setPadding(new Insets(5));
+
         ListView<Deltager> konferenceListView = new ListView<>();
         konferenceListView.setMinWidth(300);
         konferenceListView.getItems().setAll(Controller.getDeltagere());
         this.add(konferenceListView, 0, 0);
+
         VBox detailsBox = new VBox();
         detailsBox.setSpacing(5);
         detailsBox.setPadding(new Insets(0, 5, 10, 10));
@@ -28,6 +30,7 @@ public class DeltagerPane extends GridPane {
 
         detailsBox.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay);
         this.add(detailsBox, 1, 0);
+
         konferenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());

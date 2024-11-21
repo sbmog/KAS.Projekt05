@@ -1,69 +1,76 @@
 package gui;
 
-
 import application.controller.Controller;
-import application.model.Deltager;
 import application.model.Konference;
+import gui.component.AttributeDisplay;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class StartWindow extends Application {
     @Override
     public void start(Stage primaryStage) {
-        BorderPane borderPane = new BorderPane();
-
-
-        Scene scene = new Scene(borderPane, 800, 600);
         primaryStage.setTitle("Konference adminstrations system");
+
+        GridPane pane = new GridPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(10));
+        pane.setHgap(10);
+        pane.setVgap(10);
+
+        Scene scene = new Scene(pane,600,400);
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        Label konferenceLabel = new Label("Konferencer");
+        konferenceLabel.setStyle("-fx-font-weight: bold;");
+        pane.add(konferenceLabel, 0, 0);
 
         ListView<Konference> konferenceListView = new ListView<>();
-        konferenceListView.getItems().addAll(Controller.getKonferencer()); // s
+        konferenceListView.getItems().addAll(Controller.getKonferencer());
+        konferenceListView.setMinWidth(300);
+        konferenceListView.getItems().setAll(Controller.getKonferencer());
+        pane.add(konferenceListView, 0, 1);
 
-        // Participant ListView
-        ListView<Deltager> deltagerListView = new ListView<>();
+        VBox detailsBox = new VBox(5);
+        detailsBox.setPadding(new Insets(0, 5, 10, 10));
 
-        // Conference ListView Selection Listener
-        konferenceListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                // Clear and populate deltagerListView with participants of the selected conference
-                deltagerListView.getItems().clear();
-                deltagerListView.getItems().addAll(newSelection.getTilmeldingerSomDeltager());
+        AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
+        AttributeDisplay adresseDisplay = new AttributeDisplay("Adresse", "");
+        AttributeDisplay startdatoDisplay = new AttributeDisplay("Startdato", "");
+        AttributeDisplay slutdatoDisplay = new AttributeDisplay("Slutdato", "");
+
+        detailsBox.getChildren().addAll(navnDisplay, adresseDisplay, startdatoDisplay, slutdatoDisplay);
+        pane.add(detailsBox, 1, 1);
+
+        konferenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                navnDisplay.setValue(newValue.toString());
+                adresseDisplay.setValue(newValue.getAdresse());
+                DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+                startdatoDisplay.setValue(newValue.getStartdato().format(longDateFormat));
+                slutdatoDisplay.setValue(newValue.getSlutdato().format(longDateFormat));
             }
         });
 
-        //button
-        Button åbenButton = new Button("Åben");
+        Button vælgKonferenceButton = new Button("Vælg konference");
+        pane.add(vælgKonferenceButton, 1, 3);
+        pane.setHalignment(vælgKonferenceButton, HPos.RIGHT);
 
-
-        //buttonaction
-        //åbenButton.setOnAction(event -> åbenKonferencePane());
-
-        //laout for left side (konferencer)
-        VBox leftPane = new VBox(10, new Label("Konferencer:"), konferenceListView, åbenButton);
-        leftPane.setPadding(new Insets(10));
-        leftPane.setPrefHeight(300);
-
-        VBox rightPane = new VBox(10, new Label("Deltagere:"), deltagerListView);
-        rightPane.setPadding(new Insets(10));
-        rightPane.setPrefWidth(300);
-
-
-        HBox mainContent = new HBox(20, leftPane, rightPane); // 20 is the gap between the panes
-        mainContent.setPadding(new Insets(10)); // Add padding around the entire content
-
-        borderPane.setCenter(mainContent);
-
-
+        vælgKonferenceButton.setOnAction(event -> {
+                    KonferenceOversigt konferenceOversigt = new KonferenceOversigt();
+                    konferenceOversigt.showAndWait();
+                });
     }
 }
