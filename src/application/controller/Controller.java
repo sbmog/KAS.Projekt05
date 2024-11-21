@@ -50,8 +50,8 @@ public class Controller {
         return Storage.getHoteller();
     }
 
-    public static Konference createKonference(String navn, String adresse, LocalDate startDato, LocalDate slutDato) {
-        Konference konference = new Konference(navn, adresse, startDato, slutDato);
+    public static Konference createKonference(String navn, String adresse, LocalDate startDato, LocalDate slutDato, int prisPrDagForKonference) {
+        Konference konference = new Konference(navn, adresse, startDato, slutDato, prisPrDagForKonference);
         Storage.addKonference(konference);
         return konference;
     }
