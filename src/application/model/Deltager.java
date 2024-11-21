@@ -69,4 +69,8 @@ public class Deltager extends Person {
     public String toString() {
         return getNavn();
     }
+
+    public String getTelefonNummer() {
+        return telefonNummer;
+    }
 }

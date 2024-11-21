@@ -36,7 +36,7 @@ public class App {
         tilmelding.setHotel(hotel, true, true, true);
 
         //Opret ledsager og tilføj til deltager
-        deltager.createLedsager("Test Ledsager");
+//        deltager.createLedsager("Test Ledsager");
 
         //udregn samlet pris for deltagelse
         int samletPris = tilmelding.getSamletPrisForDeltagelse();

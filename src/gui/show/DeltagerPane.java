@@ -7,7 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import Application.model.Deltager;
+import application.model.Deltager;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -15,9 +15,9 @@ import java.time.format.FormatStyle;
 public class DeltagerPane extends GridPane {
     public DeltagerPane() {
         this.setPadding(new Insets(5));
-        ListView<Konference> konferenceListView = new ListView<>();
+        ListView<Deltager> konferenceListView = new ListView<>();
         konferenceListView.setMinWidth(300);
-        konferenceListView.getItems().setAll(Controller.getKonferencer());
+        konferenceListView.getItems().setAll(Controller.getDeltagere());
         this.add(konferenceListView, 0, 0);
         VBox detailsBox = new VBox();
         detailsBox.setSpacing(5);
@@ -32,8 +32,8 @@ public class DeltagerPane extends GridPane {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
-                tlfDisplay.setValue(newValue.getPremierDate().format(longDateFormat));
-                ledsagerDisplay.setValue(newValue.get);
+                tlfDisplay.setValue(newValue.getTelefonNummer());
+                ledsagerDisplay.setValue(newValue.getLedsager() != null ? newValue.getLedsager().getNavn() : "Ingen ledsager");
             }
         });
     }
