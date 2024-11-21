@@ -1,10 +1,7 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Deltager;
-import application.model.Hotel;
-import application.model.Konference;
-import application.model.Tilmelding;
+import application.model.*;
 
 import java.time.LocalDate;
 
@@ -22,17 +19,26 @@ public class App {
     }
 
     public static void testGetSamletPrisForDeltagelse() {
+        //Opret konference
         Konference konference = Controller.createKonference("Test Konference", "Test Adresse", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
 
+        //Opret deltager
         Deltager deltager = Controller.createDeltager("Test Deltager", "Test Adresse", "12345678");
 
+        //Opret tilmelding
         Tilmelding tilmelding = Controller.createTilmelding(LocalDate.of(2024, 12, 16), deltager, LocalDate.of(2024, 12, 18), false, konference);
 
+        //Opret hotel
         Hotel hotel = Controller.createHotel("Test Hotel", "Test Adresse", 1000, 1500, 100, 50, 200, konference);
         tilmelding.setHotel(hotel, true, true, true);
 
+        //Opret ledsager og tilføj til deltager
+        deltager.createLedsager("Test Ledsager");
+
+        //udregn samlet pris for deltagelse
         int samletPris = tilmelding.getSamletPrisForDeltagelse();
 
+        //print samlet pris for deltagelse
         System.out.println("Samlet pris for deltagelse: " + samletPris);
     }
 }
