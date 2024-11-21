@@ -10,7 +10,8 @@ public class App {
     public static void main(String[] args) {
         initStorage();
         testGetSamletPrisForDeltagelse();
-        Application.launch(StartWindow.class);
+//        Application.launch(StartWindow.class);
+        Application.launch(KonferenceOversigt.class);
     }
 
     public static void initStorage(){
