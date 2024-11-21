@@ -22,6 +22,7 @@ public class Deltager extends Person {
         }
         Ledsager newLedsager = new Ledsager(navn, this);
         this.ledsager = newLedsager;
+        setLedsager(newLedsager);
         return newLedsager;
     }
 
