@@ -30,7 +30,7 @@ public class Controller {
         return Storage.getFirma();
     }
 
-    public static Tilmelding createTilmelding(LocalDate ankomstDato, Deltager deltager, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
+    public static Tilmelding createTilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
         Tilmelding tilmelding = konference.createTilmelding(deltager,ankomstDato,afrejseDato,foredragsholder);
         Storage.addTilmelding(tilmelding);
         return tilmelding;
