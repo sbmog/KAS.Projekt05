@@ -24,28 +24,30 @@ public class Hotel {
         konference.addHotel(this);
     }
 
-    public void addTilmelding(Tilmelding tilmelding) {
+    public void addTilmelding(Tilmelding tilmelding, boolean updateTilmelding) {
         if (!tilmeldinger.contains(tilmelding)) {
             tilmeldinger.add(tilmelding);
-            tilmelding.setHotel(this);
+            if (updateTilmelding) {
+                tilmelding.setHotel(this, tilmelding.isHotelBad(), tilmelding.isHotelWifi(), tilmelding.isHotelMorgenmad());
+            }
         }
     }
 
     public int getPrisForBooking(Tilmelding tilmelding, boolean dobbeltVærelse, boolean badValgt, boolean wifiValgt, boolean morgenmadValgt) {
         int sum = 0;
         if (tilmeldinger.contains(tilmelding)) {
-            if (dobbeltVærelse = true) {
+            if (dobbeltVærelse) {
                 sum += prisForDobbeltVærelse;
             } else {
                 sum += prisForEnkeltVærelse;
             }
-            if (badValgt = true) {
+            if (badValgt) {
                 sum += badTillæg;
             }
-            if (wifiValgt = true) {
+            if (wifiValgt) {
                 sum += wifiTillæg;
             }
-            if (morgenmadValgt = true) {
+            if (morgenmadValgt) {
                 sum += morgenmadsTillæg;
             }
         }

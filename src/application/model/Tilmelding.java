@@ -43,7 +43,9 @@ public class Tilmelding {
             this.hotelBad = badValgt;
             this.hotelWifi = wifiValgt;
             this.hotelMorgenmad = morgenmadValgt;
-            hotel.addTilmelding(this);
+            if (hotel != null) {
+                hotel.addTilmelding(this, false);
+            }
         }
     }
 
@@ -66,12 +68,24 @@ public class Tilmelding {
 
     public int getPrisDeltagersUdgift() {
         int sum = getSamletPrisForDeltagelse();
-        if (foredragsholder == true) {
+        if (foredragsholder) {
             sum -= konference.getPrisPrDagForKonference();
         }
         if (deltager.getFirma() != null) {
             sum = 0;
         }
         return sum;
+    }
+
+    public boolean isHotelBad() {
+        return hotelBad;
+    }
+
+    public boolean isHotelWifi() {
+        return hotelWifi;
+    }
+
+    public boolean isHotelMorgenmad() {
+        return hotelMorgenmad;
     }
 }
