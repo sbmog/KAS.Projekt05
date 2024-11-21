@@ -51,4 +51,12 @@ public class Konference {
     public int getPrisPrDagForKonference() {
         return prisPrDagForKonference;
     }
+
+    public ArrayList<Deltager> getTilmeldingerSomDeltager() {
+        ArrayList<Deltager> deltagere = new ArrayList<>();
+        for (Tilmelding tilmelding : tilmeldinger) {
+            deltagere.add(tilmelding.getDeltager());
+        }
+        return deltagere;
+    }
 }

@@ -54,7 +54,7 @@ public class Tilmelding {
         boolean dobbeltVærelse = false;
         Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
         int antalDageInt = (int) antalDage.count();
-        sum += (int) (konference.getPrisPrDagForKonference() * antalDageInt);
+        sum += konference.getPrisPrDagForKonference() * antalDageInt;
         if (deltager.getLedsager() != null) {
             dobbeltVærelse = true;
             for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
@@ -88,5 +88,9 @@ public class Tilmelding {
 
     public boolean isHotelMorgenmad() {
         return hotelMorgenmad;
+    }
+
+    public Deltager getDeltager() {
+        return deltager;
     }
 }
