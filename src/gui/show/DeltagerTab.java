@@ -42,7 +42,6 @@ public class DeltagerTab extends GridPane {
         });
 
         Button opretDeltager = new Button("Opret deltager");
-
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10));
         buttonBox.getChildren().add(opretDeltager);

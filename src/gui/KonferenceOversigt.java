@@ -18,6 +18,6 @@ public class KonferenceOversigt extends Stage {
 
         Scene scene = new Scene(tabPane, 600, 400);
         this.setScene(scene);
-        this.setTitle("Konference Administrations System - " + getKonference().getNavn());
+        //this.setTitle("Konference Administrations System - " + getKonference().getNavn());
     }
 }

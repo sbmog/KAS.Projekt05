@@ -141,8 +141,8 @@ public class TilmeldPane extends Stage {
                 }
             }
 
-            //int totalOmkostning = Tilmelding.getSamletPrisForDeltagelse(); //HVAARRRR uden H
-            //totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
+            int totalOmkostning = Controller.getSamletPrisForDeltagelse(tilmelding);
+            totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
 
         }
     private void registrerDeltager() {

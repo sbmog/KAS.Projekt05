@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class App {
     public static void main(String[] args) {
         initStorage();
-//        testGetSamletPrisForDeltagelse();
+        testGetSamletPrisForDeltagelse();
         Application.launch(StartWindow.class);
     }
 
@@ -33,6 +33,7 @@ public class App {
 
         Deltager peterSommer = Controller.createDeltager("Peter Sommer", "XX", "43214321");
         Tilmelding peterTilmelding = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+
         peterTilmelding.setHotel(denHvideSvane, false, true, false);
         Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");
         mieSommer.addUdflugt(egeskov);
