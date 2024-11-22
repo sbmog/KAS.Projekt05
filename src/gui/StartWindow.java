@@ -73,7 +73,7 @@ public class StartWindow extends Application {
         vælgKonferenceButton.setOnAction(event -> {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
             if (selectedKonference != null) {
-                KonferenceOversigt konferenceOversigt = new KonferenceOversigt();
+                KonferenceOversigt konferenceOversigt = new KonferenceOversigt(selectedKonference);
                 konferenceOversigt.showAndWait();
             }
         });
