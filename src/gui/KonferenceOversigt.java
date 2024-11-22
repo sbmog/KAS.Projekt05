@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import gui.tilmelding.StartWindow;
 
 public class KonferenceOversigt extends Stage {
     public KonferenceOversigt() {
@@ -18,6 +19,6 @@ public class KonferenceOversigt extends Stage {
 
         Scene scene = new Scene(tabPane, 600, 400);
         this.setScene(scene);
-        this.setTitle("Konference Administrations System");
+        this.setTitle("Konference Administrations System - " + getKonference().getNavn());
     }
 }

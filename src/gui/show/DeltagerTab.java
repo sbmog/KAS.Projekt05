@@ -2,14 +2,11 @@ package gui.show;
 
 import application.controller.Controller;
 import gui.component.AttributeDisplay;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import application.model.Deltager;
 
@@ -20,10 +17,10 @@ public class DeltagerTab extends GridPane {
     public DeltagerTab() {
         this.setPadding(new Insets(5));
 
-        ListView<Deltager> konferenceListView = new ListView<>();
-        konferenceListView.setMinWidth(300);
-        konferenceListView.getItems().setAll(Controller.getDeltagere());
-        this.add(konferenceListView, 0, 0);
+        ListView<Deltager> deltagerListView = new ListView<>();
+        deltagerListView.setMinWidth(300);
+        deltagerListView.getItems().setAll(Controller.getDeltagere());
+        this.add(deltagerListView, 0, 0);
 
         VBox detailsBox = new VBox();
         detailsBox.setSpacing(5);
@@ -35,7 +32,7 @@ public class DeltagerTab extends GridPane {
         detailsBox.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay);
         this.add(detailsBox, 1, 0);
 
-        konferenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);

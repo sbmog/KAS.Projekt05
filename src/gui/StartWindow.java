@@ -2,7 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Konference;
-import gui.Tilmelding.TilmeldPane;
+import gui.tilmelding.TilmeldPane;
 import gui.component.AttributeDisplay;
 import javafx.application.Application;
 import javafx.geometry.HPos;

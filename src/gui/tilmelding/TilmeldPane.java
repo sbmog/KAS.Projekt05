@@ -1,4 +1,4 @@
-package gui.Tilmelding;
+package gui.tilmelding;
 
 import application.controller.Controller;
 import application.model.*;
