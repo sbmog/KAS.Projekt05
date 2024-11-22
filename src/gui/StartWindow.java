@@ -74,7 +74,9 @@ public class StartWindow extends Application {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
             if (selectedKonference != null) {
                 KonferenceOversigt konferenceOversigt = new KonferenceOversigt(selectedKonference);
-                konferenceOversigt.showAndWait();
+                if (!konferenceOversigt.isShowing()) {
+                    konferenceOversigt.showAndWait();
+                }
             }
         });
 
@@ -84,6 +86,9 @@ public class StartWindow extends Application {
 
         tilmeldingsButton.setOnAction(event-> {
             TilmeldPane tilmeldPane = new TilmeldPane();
+            if (!tilmeldPane.isShowing()) {
+                tilmeldPane.showAndWait();
+            }
             tilmeldPane.showAndWait();
         });
 

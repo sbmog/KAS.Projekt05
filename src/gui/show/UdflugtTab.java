@@ -27,7 +27,6 @@ public class UdflugtTab extends GridPane {
         AttributeDisplay prisForUdflugt = new AttributeDisplay("Pris","");
 
 
-
         detailsBox.getChildren().addAll(navnDisplay, adresseDisplay, datoForUdflugt, prisForUdflugt);
         this.add(detailsBox, 1, 0);
 

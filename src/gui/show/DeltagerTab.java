@@ -49,5 +49,4 @@ public class DeltagerTab extends GridPane {
         this.add(buttonBox,1,1);
 
     }
-
 }
