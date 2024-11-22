@@ -10,6 +10,14 @@ public class Controller {
 
 // Beregn pris metoder!
 
+    public static int getSamletPrisForDeltagelse(Tilmelding tilmelding){
+        return tilmelding.getSamletPrisForDeltagelse();
+    }
+
+    public static int getPrisDeltagersUdgift(Tilmelding tilmelding){
+        return tilmelding.getPrisDeltagersUdgift();
+    }
+
     public static Deltager createDeltager(String navn, String adresse, String telefonNummer) {
         Deltager deltager = new Deltager(navn, adresse, telefonNummer);
         Storage.addDeltager(deltager);
