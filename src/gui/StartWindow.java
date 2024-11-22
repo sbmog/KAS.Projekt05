@@ -66,9 +66,7 @@ public class StartWindow extends Application {
             }
         });
 
-
         Button vælgKonferenceButton = new Button("Vælg konference");
-        pane.setHalignment(vælgKonferenceButton, HPos.RIGHT);
 
         vælgKonferenceButton.setOnAction(event -> {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
@@ -80,9 +78,7 @@ public class StartWindow extends Application {
             }
         });
 
-
         Button tilmeldingsButton = new Button("Opret tilmelding");
-        pane.setHalignment(tilmeldingsButton,HPos.LEFT);
 
         tilmeldingsButton.setOnAction(event-> {
             TilmeldPane tilmeldPane = new TilmeldPane();
@@ -92,10 +88,16 @@ public class StartWindow extends Application {
             tilmeldPane.showAndWait();
         });
 
+        Button søgDeltagerButton = new Button("Søg deltager");
+        pane.add(søgDeltagerButton,0,3);
+
+        søgDeltagerButton.setOnAction(event->{
+
+        });
 
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10));
-        buttonBox.getChildren() .addAll(vælgKonferenceButton,tilmeldingsButton);
+        buttonBox.getChildren() .addAll(tilmeldingsButton,vælgKonferenceButton);
         pane.add(buttonBox,1,3);
     }
 }
