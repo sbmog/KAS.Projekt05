@@ -14,7 +14,7 @@ public class KonferenceOversigt extends Stage {
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         tabPane.getTabs().add(new Tab("Deltager", new DeltagerTab()));
-        tabPane.getTabs().add(new Tab("Hotel", new HotelTab()));
+        tabPane.getTabs().add(new Tab("Hotel", new HotelTab(konference)));
         tabPane.getTabs().add(new Tab("Udflugt", new UdflugtTab()));
 
         Scene scene = new Scene(tabPane, 600, 400);
