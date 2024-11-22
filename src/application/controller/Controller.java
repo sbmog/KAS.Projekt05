@@ -24,6 +24,18 @@ public class Controller {
         return deltager;
     }
 
+    public static String søgDeltager(Konference konference, String søgteDeltager){
+        String resultatSøgning = null;
+        for (Deltager deltager : getDeltagerForKonference(konference)) {
+            if(søgteDeltager.equalsIgnoreCase(deltager.getNavn()));
+            resultatSøgning = deltager.getNavn();
+        }return resultatSøgning;
+    }
+
+    public static ArrayList<Deltager> getDeltagerForKonference(Konference konference){
+        return konference.getDeltagere();
+    }
+
     public static ArrayList<Deltager> getDeltagere() {
         return Storage.getDeltagere();
     }

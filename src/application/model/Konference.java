@@ -23,6 +23,14 @@ public class Konference {
         this.prisPrDagForKonference = prisPrDagForKonference;
     }
 
+    public ArrayList<Deltager> getDeltagere() {
+        ArrayList<Deltager> deltagere = new ArrayList<>();
+        for (Tilmelding tilmelding : tilmeldinger) {
+            deltagere.add(tilmelding.getDeltager());
+        }
+     return deltagere;
+    }
+
     public Tilmelding createTilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsHolder) {
         Tilmelding tilmelding = new Tilmelding(ankomstDato, deltager, afrejseDato, foredragsHolder, this);
         this.addTilmelding(tilmelding);
