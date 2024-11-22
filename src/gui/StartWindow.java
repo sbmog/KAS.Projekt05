@@ -71,9 +71,12 @@ public class StartWindow extends Application {
         pane.setHalignment(vælgKonferenceButton, HPos.RIGHT);
 
         vælgKonferenceButton.setOnAction(event -> {
-                    KonferenceOversigt konferenceOversigt = new KonferenceOversigt();
-                    konferenceOversigt.showAndWait();
-                });
+            Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
+            if (selectedKonference != null) {
+                KonferenceOversigt konferenceOversigt = new KonferenceOversigt();
+                konferenceOversigt.showAndWait();
+            }
+        });
 
 
         Button tilmeldingsButton = new Button("Opret tilmelding");

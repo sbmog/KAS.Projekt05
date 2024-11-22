@@ -4,16 +4,16 @@ import java.time.LocalDate;
 import java.util.stream.Stream;
 
 public class Tilmelding {
-    private static LocalDate ankomstDato;
-    private static LocalDate afrejseDato;
+    private LocalDate ankomstDato;
+    private LocalDate afrejseDato;
     private boolean foredragsholder = false;
-    private static Deltager deltager;
-    private static Hotel hotel;
-    private static Konference konference;
+    private Deltager deltager;
+    private Hotel hotel;
+    private Konference konference;
 
-    private static boolean hotelBad = false;
-    private static boolean hotelWifi = false;
-    private static boolean hotelMorgenmad = false;
+    private boolean hotelBad = false;
+    private boolean hotelWifi = false;
+    private boolean hotelMorgenmad = false;
 
     protected Tilmelding(LocalDate ankomstDato, Deltager deltager, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
         this.ankomstDato = ankomstDato;

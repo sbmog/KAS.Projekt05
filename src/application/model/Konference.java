@@ -72,6 +72,10 @@ public class Konference {
         return slutDato;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     @Override
     public String toString() {
         return navn;
