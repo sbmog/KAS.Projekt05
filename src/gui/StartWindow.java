@@ -32,7 +32,7 @@ public class StartWindow extends Application {
         pane.setHgap(10);
         pane.setVgap(10);
 
-        Scene scene = new Scene(pane,600,400);
+        Scene scene = new Scene(pane,650,450);
         primaryStage.setScene(scene);
         primaryStage.show();
 
