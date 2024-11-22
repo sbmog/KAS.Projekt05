@@ -2,7 +2,9 @@ package gui.show;
 
 import application.controller.Controller;
 import gui.component.AttributeDisplay;
+import gui.tilmelding.TilmeldPane;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
@@ -16,6 +18,7 @@ import java.time.format.FormatStyle;
 public class DeltagerTab extends GridPane {
     public DeltagerTab() {
         this.setPadding(new Insets(5));
+        this.setAlignment(Pos.CENTER);
 
         ListView<Deltager> deltagerListView = new ListView<>();
         deltagerListView.setMinWidth(300);
@@ -41,12 +44,15 @@ public class DeltagerTab extends GridPane {
             }
         });
 
-        Button opretDeltager = new Button("Opret deltager");
+        Button opretTilmelding = new Button("Opret tilmelding");
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10));
-        buttonBox.getChildren().add(opretDeltager);
+        buttonBox.getChildren().add(opretTilmelding);
 
         this.add(buttonBox,1,1);
-
+        opretTilmelding.setOnAction(event->{
+            TilmeldPane tilmeldPane = new TilmeldPane();
+            tilmeldPane.showAndWait();
+        });
     }
 }

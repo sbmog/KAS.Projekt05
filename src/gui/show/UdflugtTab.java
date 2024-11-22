@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Udflugt;
 import gui.component.AttributeDisplay;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,7 @@ public class UdflugtTab extends GridPane {
     public UdflugtTab() {
 
         this.setPadding(new Insets(5));
+        this.setAlignment(Pos.CENTER);
 
         ListView<Udflugt> hotelListView = new ListView<>();
         hotelListView.setMinWidth(300);

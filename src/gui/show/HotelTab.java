@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Hotel;
 import gui.component.AttributeDisplay;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,7 @@ public class HotelTab extends GridPane {
     public HotelTab() {
 
     this.setPadding(new Insets(5));
+    this.setAlignment(Pos.CENTER);
 
     ListView<Hotel> hotelListView = new ListView<>();
         hotelListView.setMinWidth(300);
