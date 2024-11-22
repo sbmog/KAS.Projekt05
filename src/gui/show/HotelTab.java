@@ -56,7 +56,7 @@ public class HotelTab extends GridPane {
 
         opretHotel.setOnAction(event -> {
             if (selectedKonference != null) {
-                CreateHotelWindow createHotelWindow = new CreateHotelWindow(selectedKonference);
+                OpretHotelVindue createHotelWindow = new OpretHotelVindue(selectedKonference);
                 createHotelWindow.showAndWait();
                 updateHotelList();
             }

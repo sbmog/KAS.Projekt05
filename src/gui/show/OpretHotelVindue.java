@@ -10,10 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class CreateHotelWindow extends Stage {
+public class OpretHotelVindue extends Stage {
     private Konference selectedKonference;
 
-    public CreateHotelWindow(Konference selectedKonference) {
+    public OpretHotelVindue(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
 
         this.setTitle("Opret Hotel");
