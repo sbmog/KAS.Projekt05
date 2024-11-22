@@ -16,6 +16,7 @@ public class Deltager extends Person {
         this.telefonNummer = telefonNummer;
     }
 
+
     public Ledsager createLedsager(String navn) {
         if (this.ledsager != null) {
             this.ledsager = null;
@@ -73,4 +74,8 @@ public class Deltager extends Person {
     public String getTelefonNummer() {
         return telefonNummer;
     }
-}
+
+    public void setTelefonNummer(String telefon) {
+        }
+    }
+

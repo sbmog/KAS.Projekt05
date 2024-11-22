@@ -53,4 +53,30 @@ public class Hotel {
         }
         return sum;
     }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+
+    public int getBadTillæg() {
+        return badTillæg;
+    }
+
+    public int getWifiTillæg() {
+        return wifiTillæg;
+    }
+
+    public int getMorgenmadsTillæg() {
+        return morgenmadsTillæg;
+    }
+
+    public String getNavn() {
+    return navn;
+    }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

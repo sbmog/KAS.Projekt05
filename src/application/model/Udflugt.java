@@ -29,4 +29,21 @@ public class Udflugt {
     public int getPris() {
         return pris;
     }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public LocalDate getDato() {
+        return dato;
+    }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

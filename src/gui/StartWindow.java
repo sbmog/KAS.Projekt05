@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Konference;
+import gui.Tilmelding.TilmeldPane;
 import gui.component.AttributeDisplay;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -64,13 +66,28 @@ public class StartWindow extends Application {
             }
         });
 
+
         Button vælgKonferenceButton = new Button("Vælg konference");
-        pane.add(vælgKonferenceButton, 1, 3);
         pane.setHalignment(vælgKonferenceButton, HPos.RIGHT);
 
         vælgKonferenceButton.setOnAction(event -> {
                     KonferenceOversigt konferenceOversigt = new KonferenceOversigt();
                     konferenceOversigt.showAndWait();
                 });
+
+
+        Button tilmeldingsButton = new Button("Opret tilmelding");
+        pane.setHalignment(tilmeldingsButton,HPos.LEFT);
+
+        tilmeldingsButton.setOnAction(event-> {
+            TilmeldPane tilmeldPane = new TilmeldPane();
+            tilmeldPane.showAndWait();
+        });
+
+
+        HBox buttonBox = new HBox(10);
+        buttonBox.setPadding(new Insets(10));
+        buttonBox.getChildren() .addAll(vælgKonferenceButton,tilmeldingsButton);
+        pane.add(buttonBox,1,3);
     }
 }

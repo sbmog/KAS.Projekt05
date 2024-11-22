@@ -1,8 +1,8 @@
 package gui;
 
-import gui.show.DeltagerPane;
-import gui.show.HotelPane;
-import gui.show.UdflugtPane;
+import gui.show.DeltagerTab;
+import gui.show.HotelTab;
+import gui.show.UdflugtTab;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -12,9 +12,9 @@ public class KonferenceOversigt extends Stage {
     public KonferenceOversigt() {
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-        tabPane.getTabs().add(new Tab("Deltager", new DeltagerPane()));
-        tabPane.getTabs().add(new Tab("HotelPane", new HotelPane()));
-        tabPane.getTabs().add(new Tab("UdflugtPane", new UdflugtPane()));
+        tabPane.getTabs().add(new Tab("Deltager", new DeltagerTab()));
+        tabPane.getTabs().add(new Tab("Hotel", new HotelTab()));
+        tabPane.getTabs().add(new Tab("Udflugt", new UdflugtTab()));
 
         Scene scene = new Scene(tabPane, 600, 400);
         this.setScene(scene);

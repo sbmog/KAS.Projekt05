@@ -1,19 +1,23 @@
 package gui.show;
 
 import application.controller.Controller;
-import application.model.Konference;
 import gui.component.AttributeDisplay;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import application.model.Deltager;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class DeltagerPane extends GridPane {
-    public DeltagerPane() {
+public class DeltagerTab extends GridPane {
+    public DeltagerTab() {
         this.setPadding(new Insets(5));
 
         ListView<Deltager> konferenceListView = new ListView<>();
@@ -39,6 +43,15 @@ public class DeltagerPane extends GridPane {
                 ledsagerDisplay.setValue(newValue.getLedsager() != null ? newValue.getLedsager().getNavn() : "Ingen ledsager");
             }
         });
+
+        Button opretDeltager = new Button("Opret deltager");
+
+        HBox buttonBox = new HBox(10);
+        buttonBox.setPadding(new Insets(10));
+        buttonBox.getChildren().add(opretDeltager);
+
+        this.add(buttonBox,1,1);
+
     }
 
 }

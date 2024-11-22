@@ -6,7 +6,7 @@ public class Ledsager extends Person {
     private Deltager deltager;
     private ArrayList<Udflugt> udflugter = new ArrayList<>();
 
-    protected Ledsager(String navn, Deltager deltager) {
+    public Ledsager(String navn, Deltager deltager) {
         super(navn);
         this.deltager = deltager;
     }
