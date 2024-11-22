@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class App {
     public static void main(String[] args) {
         initStorage();
-        testGetSamletPrisForDeltagelse();
+//        testGetSamletPrisForDeltagelse();
         Application.launch(StartWindow.class);
     }
 
@@ -36,15 +36,15 @@ public class App {
 
         peterTilmelding.setHotel(denHvideSvane, false, true, false);
         Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");
-        mieSommer.addUdflugt(egeskov);
-        mieSommer.addUdflugt(trapholt);
+        peterTilmelding.addUdflugt(egeskov);
+        peterTilmelding.addUdflugt(trapholt);
 
         Deltager loneJensen = Controller.createDeltager("Lone Jensen", "XX", "10203040");
         Tilmelding loneTilmeling = loneJensen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), true, havOgHimmel);
         loneTilmeling.setHotel(denHvideSvane, false, true, false);
         Ledsager janMadsen = loneJensen.createLedsager("Jan Madsen");
-        janMadsen.addUdflugt(egeskov);
-        janMadsen.addUdflugt(byrundTur);
+        loneTilmeling.addUdflugt(egeskov);
+        loneTilmeling.addUdflugt(byrundTur);
     }
 
     public static void testGetSamletPrisForDeltagelse() {
@@ -68,16 +68,16 @@ public class App {
         Tilmelding peterTilmelding = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
         peterTilmelding.setHotel(denHvideSvane, false, true, false);
         Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");
-        mieSommer.addUdflugt(egeskov);
-        mieSommer.addUdflugt(trapholt);
+        peterTilmelding.addUdflugt(egeskov);
+        peterTilmelding.addUdflugt(trapholt);
         System.out.println(peterSommer.getNavn() + " har en samlet pris på: " + peterTilmelding.getSamletPrisForDeltagelse());
 
         Deltager loneJensen = Controller.createDeltager("Lone Jensen", "XX", "10203040");
         Tilmelding loneTilmeling = loneJensen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), true, havOgHimmel);
         loneTilmeling.setHotel(denHvideSvane, false, true, false);
         Ledsager janMadsen = loneJensen.createLedsager("Jan Madsen");
-        janMadsen.addUdflugt(egeskov);
-        janMadsen.addUdflugt(byrundTur);
+        loneTilmeling.addUdflugt(egeskov);
+        loneTilmeling.addUdflugt(byrundTur);
         System.out.println(loneJensen.getNavn() + " har en samlet pris på: " + loneTilmeling.getSamletPrisForDeltagelse() + ". Hun skal selv betale: " + loneTilmeling.getPrisDeltagersUdgift());
     }
 }

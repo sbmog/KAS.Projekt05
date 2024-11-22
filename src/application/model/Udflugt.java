@@ -9,7 +9,7 @@ public class Udflugt {
     private LocalDate dato;
     private int pris;
 
-    private ArrayList<Ledsager>ledsagere=new ArrayList<>();
+    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
     public Udflugt(String navn, String adresse, LocalDate dato, int pris, Konference konference) {
         this.navn = navn;
@@ -17,13 +17,6 @@ public class Udflugt {
         this.dato = dato;
         this.pris = pris;
         konference.addUdflugt(this);
-    }
-
-    public void addLedsager(Ledsager ledsager) {
-        if (!ledsagere.contains(ledsager)){
-            ledsagere.add(ledsager);
-            ledsager.addUdflugt(this);
-        }
     }
 
     public int getPris() {
@@ -45,5 +38,16 @@ public class Udflugt {
     @Override
     public String toString() {
         return navn;
+    }
+
+    public void addTilmelding(Tilmelding tilmelding) {
+        if (!tilmeldinger.contains(tilmelding)) {
+            tilmeldinger.add(tilmelding);
+            tilmelding.addUdflugt(this);
+        }
+    }
+
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return tilmeldinger;
     }
 }

@@ -137,7 +137,7 @@ public class TilmeldPane extends Stage {
             if (valgtUdflugt != null) {
                 Ledsager ledsager = deltager.getLedsager();
                 if(ledsager != null) {
-                    ledsager.addUdflugt(valgtUdflugt);
+                    tilmelding.addUdflugt(valgtUdflugt);
                 }
             }
 
@@ -177,7 +177,7 @@ public class TilmeldPane extends Stage {
         if (valgtUdflugt != null) {
             Ledsager ledsager = deltager.getLedsager();
             if (ledsager != null) {
-                ledsager.addUdflugt(valgtUdflugt);
+                tilmelding.addUdflugt(valgtUdflugt);
             }
         }
 

@@ -9,7 +9,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
-
 public class KonferenceOversigt extends Stage {
     public KonferenceOversigt(Konference konference) {
         TabPane tabPane = new TabPane();

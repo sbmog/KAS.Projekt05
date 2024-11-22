@@ -1,6 +1,7 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Tilmelding {
@@ -10,6 +11,7 @@ public class Tilmelding {
     private Deltager deltager;
     private Hotel hotel;
     private Konference konference;
+    private ArrayList<Udflugt> udflugter = new ArrayList<>();
 
     private boolean hotelBad = false;
     private boolean hotelWifi = false;
@@ -57,7 +59,7 @@ public class Tilmelding {
         sum += konference.getPrisPrDagForKonference() * antalDagePåKonferencen;
         if (deltager.getLedsager() != null) {
             dobbeltVærelse = true;
-            for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
+            for (Udflugt udflugt : this.getUdflugter()) {
                 sum += udflugt.getPris();
             }
         }
@@ -95,4 +97,16 @@ public class Tilmelding {
     public Deltager getDeltager() {
         return deltager;
     }
+
+    public void addUdflugt(Udflugt udflugt) {
+        if (!udflugter.contains(udflugt)) {
+            udflugter.add(udflugt);
+            udflugt.addTilmelding(this);
+        }
+    }
+
+    public ArrayList<Udflugt>getUdflugter(){
+        return udflugter;
+    }
+
 }
