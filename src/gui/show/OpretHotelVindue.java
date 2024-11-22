@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -63,15 +64,30 @@ public class OpretHotelVindue extends Stage {
         createButton.setOnAction(event -> {
             String navn = nameField.getText();
             String adresse = adresseFelt.getText();
-            int prisForEnkeltværelse = Integer.parseInt(enkeltVærelsePrisFelt.getText());
-            int prisForDobbeltværelse = Integer.parseInt(dobbeltVærelsePrisFelt.getText());
-            int badtillæg = Integer.parseInt(badTillægFelt.getText());
-            int wifiTillæg = Integer.parseInt(wifiTillægFelt.getText());
-            int morgenmadsTillæg = Integer.parseInt(morgenmadTillægFelt.getText());
+            String prisForEnkeltværelse = enkeltVærelsePrisFelt.getText();
+            String prisForDobbeltværelse = dobbeltVærelsePrisFelt.getText();
+            String badtillæg = badTillægFelt.getText();
+            String wifiTillæg = wifiTillægFelt.getText();
+            String morgenmadsTillæg = morgenmadTillægFelt.getText();
 
-            Controller.createHotel(navn, adresse,prisForEnkeltværelse,prisForDobbeltværelse, badtillæg, wifiTillæg, morgenmadsTillæg, selectedKonference);
-            this.close();
+            if (navn.isEmpty() || adresse.isEmpty() || prisForEnkeltværelse.isEmpty() || prisForDobbeltværelse.isEmpty() || badtillæg.isEmpty() || wifiTillæg.isEmpty() || morgenmadsTillæg.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Manglende oplysninger");
+                alert.setHeaderText("Alle felter skal udfyldes");
+                alert.setContentText("Udfyld venligst alle felter.");
+                alert.showAndWait();
+            } else {
+                int prisForEnkeltværelseInt = Integer.parseInt(prisForEnkeltværelse);
+                int prisForDobbeltværelseInt = Integer.parseInt(prisForDobbeltværelse);
+                int badtillægInt = Integer.parseInt(badtillæg);
+                int wifiTillægInt = Integer.parseInt(wifiTillæg);
+                int morgenmadsTillægInt = Integer.parseInt(morgenmadsTillæg);
+
+                Controller.createHotel(navn, adresse, prisForEnkeltværelseInt, prisForDobbeltværelseInt, badtillægInt, wifiTillægInt, morgenmadsTillægInt, selectedKonference);
+                this.close();
+            }
         });
+
 
         Scene scene = new Scene(pane);
         this.setScene(scene);
