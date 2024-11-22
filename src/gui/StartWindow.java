@@ -66,7 +66,7 @@ public class StartWindow extends Application {
             }
         });
 
-        Button vælgKonferenceButton = new Button("Vælg konference");
+        Button vælgKonferenceButton = new Button("Se konferencedetaljer");
 
         vælgKonferenceButton.setOnAction(event -> {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
@@ -85,11 +85,10 @@ public class StartWindow extends Application {
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
             }
-            tilmeldPane.showAndWait();
         });
 
         Button søgDeltagerButton = new Button("Søg deltager");
-        pane.add(søgDeltagerButton,0,3);
+//        pane.add(søgDeltagerButton,0,3);
 
         søgDeltagerButton.setOnAction(event->{
 
@@ -97,7 +96,7 @@ public class StartWindow extends Application {
 
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10));
-        buttonBox.getChildren() .addAll(tilmeldingsButton,vælgKonferenceButton);
-        pane.add(buttonBox,1,3);
+        buttonBox.getChildren() .addAll(søgDeltagerButton,tilmeldingsButton,vælgKonferenceButton);
+        pane.add(buttonBox,0,3);
     }
 }
