@@ -52,7 +52,8 @@ public class DeltagerTab extends GridPane {
         this.add(buttonBox,1,1);
         opretTilmelding.setOnAction(event->{
             TilmeldPane tilmeldPane = new TilmeldPane();
-            tilmeldPane.showAndWait();
-        });
+            if (!tilmeldPane.isShowing()) {
+                tilmeldPane.showAndWait();
+            }        });
     }
 }

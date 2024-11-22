@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
-
 public class TilmeldPane extends Stage {
     private TextField telefonTextField = new TextField();
     private TextField navnTextField = new TextField();
