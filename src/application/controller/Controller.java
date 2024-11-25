@@ -38,8 +38,8 @@ public class Controller {
     public static Deltager søgDeltagerIKonference(Konference konference, String søgteDeltager) {
         for (Deltager deltager : getDeltagerForKonference(konference)) {
             if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
+                return deltager;
             }
-            return deltager;
         }
         return null;
     }

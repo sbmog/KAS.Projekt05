@@ -9,6 +9,7 @@ import gui.component.LabeledTextInput;
 import gui.tilmelding.TilmeldPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
@@ -41,14 +42,14 @@ public class DeltagerTab extends GridPane {
         venstreBoks.setSpacing(5);
         venstreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        venstreBoks.getChildren().addAll(deltagerNavn,deltagerListView);
+        venstreBoks.getChildren().addAll(deltagerNavn, deltagerListView);
         this.add(venstreBoks, 0, 0);
 
         VBox højreBoks = new VBox();
         højreBoks.setSpacing(5);
         højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        højreBoks.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay,ledsagerUdflugtListview);
+        højreBoks.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay, ledsagerUdflugtListview);
         this.add(højreBoks, 1, 0);
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -68,8 +69,11 @@ public class DeltagerTab extends GridPane {
                 } else {
                     ledsagerDisplay.setValue("Ingen ledsager");
                     ledsagerUdflugtListview.getListView().getItems().clear();
-                }            }
+                }
+            }
         });
+
+//        Bør vi fjerne hbox til at holde button, hvis vi kun har en enkel button?
 
         Button opretTilmelding = new Button("Opret tilmelding");
         HBox buttonBox = new HBox(10);
@@ -89,8 +93,22 @@ public class DeltagerTab extends GridPane {
 
     private void søgning() {
         Deltager søgteNavn = Controller.søgDeltagerIKonference(selectedKonference, deltagerNavn.getInputValue());
-        navnDisplay.setValue(søgteNavn.getNavn() + "");
-        tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
-        ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+        if (søgteNavn != null) {
+            navnDisplay.setValue(søgteNavn.getNavn() + "");
+            tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
+            ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+            ledsagerUdflugtListview.getListView().getItems().clear();
+            Tilmelding tilmelding = Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference);
+            if (tilmelding != null) {
+                ledsagerUdflugtListview.getListView().getItems().clear();
+                tilmelding.getUdflugter().forEach(udflugt ->
+                        ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Deltager ikke fundet");
+            alert.setHeaderText("Der kan ikke findes noget, som matcher søgningen");
+            alert.showAndWait();
+        }
     }
 }
