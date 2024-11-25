@@ -40,7 +40,7 @@ public class SøgAlleDeltagere extends Stage {
         Button søgDeltagerButton = new Button("Søg deltager");
 
         informationBox.getChildren().addAll(deltagerTextInput, navnDisplay, tlfDisplay, ledsagerDisplay, tilmeldingerDisplay, søgDeltagerButton);
-        pane.add(informationBox, 2, 0);
+        pane.add(informationBox, 0, 0);
 
         søgDeltagerButton.setOnAction(event -> søgning());
         deltagerTextInput.getTextField().setOnAction(event-> søgning());
