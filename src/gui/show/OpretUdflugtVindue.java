@@ -5,6 +5,7 @@ import application.model.Konference;
 import gui.component.LabeledDateInput;
 import gui.component.LabeledTextInput;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -23,6 +24,7 @@ public class OpretUdflugtVindue extends Stage {
 
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
+        pane.setAlignment(Pos.CENTER);
 
 
         VBox UdflugtVindueVBox = new VBox();
@@ -34,7 +36,7 @@ public class OpretUdflugtVindue extends Stage {
         UdflugtVindueVBox.setSpacing(5);
         UdflugtVindueVBox.setPadding(new Insets(0,5,10,10));
         UdflugtVindueVBox.getChildren().addAll(navnInput, adresseInput, datoInput, prisInput,createButton);
-        pane.add(UdflugtVindueVBox,1,0);
+        pane.add(UdflugtVindueVBox,0,0);
 
 
         createButton.setOnAction(event -> {

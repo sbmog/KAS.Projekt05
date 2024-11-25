@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.Konference;
 import gui.component.LabeledTextInput;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,8 +21,7 @@ public class OpretHotelVindue extends Stage {
         this.setTitle("Opret Hotel");
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
-        pane.setHgap(10);
-        pane.setVgap(10);
+        pane.setAlignment(Pos.CENTER);
 
         VBox HotelVindueVBox = new VBox();
         LabeledTextInput navnInput = new LabeledTextInput("Navn:");
@@ -35,7 +35,7 @@ public class OpretHotelVindue extends Stage {
         HotelVindueVBox.setSpacing(5);
         HotelVindueVBox.setPadding(new Insets(0, 5, 10, 10));
         HotelVindueVBox.getChildren().addAll(navnInput, adresseInput, enkeltVærelsePrisInput, dobbeltVærelsePrisInput, badTillægInput, wifiTillægInput, morgenmadsTillægInput, createButton);
-        pane.add(HotelVindueVBox, 1, 0);
+        pane.add(HotelVindueVBox, 0, 0);
 
         createButton.setOnAction(event -> {
             String navn = navnInput.getInputValue();
