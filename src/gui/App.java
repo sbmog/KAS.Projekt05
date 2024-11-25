@@ -35,6 +35,7 @@ public class App {
 
         Deltager peterSommer = Controller.createDeltager("Peter Sommer", "XX", "43214321");
         Tilmelding peterTilmelding = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+        Tilmelding peterTilmelding2 = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, tedTalk);
 
         peterTilmelding.setHotel(denHvideSvane, false, true, false);
         Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");

@@ -5,6 +5,7 @@ import application.model.Deltager;
 import application.model.Konference;
 import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
+import gui.component.LabeledTextInput;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,7 +21,7 @@ public class SøgDeltagerPane extends Stage {
     private TextField deltagerTextField = new TextField();
     private TextField result = new TextField();
     private ArrayList<String> tilmeldinger = new ArrayList<>();
-
+    LabeledTextInput deltagerTextInput = new LabeledTextInput("Deltager");
 
     public SøgDeltagerPane() {
 
@@ -31,7 +32,7 @@ public class SøgDeltagerPane extends Stage {
         pane.setVgap(10);
         pane.setHgap(10);
 
-        Scene scene = new Scene(pane, 500, 400);
+        Scene scene = new Scene(pane, 250, 500);
         this.setScene(scene);
         this.show();
 
@@ -42,21 +43,14 @@ public class SøgDeltagerPane extends Stage {
         AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
         AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
         ListView<String> tilmeldingerDisplay = new ListView<>();
+        Button søgDeltagerButton = new Button("Søg deltager");
 
-        detailsBox.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay, tilmeldingerDisplay);
+        detailsBox.getChildren().addAll(deltagerTextInput, navnDisplay, tlfDisplay, ledsagerDisplay, tilmeldingerDisplay, søgDeltagerButton);
         pane.add(detailsBox, 2, 0);
 
-        Label søgLabel = new Label("Indtast deltager");
-        pane.add(søgLabel, 0, 0);
-
-
-        pane.add(deltagerTextField, 1, 0);
-
-        Button søgDeltagerButton = new Button("Søg deltager");
-        pane.add(søgDeltagerButton,0,3);
 
         søgDeltagerButton.setOnAction(event->{
-            Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextField.getText());
+            Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
             navnDisplay.setValue(søgteNavn.getNavn() + "");
             tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
             ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
