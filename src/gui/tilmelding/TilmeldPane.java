@@ -22,7 +22,7 @@ public class TilmeldPane extends Stage {
     private Label totalOmkostningLabel;
     private ComboBox<Konference> konferenceComboBox;
 
-    public TilmeldPane() {
+    public TilmeldPane(Konference konference) {
         this.setTitle("Tilmeld Deltager");
 
         GridPane pane = new GridPane();
@@ -35,7 +35,7 @@ public class TilmeldPane extends Stage {
         this.setScene(scene);
         this.show();
 
-        initializeFields();
+        initializeFields(konference);
 
         Label konferenceLabel = new Label("Vælg konference");
         pane.add(konferenceLabel, 0, 0);
@@ -75,7 +75,7 @@ public class TilmeldPane extends Stage {
         pane.add(registrerButton, 0, 9);
     }
 
-    private void initializeFields() {
+    private void initializeFields(Konference konference) {
         navnTextField = new TextField();
         navnTextField.setPromptText("Indtast deltagers navn");
 
@@ -99,8 +99,11 @@ public class TilmeldPane extends Stage {
 
         konferenceComboBox = new ComboBox<>();
         konferenceComboBox.getItems().addAll(Controller.getKonferencer());
-        konferenceComboBox.setPromptText("Vælg en konference");
-
+        if (konference != null) {
+            konferenceComboBox.setValue(konference);
+        }else {
+            konferenceComboBox.setPromptText("Vælg en konference");
+        }
     }
 
     private void beregnFuldeOmkostninger() {
@@ -111,39 +114,40 @@ public class TilmeldPane extends Stage {
         }
 
 
-            String navn = navnTextField.getText();
-            String telefon = telefonTextField.getText();
-            LocalDate ankomstDato = ankomstDatoValg.getValue();
-            LocalDate afrejseDato = afrejseDatoValg.getValue();
-            boolean erTaler = talerCheckBox.isSelected();
-            String ledsagerNavn = ledsagerTextField.getText();
-            Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
+        String navn = navnTextField.getText();
+        String telefon = telefonTextField.getText();
+        LocalDate ankomstDato = ankomstDatoValg.getValue();
+        LocalDate afrejseDato = afrejseDatoValg.getValue();
+        boolean erTaler = talerCheckBox.isSelected();
+        String ledsagerNavn = ledsagerTextField.getText();
+        Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
 
 
-            Deltager deltager = new Deltager(navn, null, null);//Hvad gør vi med adresse? De satans parametre
-            deltager.setTelefonNummer(telefon);
+        Deltager deltager = new Deltager(navn, null, null);//Hvad gør vi med adresse? De satans parametre
+        deltager.setTelefonNummer(telefon);
 
-            Tilmelding tilmelding = selectedKonference.createTilmelding(deltager, ankomstDato,afrejseDato,erTaler);
+        Tilmelding tilmelding = selectedKonference.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler);
 
 
-            //Håndter ledsager
-            if (!ledsagerNavn.isEmpty()) {
-                Ledsager ledsager = new Ledsager(ledsagerNavn,deltager);
-                deltager.setLedsager(ledsager);
-            }
-
-            //Håndter udflugt
-            if (valgtUdflugt != null) {
-                Ledsager ledsager = deltager.getLedsager();
-                if(ledsager != null) {
-                    tilmelding.addUdflugt(valgtUdflugt);
-                }
-            }
-
-            int totalOmkostning = Controller.getSamletPrisForDeltagelse(tilmelding);
-            totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
-
+        //Håndter ledsager
+        if (!ledsagerNavn.isEmpty()) {
+            Ledsager ledsager = new Ledsager(ledsagerNavn, deltager);
+            deltager.setLedsager(ledsager);
         }
+
+        //Håndter udflugt
+        if (valgtUdflugt != null) {
+            Ledsager ledsager = deltager.getLedsager();
+            if (ledsager != null) {
+                tilmelding.addUdflugt(valgtUdflugt);
+            }
+        }
+
+        int totalOmkostning = Controller.getSamletPrisForDeltagelse(tilmelding);
+        totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
+
+    }
+
     private void registrerDeltager() {
         Konference ValgteKonference = konferenceComboBox.getValue();
         if (ValgteKonference == null) {
@@ -161,16 +165,16 @@ public class TilmeldPane extends Stage {
         Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
 
         //opret deltager
-        Deltager deltager = new Deltager(navn, null,telefon); //Konstruktor bøvl igen
+        Deltager deltager = new Deltager(navn, null, telefon); //Konstruktor bøvl igen
         deltager.setTelefonNummer(telefon);
 
         //Opret tilmelding
         Tilmelding tilmelding = ValgteKonference.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler);
-        Controller.createTilmelding(deltager,ankomstDato,afrejseDato,erTaler,ValgteKonference);
+        Controller.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler, ValgteKonference);
 
         if (!ledsagerNavn.isEmpty()) {
             Ledsager ledsager = new Ledsager(ledsagerNavn, deltager);
-            Controller.createLedsager(ledsagerNavn,deltager);
+            Controller.createLedsager(ledsagerNavn, deltager);
         }
 
         if (valgtUdflugt != null) {

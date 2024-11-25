@@ -13,15 +13,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-
 public class SøgDeltagerPane extends Stage {
     private TextField deltagerTextField = new TextField();
     private TextField result = new TextField();
     private ArrayList<Deltager> deltagere = new ArrayList<>();
 
-
     public SøgDeltagerPane() {
-
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(20));
@@ -58,9 +55,5 @@ public class SøgDeltagerPane extends Stage {
             ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
 
         });
-
-
-
-
     }
 }

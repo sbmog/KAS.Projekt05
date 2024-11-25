@@ -69,6 +69,7 @@ public class StartWindow extends Application {
 
         Button vælgKonferenceButton = new Button("Se konferencedetaljer");
 
+
         vælgKonferenceButton.setOnAction(event -> {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
             if (selectedKonference != null) {
@@ -82,9 +83,17 @@ public class StartWindow extends Application {
         Button tilmeldingsButton = new Button("Opret tilmelding");
 
         tilmeldingsButton.setOnAction(event -> {
-            TilmeldPane tilmeldPane = new TilmeldPane();
-            if (!tilmeldPane.isShowing()) {
-                tilmeldPane.showAndWait();
+            Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
+            if (selectedKonference != null) {
+                TilmeldPane tilmeldPane = new TilmeldPane(selectedKonference);
+                if (!tilmeldPane.isShowing()) {
+                    tilmeldPane.showAndWait();
+                }
+            }else {
+                TilmeldPane tilmeldPane = new TilmeldPane(null);
+                if (!tilmeldPane.isShowing()) {
+                    tilmeldPane.showAndWait();
+                }
             }
         });
 
