@@ -32,7 +32,7 @@ public class StartWindow extends Application {
         pane.setHgap(10);
         pane.setVgap(10);
 
-        Scene scene = new Scene(pane,650,450);
+        Scene scene = new Scene(pane, 650, 450);
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -81,7 +81,7 @@ public class StartWindow extends Application {
 
         Button tilmeldingsButton = new Button("Opret tilmelding");
 
-        tilmeldingsButton.setOnAction(event-> {
+        tilmeldingsButton.setOnAction(event -> {
             TilmeldPane tilmeldPane = new TilmeldPane();
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
@@ -91,17 +91,16 @@ public class StartWindow extends Application {
         Button søgDeltagerButton = new Button("Søg deltager");
 //        pane.add(søgDeltagerButton,0,3);
 
-        søgDeltagerButton.setOnAction(event->{
+        søgDeltagerButton.setOnAction(event -> {
             SøgDeltagerPane søgDeltagerPane = new SøgDeltagerPane();
-            søgDeltagerPane.showAndWait();
-
+            if (!søgDeltagerPane.isShowing()) {
+                søgDeltagerPane.showAndWait();
+            }
         });
-
-
 
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10));
-        buttonBox.getChildren() .addAll(søgDeltagerButton,tilmeldingsButton,vælgKonferenceButton);
-        pane.add(buttonBox,0,3);
+        buttonBox.getChildren().addAll(søgDeltagerButton, tilmeldingsButton, vælgKonferenceButton);
+        pane.add(buttonBox, 0, 3);
     }
 }
