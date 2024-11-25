@@ -51,7 +51,9 @@ public class DeltagerTab extends GridPane {
                     ledsagerUdflugtListview.getListView().getItems().clear();
                     Tilmelding tilmelding = Controller.getTilmeldingForDeltager(newValue, selectedKonference);
                     if (tilmelding != null) {
-                        ledsagerUdflugtListview.getListView().getItems().addAll(String.valueOf(tilmelding.getUdflugter()));
+                        ledsagerUdflugtListview.getListView().getItems().clear();
+                        tilmelding.getUdflugter().forEach(udflugt ->
+                                ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
                     }
                 } else {
                     ledsagerDisplay.setValue("Ingen ledsager");
