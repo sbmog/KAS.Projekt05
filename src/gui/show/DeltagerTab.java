@@ -17,13 +17,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public class DeltagerTab extends GridPane {
-    public DeltagerTab(Konference konference) {
+    private Konference selectedKonference;
+
+    public DeltagerTab(Konference selectedKonference) {
+        this.selectedKonference = selectedKonference;
+
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
 
         ListView<Deltager> deltagerListView = new ListView<>();
         deltagerListView.setMinWidth(300);
-        deltagerListView.getItems().setAll(Controller.getDeltagere());
+        deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
         this.add(deltagerListView, 0, 0);
 
         VBox detailsBox = new VBox();
@@ -52,7 +56,7 @@ public class DeltagerTab extends GridPane {
 
         this.add(buttonBox, 1, 1);
         opretTilmelding.setOnAction(event -> {
-            TilmeldPane tilmeldPane = new TilmeldPane(konference);
+            TilmeldPane tilmeldPane = new TilmeldPane(selectedKonference);
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
             }

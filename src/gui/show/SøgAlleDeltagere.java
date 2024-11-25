@@ -2,7 +2,6 @@ package gui.show;
 
 import application.controller.Controller;
 import application.model.Deltager;
-import application.model.Konference;
 import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
 import gui.component.LabeledListViewInput;
@@ -15,17 +14,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 
-
-public class SøgDeltagerPane extends Stage {
+public class SøgAlleDeltagere extends Stage {
     private final LabeledTextInput deltagerTextInput = new LabeledTextInput("Søg deltager");
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
     private final AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
     private final LabeledListViewInput tilmeldingerDisplay = new LabeledListViewInput("Tilmeldte konferencer");
 
-    public SøgDeltagerPane() {
+    public SøgAlleDeltagere() {
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(20));

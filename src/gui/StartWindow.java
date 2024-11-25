@@ -2,7 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Konference;
-import gui.show.SøgDeltagerWindow;
+import gui.show.SøgAlleDeltagere;
 import gui.tilmelding.TilmeldPane;
 import gui.component.AttributeDisplay;
 import javafx.application.Application;
@@ -100,7 +100,7 @@ public class StartWindow extends Application {
 //        pane.add(søgDeltagerButton,0,3);
 
         søgDeltagerButton.setOnAction(event -> {
-            SøgDeltagerWindow søgDeltagerPane = new SøgDeltagerWindow();
+            SøgAlleDeltagere søgDeltagerPane = new SøgAlleDeltagere();
             if (!søgDeltagerPane.isShowing()) {
                 søgDeltagerPane.showAndWait();
             }
