@@ -4,7 +4,7 @@ import application.controller.Controller;
 import application.model.Konference;
 import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
-import gui.component.LabeledListViewInput;
+import gui.component.LabeledTextInput;
 import gui.tilmelding.TilmeldPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,45 +20,45 @@ import java.time.format.FormatStyle;
 
 public class DeltagerTab extends GridPane {
     private Konference selectedKonference;
+    private AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
+    private AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
+    private AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
+    LabeledTextInput deltagerNavn = new LabeledTextInput("Søg deltager: ");
 
-    public DeltagerTab(Konference konference) {
-        this.selectedKonference = konference;
+    public DeltagerTab(Konference selectedKonference) {
+        this.selectedKonference = selectedKonference;
+
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
 
         ListView<Deltager> deltagerListView = new ListView<>();
         deltagerListView.setMinWidth(300);
-        deltagerListView.getItems().setAll(Controller.getDeltagere());
-        this.add(deltagerListView, 0, 0);
+        deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
 
-        VBox detailsBox = new VBox();
-        detailsBox.setSpacing(5);
-        detailsBox.setPadding(new Insets(0, 5, 10, 10));
-        AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
-        AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
-        AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
-        LabeledListViewInput ledsagerUdflugtListview = new LabeledListViewInput("Ledsagers udflugter");
+        VBox højreBoks = new VBox();
+        højreBoks.setSpacing(5);
+        højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        detailsBox.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay, ledsagerUdflugtListview);
-        this.add(detailsBox, 1, 0);
+
+        VBox venstreBoks = new VBox();
+        venstreBoks.setSpacing(5);
+        venstreBoks.setPadding(new Insets(0, 5, 10, 10));
+        Button søgDeltagerKnap = new Button("Søg");
+
+
+        venstreBoks.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay);
+        this.add(venstreBoks, 0, 0);
+
+        højreBoks.getChildren().addAll(deltagerListView, deltagerNavn, søgDeltagerKnap);
+        this.add(højreBoks, 1, 0);
+
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());
+                DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
                 tlfDisplay.setValue(newValue.getTelefonNummer());
-                if (newValue.getLedsager() != null) {
-                    ledsagerDisplay.setValue(newValue.getLedsager().getNavn());
-                    ledsagerUdflugtListview.getListView().getItems().clear();
-                    Tilmelding tilmelding = Controller.getTilmeldingForDeltager(newValue, selectedKonference);
-                    if (tilmelding != null) {
-                        ledsagerUdflugtListview.getListView().getItems().clear();
-                        tilmelding.getUdflugter().forEach(udflugt ->
-                                ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
-                    }
-                } else {
-                    ledsagerDisplay.setValue("Ingen ledsager");
-                    ledsagerUdflugtListview.getListView().getItems().clear();
-                }
+                ledsagerDisplay.setValue(newValue.getLedsager() != null ? newValue.getLedsager().getNavn() : "Ingen ledsager");
             }
         });
 
@@ -67,12 +67,26 @@ public class DeltagerTab extends GridPane {
         buttonBox.setPadding(new Insets(10));
         buttonBox.getChildren().add(opretTilmelding);
 
-        this.add(buttonBox, 1, 1);
+        this.add(buttonBox, 0, 1);
         opretTilmelding.setOnAction(event -> {
-            TilmeldPane tilmeldPane = new TilmeldPane(konference);
+            TilmeldPane tilmeldPane = new TilmeldPane(selectedKonference);
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
             }
         });
+
+        søgDeltagerKnap.setOnAction(event -> søgning());
+        deltagerNavn.getTextField().setOnAction(event -> søgning());
+
     }
+
+    private void søgning() {
+        Deltager søgteNavn = Controller.søgDeltagerIKonference(selectedKonference, deltagerNavn.getInputValue());
+        navnDisplay.setValue(søgteNavn.getNavn() + "");
+        tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
+        ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+    }
+
+
 }
+
