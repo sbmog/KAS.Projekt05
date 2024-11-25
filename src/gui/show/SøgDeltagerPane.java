@@ -5,6 +5,7 @@ import application.model.Deltager;
 import application.model.Konference;
 import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
+import gui.component.LabeledListViewInput;
 import gui.component.LabeledTextInput;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,14 +19,13 @@ import java.util.ArrayList;
 
 
 public class SøgDeltagerPane extends Stage {
-    private TextField deltagerTextField = new TextField();
-    private TextField result = new TextField();
-    private ArrayList<String> tilmeldinger = new ArrayList<>();
-    LabeledTextInput deltagerTextInput = new LabeledTextInput("Deltager");
+    private final LabeledTextInput deltagerTextInput = new LabeledTextInput("Søg deltager");
+    private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
+    private final AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
+    private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
+    private final LabeledListViewInput tilmeldingerDisplay = new LabeledListViewInput("Tilmeldte konferencer");
 
     public SøgDeltagerPane() {
-
-
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
         pane.setPadding(new Insets(20));
@@ -36,33 +36,27 @@ public class SøgDeltagerPane extends Stage {
         this.setScene(scene);
         this.show();
 
-        VBox detailsBox = new VBox();
-        detailsBox.setSpacing(5);
-        detailsBox.setPadding(new Insets(0, 5, 10, 10));
-        AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
-        AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
-        AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
-        ListView<String> tilmeldingerDisplay = new ListView<>();
+        VBox informationBox = new VBox();
+        informationBox.setSpacing(5);
+        informationBox.setPadding(new Insets(0, 5, 10, 10));
+
         Button søgDeltagerButton = new Button("Søg deltager");
 
-        detailsBox.getChildren().addAll(deltagerTextInput, navnDisplay, tlfDisplay, ledsagerDisplay, tilmeldingerDisplay, søgDeltagerButton);
-        pane.add(detailsBox, 2, 0);
+        informationBox.getChildren().addAll(deltagerTextInput, navnDisplay, tlfDisplay, ledsagerDisplay, tilmeldingerDisplay, søgDeltagerButton);
+        pane.add(informationBox, 2, 0);
 
+        søgDeltagerButton.setOnAction(event -> søgning());
+        deltagerTextInput.getTextField().setOnAction(event-> søgning());
+    }
 
-        søgDeltagerButton.setOnAction(event->{
-            Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
-            navnDisplay.setValue(søgteNavn.getNavn() + "");
-            tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
-            ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
-            tilmeldingerDisplay.getItems().clear();
-            for (Tilmelding tilmelding : søgteNavn.getTilmeldinger()) {
-                    tilmeldingerDisplay.getItems().add(tilmelding.getKonference().getNavn());
-                }
-
-        });
-
-
-
-
+    private void søgning() {
+        Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
+        navnDisplay.setValue(søgteNavn.getNavn() + "");
+        tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
+        ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+        tilmeldingerDisplay.getListView().getItems().clear();
+        for (Tilmelding tilmelding : søgteNavn.getTilmeldinger()) {
+            tilmeldingerDisplay.getListView().getItems().add(tilmelding.getKonference().getNavn());
+        }
     }
 }
