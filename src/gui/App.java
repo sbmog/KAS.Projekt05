@@ -15,7 +15,7 @@ public class App {
 
     public static void initStorage() {
         Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
-        Konference tedTalk = Controller.createKonference("Ted Talk", "AU", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
+        Konference tedTalk = Controller.createKonference("Ted Talk", "AU", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 500);
 
 
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);

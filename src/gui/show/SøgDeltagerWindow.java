@@ -2,16 +2,13 @@ package gui.show;
 
 import application.controller.Controller;
 import application.model.Deltager;
-import application.model.Konference;
 import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
 import gui.component.LabeledTextInput;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,12 +16,14 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 
-public class SøgDeltagerPane extends Stage {
+public class SøgDeltagerWindow extends Stage {
+    private TextField deltagerTextField = new TextField();
+    private TextField result = new TextField();
+    private ArrayList<String> tilmeldinger = new ArrayList<>();
     LabeledTextInput deltagerTextInput = new LabeledTextInput("Deltager");
-    private Konference selectedKonference;
 
-    public SøgDeltagerPane(Konference selectedKonference) {
-        this.selectedKonference = selectedKonference;
+    public SøgDeltagerWindow() {
+
 
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
@@ -50,7 +49,7 @@ public class SøgDeltagerPane extends Stage {
 
 
         søgDeltagerButton.setOnAction(event->{
-            Deltager søgteNavn = Controller.søgDeltagerIKonference(selectedKonference, deltagerTextInput.getInputValue());
+            Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
             navnDisplay.setValue(søgteNavn.getNavn() + "");
             tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
             ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
