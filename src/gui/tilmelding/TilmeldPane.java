@@ -37,7 +37,7 @@ public class TilmeldPane extends Stage {
         this.setScene(scene);
         this.show();
 
-        initializeFields();
+        initializeFields(konference);
 
         Label konferenceLabel = new Label("Vælg konference");
         pane.add(konferenceLabel, 0, 0);
@@ -78,7 +78,7 @@ public class TilmeldPane extends Stage {
         registrerButton.setOnAction(event -> registrerDeltager());
     }
 
-    private void initializeFields() {
+    private void initializeFields(Konference konference) {
         navnTextField.setPromptText("Indtast deltagers navn");
 
         telefonTextField.setPromptText("Indtast telefonnummer");
@@ -99,7 +99,11 @@ public class TilmeldPane extends Stage {
         konferenceComboBox.setPromptText("Vælg en konference");
 
         konferenceComboBox.getItems().addAll(Controller.getKonferencer());
-        konferenceComboBox.setPromptText("Vælg en konference");
+        if (konference != null) {
+            konferenceComboBox.setValue(konference);
+        }else {
+            konferenceComboBox.setPromptText("Vælg en konference");
+        }
 
     }
 
