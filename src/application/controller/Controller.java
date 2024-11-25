@@ -10,11 +10,11 @@ public class Controller {
 
 // Beregn pris metoder!
 
-    public static int getSamletPrisForDeltagelse(Tilmelding tilmelding){
+    public static int getSamletPrisForDeltagelse(Tilmelding tilmelding) {
         return tilmelding.getSamletPrisForDeltagelse();
     }
 
-    public static int getPrisDeltagersUdgift(Tilmelding tilmelding){
+    public static int getPrisDeltagersUdgift(Tilmelding tilmelding) {
         return tilmelding.getPrisDeltagersUdgift();
     }
 
@@ -27,21 +27,24 @@ public class Controller {
     public static Deltager søgDeltagerAlle(String søgteDeltager) {
         Deltager resultatSøgning = null;
         for (Deltager deltager : Storage.getDeltagere()) {
-            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())){
-            resultatSøgning = deltager;}
-        }return resultatSøgning;
+            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
+                resultatSøgning = deltager;
+            }
+        }
+        return resultatSøgning;
 
     }
 
-    public static String søgDeltagerIKonference(Konference konference, String søgteDeltager){
-        String resultatSøgning = null;
+    public static Deltager søgDeltagerIKonference(Konference konference, String søgteDeltager) {
         for (Deltager deltager : getDeltagerForKonference(konference)) {
-            if(søgteDeltager.equalsIgnoreCase(deltager.getNavn()));
-            resultatSøgning = deltager.getNavn();
-        }return resultatSøgning;
+            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
+            }
+            return deltager;
+        }
+        return null;
     }
 
-    public static ArrayList<Deltager> getDeltagerForKonference(Konference konference){
+    public static ArrayList<Deltager> getDeltagerForKonference(Konference konference) {
         return konference.getDeltagere();
     }
 
@@ -60,7 +63,7 @@ public class Controller {
     }
 
     public static Tilmelding createTilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
-        Tilmelding tilmelding = konference.createTilmelding(deltager,ankomstDato,afrejseDato,foredragsholder);
+        Tilmelding tilmelding = konference.createTilmelding(deltager, ankomstDato, afrejseDato, foredragsholder);
         Storage.addTilmelding(tilmelding);
         return tilmelding;
     }
@@ -70,7 +73,7 @@ public class Controller {
     }
 
     public static Hotel createHotel(String navn, String adresse, int prisForEnkeltVærelse, int prisForDobbeltVærelse, int badTillæg, int wifiTillæg, int morgenmadsTillæg, Konference konference) {
-        Hotel hotel = new Hotel(navn, adresse, prisForEnkeltVærelse,prisForDobbeltVærelse, badTillæg, wifiTillæg, morgenmadsTillæg,konference);
+        Hotel hotel = new Hotel(navn, adresse, prisForEnkeltVærelse, prisForDobbeltVærelse, badTillæg, wifiTillæg, morgenmadsTillæg, konference);
         Storage.addHotel(hotel);
         return hotel;
     }
@@ -98,17 +101,28 @@ public class Controller {
         return null;
     }
 
-    public static ArrayList<Ledsager>getLedsagere(){
+    public static ArrayList<Ledsager> getLedsagere() {
         return Storage.getLedsagere();
     }
 
-    public static Udflugt createUdflugt(String navn, String adresse, LocalDate dato, int pris, Konference konference){
-        Udflugt udflugt =new Udflugt(navn, adresse, dato, pris, konference);
+    public static Udflugt createUdflugt(String navn, String adresse, LocalDate dato, int pris, Konference konference) {
+        Udflugt udflugt = new Udflugt(navn, adresse, dato, pris, konference);
         Storage.addUdflugt(udflugt);
         return udflugt;
     }
 
-    public static ArrayList<Udflugt> getUdflugter (){
+    public static ArrayList<Udflugt> getUdflugter() {
         return Storage.getUdflugter();
+    }
+
+    public static Tilmelding getTilmeldingForDeltager(Deltager deltager, Konference konference) {
+        if (deltager != null && konference != null) {
+            for (Tilmelding tilmelding : deltager.getTilmeldinger()) {
+                if (tilmelding.getKonference().equals(konference)) {
+                    return tilmelding;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -2,7 +2,9 @@ package gui.show;
 
 import application.controller.Controller;
 import application.model.Konference;
+import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
+import gui.component.LabeledListViewInput;
 import gui.tilmelding.TilmeldPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,7 +19,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public class DeltagerTab extends GridPane {
+    private Konference selectedKonference;
+
     public DeltagerTab(Konference konference) {
+        this.selectedKonference = konference;
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
 
@@ -32,15 +37,26 @@ public class DeltagerTab extends GridPane {
         AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
         AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
         AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
+        LabeledListViewInput ledsagerUdflugtListview = new LabeledListViewInput("Ledsagers udflugter");
 
-        detailsBox.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay);
+        detailsBox.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay, ledsagerUdflugtListview);
         this.add(detailsBox, 1, 0);
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());
                 tlfDisplay.setValue(newValue.getTelefonNummer());
-                ledsagerDisplay.setValue(newValue.getLedsager() != null ? newValue.getLedsager().getNavn() : "Ingen ledsager");
+                if (newValue.getLedsager() != null) {
+                    ledsagerDisplay.setValue(newValue.getLedsager().getNavn());
+                    ledsagerUdflugtListview.getListView().getItems().clear();
+                    Tilmelding tilmelding = Controller.getTilmeldingForDeltager(newValue, selectedKonference);
+                    if (tilmelding != null) {
+                        ledsagerUdflugtListview.getListView().getItems().addAll(String.valueOf(tilmelding.getUdflugter()));
+                    }
+                } else {
+                    ledsagerDisplay.setValue("Ingen ledsager");
+                    ledsagerUdflugtListview.getListView().getItems().clear();
+                }
             }
         });
 

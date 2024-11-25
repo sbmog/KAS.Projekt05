@@ -116,5 +116,4 @@ public class Tilmelding {
 
     public void setLedsager(Ledsager ledsager) {
     }
-
 }

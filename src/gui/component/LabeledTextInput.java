@@ -1,6 +1,7 @@
 package gui.component;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -20,5 +21,9 @@ public class LabeledTextInput extends VBox {
 
     public String getInputValue() {
         return textField.getText().trim();
+    }
+
+    public TextField getTextField() {
+        return textField;
     }
 }
