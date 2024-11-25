@@ -33,12 +33,12 @@ public class Controller {
 
     }
 
-    public static Deltager søgDeltagerIKonference(Konference konference, String søgteDeltager){
+    public static String søgDeltagerIKonference(Konference konference, String søgteDeltager){
+        String resultatSøgning = null;
         for (Deltager deltager : getDeltagerForKonference(konference)) {
-            if(søgteDeltager.equalsIgnoreCase(deltager.getNavn())){
-                return deltager;
-            }
-        }return null;
+            if(søgteDeltager.equalsIgnoreCase(deltager.getNavn()));
+            resultatSøgning = deltager.getNavn();
+        }return resultatSøgning;
     }
 
     public static ArrayList<Deltager> getDeltagerForKonference(Konference konference){
