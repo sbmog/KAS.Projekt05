@@ -98,7 +98,6 @@ public class Tilmelding {
         return deltager;
     }
 
-
     public void addUdflugt(Udflugt udflugt) {
         if (!udflugter.contains(udflugt)) {
             udflugter.add(udflugt);
@@ -106,12 +105,10 @@ public class Tilmelding {
         }
     }
 
-    public Konference getKonference() {
-        return konference;
-    }
-
     public ArrayList<Udflugt>getUdflugter(){
         return udflugter;
     }
 
+    public void setLedsager(Ledsager ledsager) {
+    }
 }

@@ -1,7 +1,8 @@
 package gui.show;
 
 import application.controller.Controller;
-import application.model.Konference;
+import application.model.Tilmelding;
+import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
 import gui.tilmelding.TilmeldPane;
 import javafx.geometry.Insets;
@@ -16,8 +17,13 @@ import application.model.Deltager;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+
 public class DeltagerTab extends GridPane {
-    public DeltagerTab(Konference konference) {
+    private Deltager newDeltager;
+    private Tilmelding newTilmelding;
+
+
+    public DeltagerTab() {
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
 
@@ -52,10 +58,19 @@ public class DeltagerTab extends GridPane {
 
         this.add(buttonBox, 1, 1);
         opretTilmelding.setOnAction(event -> {
-            TilmeldPane tilmeldPane = new TilmeldPane(konference);
+            TilmeldPane tilmeldPane = new TilmeldPane();
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
             }
         });
+    }
+
+
+    public Tilmelding getNewTilmelding() {
+        return newTilmelding;
+    }
+
+    public Deltager getNewDeltager() {
+        return newDeltager;
     }
 }
