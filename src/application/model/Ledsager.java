@@ -18,4 +18,5 @@ public class Ledsager extends Person {
     public String toString() {
         return getNavn();
     }
+
 }

@@ -114,4 +114,7 @@ public class Tilmelding {
         return udflugter;
     }
 
+    public void setLedsager(Ledsager ledsager) {
+    }
+
 }

@@ -20,7 +20,9 @@ public class TilmeldPane extends Stage {
     private TextField ledsagerTextField = new TextField();
     private ListView<Udflugt> udflugtListView = new ListView<>();
     private Label totalOmkostningLabel;
-    private ComboBox<Konference> konferenceComboBox;
+    private ComboBox<Konference> konferenceComboBox = new ComboBox<>();
+
+
 
     public TilmeldPane(Konference konference) {
         this.setTitle("Tilmeld Deltager");
@@ -35,7 +37,7 @@ public class TilmeldPane extends Stage {
         this.setScene(scene);
         this.show();
 
-        initializeFields(konference);
+        initializeFields();
 
         Label konferenceLabel = new Label("Vælg konference");
         pane.add(konferenceLabel, 0, 0);
@@ -73,130 +75,123 @@ public class TilmeldPane extends Stage {
 
         Button registrerButton = new Button("Tilmeld");
         pane.add(registrerButton, 0, 9);
+        registrerButton.setOnAction(event -> registrerDeltager());
     }
 
-    private void initializeFields(Konference konference) {
-        navnTextField = new TextField();
+    private void initializeFields() {
         navnTextField.setPromptText("Indtast deltagers navn");
 
-        telefonTextField = new TextField();
         telefonTextField.setPromptText("Indtast telefonnummer");
 
-        ankomstDatoValg = new DatePicker();
         ankomstDatoValg.setValue(LocalDate.now());
 
-        afrejseDatoValg = new DatePicker();
         afrejseDatoValg.setValue(LocalDate.now().plusDays(1));
 
         talerCheckBox = new CheckBox("Er du foredragsholder?");
 
-        ledsagerTextField = new TextField();
         ledsagerTextField.setPromptText("Indtast ledsagers navn (valgfrit)");
 
-        udflugtListView = new ListView<>();
         udflugtListView.getItems().addAll(Controller.getUdflugter());
         udflugtListView.setMinWidth(300);
 
         konferenceComboBox = new ComboBox<>();
         konferenceComboBox.getItems().addAll(Controller.getKonferencer());
-        if (konference != null) {
-            konferenceComboBox.setValue(konference);
-        }else {
-            konferenceComboBox.setPromptText("Vælg en konference");
+        konferenceComboBox.setPromptText("Vælg en konference");
+
+        konferenceComboBox.getItems().addAll(Controller.getKonferencer());
+        konferenceComboBox.setPromptText("Vælg en konference");
+
+    }
+
+    private boolean validerInput() {
+        if (konferenceComboBox.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR,"Fejl", "Du skal vælge en konference!");
+            return false;
         }
+        if (navnTextField.getText().isEmpty() || telefonTextField.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR,"Fejl", "Navn og telefonnummer er påkrævet.");
+            return false;
+        }
+        if (ankomstDatoValg.getValue() == null || afrejseDatoValg.getValue() == null) {
+            showAlert(Alert.AlertType.ERROR,"Fejl", "Vælg både ankomst- og afrejsedato.");
+            return false;
+        }
+        if (afrejseDatoValg.getValue().isBefore(ankomstDatoValg.getValue())) {
+            showAlert(Alert.AlertType.ERROR,"Fejl", "Afrejsedato skal være efter ankomstdato.");
+            return false;
+        }
+        return true;
     }
 
     private void beregnFuldeOmkostninger() {
-        Konference selectedKonference = konferenceComboBox.getValue();
-        if (selectedKonference == null) {
-            showAlert("Fejl", "Du skal vælge en konference først!");
+        if (!validerInput())
             return;
-        }
 
+        try {
+            Konference selectedKonference = konferenceComboBox.getValue();
+            LocalDate ankomstDato = ankomstDatoValg.getValue();
+            LocalDate afrejseDato = afrejseDatoValg.getValue();
+            boolean erTaler = talerCheckBox.isSelected();
+            String ledsagerNavn = ledsagerTextField.getText();
+            Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
 
-        String navn = navnTextField.getText();
-        String telefon = telefonTextField.getText();
-        LocalDate ankomstDato = ankomstDatoValg.getValue();
-        LocalDate afrejseDato = afrejseDatoValg.getValue();
-        boolean erTaler = talerCheckBox.isSelected();
-        String ledsagerNavn = ledsagerTextField.getText();
-        Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
+            Deltager deltager = new Deltager(navnTextField.getText(), null, telefonTextField.getText());
+            Tilmelding tilmelding = Controller.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler, selectedKonference);
 
+            // Håndter ledsager
+            if (!ledsagerNavn.isEmpty()) {
+                Ledsager ledsager = Controller.createLedsager(ledsagerNavn, deltager);
+                tilmelding.setLedsager(ledsager);
 
-        Deltager deltager = new Deltager(navn, null, null);//Hvad gør vi med adresse? De satans parametre
-        deltager.setTelefonNummer(telefon);
-
-        Tilmelding tilmelding = selectedKonference.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler);
-
-
-        //Håndter ledsager
-        if (!ledsagerNavn.isEmpty()) {
-            Ledsager ledsager = new Ledsager(ledsagerNavn, deltager);
-            deltager.setLedsager(ledsager);
-        }
-
-        //Håndter udflugt
-        if (valgtUdflugt != null) {
-            Ledsager ledsager = deltager.getLedsager();
-            if (ledsager != null) {
-                tilmelding.addUdflugt(valgtUdflugt);
+                if (valgtUdflugt != null) {
+                    tilmelding.addUdflugt(valgtUdflugt);
+                }
             }
+
+            int totalOmkostning = Controller.getSamletPrisForDeltagelse(tilmelding);
+            totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
+        } catch (Exception ex) {
+            showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke beregne omkostninger: " + ex.getMessage());
         }
-
-        int totalOmkostning = Controller.getSamletPrisForDeltagelse(tilmelding);
-        totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
-
     }
+
 
     private void registrerDeltager() {
-        Konference ValgteKonference = konferenceComboBox.getValue();
-        if (ValgteKonference == null) {
-            showAlert("Fejl", "Du skal vælge en konference først!");
-            return;
-        }
+        if (!validerInput()) return;
 
+        try {
+            Deltager deltager = Controller.createDeltager(navnTextField.getText(),null, telefonTextField.getText());
+            LocalDate ankomstDato = ankomstDatoValg.getValue();
+            LocalDate afrejseDato = afrejseDatoValg.getValue();
+            boolean erTaler = talerCheckBox.isSelected();
+            Konference konference = konferenceComboBox.getValue();
 
-        String navn = navnTextField.getText();
-        String telefon = telefonTextField.getText();
-        LocalDate ankomstDato = ankomstDatoValg.getValue();
-        LocalDate afrejseDato = afrejseDatoValg.getValue();
-        boolean erTaler = talerCheckBox.isSelected();
-        String ledsagerNavn = ledsagerTextField.getText();
-        Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
+            Tilmelding tilmelding = Controller.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler, konference);
 
-        //opret deltager
-        Deltager deltager = new Deltager(navn, null, telefon); //Konstruktor bøvl igen
-        deltager.setTelefonNummer(telefon);
+            String ledsagerNavn = ledsagerTextField.getText();
+            if (!ledsagerNavn.isEmpty()) {
+                Ledsager ledsager = Controller.createLedsager(ledsagerNavn, deltager);
+                tilmelding.setLedsager(ledsager);
 
-        //Opret tilmelding
-        Tilmelding tilmelding = ValgteKonference.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler);
-        Controller.createTilmelding(deltager, ankomstDato, afrejseDato, erTaler, ValgteKonference);
-
-        if (!ledsagerNavn.isEmpty()) {
-            Ledsager ledsager = new Ledsager(ledsagerNavn, deltager);
-            Controller.createLedsager(ledsagerNavn, deltager);
-        }
-
-        if (valgtUdflugt != null) {
-            Ledsager ledsager = deltager.getLedsager();
-            if (ledsager != null) {
-                tilmelding.addUdflugt(valgtUdflugt);
+                Udflugt valgtUdflugt = udflugtListView.getSelectionModel().getSelectedItem();
+                if (valgtUdflugt != null) {
+                    tilmelding.addUdflugt(valgtUdflugt);
+                }
             }
+
+            showAlert(Alert.AlertType.INFORMATION,"Succes", "Deltageren er nu tilmeldt konferencen.");
+            this.close();
+        } catch (Exception ex) {
+            showAlert(Alert.AlertType.ERROR,"Fejl", "Der opstod en fejl: " + ex.getMessage());
         }
-
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Tilmelding");
-        alert.setHeaderText("Deltager er tilmeldt!");
-        alert.setContentText("Deltageren er nu tilmeldt konferencen.");
-        alert.showAndWait();
-        this.close();
     }
 
-    private void showAlert(String title, String content) {
+
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setContentText(content);
         alert.showAndWait();
     }
 }
+
