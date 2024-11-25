@@ -2,13 +2,13 @@ package gui.show;
 
 import application.controller.Controller;
 import application.model.Konference;
+import gui.component.LabeledTextInput;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class OpretHotelVindue extends Stage {
@@ -23,52 +23,28 @@ public class OpretHotelVindue extends Stage {
         pane.setHgap(10);
         pane.setVgap(10);
 
-        Label navnLabel = new Label("Navn:");
-        TextField nameField = new TextField();
-        pane.add(navnLabel, 0, 0);
-        pane.add(nameField, 1, 0);
-
-        Label adresseLabel = new Label("Adresse:");
-        TextField adresseFelt = new TextField();
-        pane.add(adresseLabel, 0, 1);
-        pane.add(adresseFelt, 1, 1);
-
-        Label enkeltVærelsePrisLabel = new Label("Pris for enkeltværelse:");
-        TextField enkeltVærelsePrisFelt = new TextField();
-        pane.add(enkeltVærelsePrisLabel, 0, 2);
-        pane.add(enkeltVærelsePrisFelt, 1, 2);
-
-        Label dobbeltVærelsePrisLabel = new Label("Pris for dobbeltværelse:");
-        TextField dobbeltVærelsePrisFelt = new TextField();
-        pane.add(dobbeltVærelsePrisLabel, 0, 3);
-        pane.add(dobbeltVærelsePrisFelt, 1, 3);
-
-        Label badTillægLabel = new Label("Tillæg for bad:");
-        TextField badTillægFelt = new TextField();
-        pane.add(badTillægLabel, 0, 4);
-        pane.add(badTillægFelt, 1, 4);
-
-        Label wifiTillægLabel = new Label("Tillæg for wifi:");
-        TextField wifiTillægFelt = new TextField();
-        pane.add(wifiTillægLabel, 0, 5);
-        pane.add(wifiTillægFelt, 1, 5);
-
-        Label morgenmadsTillægLabel = new Label("Tillæg for morgenmad:");
-        TextField morgenmadTillægFelt = new TextField();
-        pane.add(morgenmadsTillægLabel, 0, 6);
-        pane.add(morgenmadTillægFelt, 1, 6);
-
+        VBox HotelVindueVBox = new VBox();
+        LabeledTextInput navnInput = new LabeledTextInput("Navn:");
+        LabeledTextInput adresseInput = new LabeledTextInput("Adresse:");
+        LabeledTextInput enkeltVærelsePrisInput = new LabeledTextInput("Pris for enkeltværelse:");
+        LabeledTextInput dobbeltVærelsePrisInput = new LabeledTextInput("Pris for dobbeltværelse:");
+        LabeledTextInput badTillægInput = new LabeledTextInput("Tillæg for bad:");
+        LabeledTextInput wifiTillægInput = new LabeledTextInput("Tillæg for wifi:");
+        LabeledTextInput morgenmadsTillægInput = new LabeledTextInput("Tillæg for morgenmad:");
         Button createButton = new Button("Opret");
-        pane.add(createButton, 1, 7);
+        HotelVindueVBox.setSpacing(5);
+        HotelVindueVBox.setPadding(new Insets(0, 5, 10, 10));
+        HotelVindueVBox.getChildren().addAll(navnInput, adresseInput, enkeltVærelsePrisInput, dobbeltVærelsePrisInput, badTillægInput, wifiTillægInput, morgenmadsTillægInput, createButton);
+        pane.add(HotelVindueVBox, 1, 0);
 
         createButton.setOnAction(event -> {
-            String navn = nameField.getText();
-            String adresse = adresseFelt.getText();
-            String prisForEnkeltværelse = enkeltVærelsePrisFelt.getText();
-            String prisForDobbeltværelse = dobbeltVærelsePrisFelt.getText();
-            String badtillæg = badTillægFelt.getText();
-            String wifiTillæg = wifiTillægFelt.getText();
-            String morgenmadsTillæg = morgenmadTillægFelt.getText();
+            String navn = navnInput.getInputValue();
+            String adresse = adresseInput.getInputValue();
+            String prisForEnkeltværelse = enkeltVærelsePrisInput.getInputValue();
+            String prisForDobbeltværelse = dobbeltVærelsePrisInput.getInputValue();
+            String badtillæg = badTillægInput.getInputValue();
+            String wifiTillæg = wifiTillægInput.getInputValue();
+            String morgenmadsTillæg = morgenmadsTillægInput.getInputValue();
 
             if (navn.isEmpty() || adresse.isEmpty() || prisForEnkeltværelse.isEmpty() || prisForDobbeltværelse.isEmpty() || badtillæg.isEmpty() || wifiTillæg.isEmpty() || morgenmadsTillæg.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -87,7 +63,6 @@ public class OpretHotelVindue extends Stage {
                 this.close();
             }
         });
-
 
         Scene scene = new Scene(pane);
         this.setScene(scene);
