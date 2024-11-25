@@ -2,6 +2,7 @@ package gui.show;
 
 import application.controller.Controller;
 import application.model.Deltager;
+import application.model.Konference;
 import application.model.Tilmelding;
 import gui.component.AttributeDisplay;
 import gui.component.LabeledTextInput;
@@ -16,13 +17,15 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 
-public class SøgDeltagerWindow extends Stage {
+public class SøgDeltagerForValgtKonference extends Stage {
     private TextField deltagerTextField = new TextField();
     private TextField result = new TextField();
     private ArrayList<String> tilmeldinger = new ArrayList<>();
     LabeledTextInput deltagerTextInput = new LabeledTextInput("Deltager");
+    private Konference selectedKonference;
 
-    public SøgDeltagerWindow() {
+    public SøgDeltagerForValgtKonference() {
+        this.selectedKonference = selectedKonference;
 
 
         GridPane pane = new GridPane();
@@ -49,7 +52,7 @@ public class SøgDeltagerWindow extends Stage {
 
 
         søgDeltagerButton.setOnAction(event->{
-            Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
+            Deltager søgteNavn = Controller.søgDeltagerIKonference(selectedKonference, deltagerTextInput.getInputValue());
             navnDisplay.setValue(søgteNavn.getNavn() + "");
             tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
             ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
