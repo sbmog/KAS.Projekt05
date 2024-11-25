@@ -98,11 +98,16 @@ public class Tilmelding {
         return deltager;
     }
 
+
     public void addUdflugt(Udflugt udflugt) {
         if (!udflugter.contains(udflugt)) {
             udflugter.add(udflugt);
             udflugt.addTilmelding(this);
         }
+    }
+
+    public Konference getKonference() {
+        return konference;
     }
 
     public ArrayList<Udflugt>getUdflugter(){

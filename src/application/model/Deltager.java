@@ -76,6 +76,10 @@ public class Deltager extends Person {
     }
 
     public void setTelefonNummer(String telefon) {
-        }
+     }
+
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return tilmeldinger;
     }
+}
 

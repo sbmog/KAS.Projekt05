@@ -15,7 +15,7 @@ public class App {
 
     public static void initStorage() {
         Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
-        Konference tedTalk = Controller.createKonference("Ted Talk", "AU", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
+        Konference tedTalk = Controller.createKonference("Ted Talk", "AU", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 500);
 
 
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
@@ -27,7 +27,7 @@ public class App {
         Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);
 
         Deltager finnMadsen = Controller.createDeltager("Finn Madsen", "XX", "12341234");
-        Tilmelding finnTilmelding = Controller.createTilmelding(finnMadsen, LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+        Tilmelding finnTilmelding = Controller.createTilmelding(finnMadsen, LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, tedTalk);
 
         Deltager nielsPetersen = Controller.createDeltager("Niels Petersen", "XX", "11223344");
         Tilmelding nielsTilmelding = nielsPetersen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
@@ -35,6 +35,7 @@ public class App {
 
         Deltager peterSommer = Controller.createDeltager("Peter Sommer", "XX", "43214321");
         Tilmelding peterTilmelding = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+        Tilmelding peterTilmelding2 = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, tedTalk);
 
         peterTilmelding.setHotel(denHvideSvane, false, true, false);
         Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");
