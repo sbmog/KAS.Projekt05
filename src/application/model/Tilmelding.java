@@ -17,7 +17,7 @@ public class Tilmelding {
     private boolean hotelWifi = false;
     private boolean hotelMorgenmad = false;
 
-    protected Tilmelding(LocalDate ankomstDato, Deltager deltager, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
+    public Tilmelding(LocalDate ankomstDato, Deltager deltager, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
         this.ankomstDato = ankomstDato;
         this.deltager = deltager;
         this.afrejseDato = afrejseDato;
