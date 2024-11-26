@@ -17,7 +17,7 @@ public class Tilmelding {
     private boolean hotelWifi = false;
     private boolean hotelMorgenmad = false;
 
-    public Tilmelding(LocalDate ankomstDato, Deltager deltager, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
+    public Tilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
         this.ankomstDato = ankomstDato;
         this.deltager = deltager;
         this.afrejseDato = afrejseDato;
@@ -110,10 +110,14 @@ public class Tilmelding {
         return konference;
     }
 
-    public ArrayList<Udflugt>getUdflugter(){
+    public ArrayList<Udflugt> getUdflugter() {
         return udflugter;
     }
 
     public void setLedsager(Ledsager ledsager) {
+    }
+
+    public void setFirma(boolean b) {
+
     }
 }

@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 public class ValideringsMetode {
 
     public static boolean validerInput(ComboBox<Konference> konferenceComboBox, TextField navnTextField, TextField telefonTextField,
-                                       DatePicker ankomstDatoValg, DatePicker afrejseDatoValg) {
+                                       DatePicker ankomstDatoValg, DatePicker afrejseDatoValg, TextField adresse) {
 
         if (konferenceComboBox.getValue() == null) {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Du skal vælge en konference!");
@@ -17,6 +17,10 @@ public class ValideringsMetode {
         }
         if (navnTextField.getText().isEmpty() || telefonTextField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Navn og telefonnummer er påkrævet.");
+            return false;
+        }
+        if (adresse.getText().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR,"Fejl","Du skal udfylde adresse.");
             return false;
         }
         if (ankomstDatoValg.getValue() == null || afrejseDatoValg.getValue() == null) {
@@ -27,6 +31,7 @@ public class ValideringsMetode {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Afrejsedato skal være efter ankomstdato.");
             return false;
         }
+
         return true;
     }
     public static void showAlert(Alert.AlertType alertType, String title, String content) {
