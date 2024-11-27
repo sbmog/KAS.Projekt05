@@ -19,8 +19,9 @@ public class SøgAlleDeltagere extends Stage {
     private final LabeledTextInput deltagerTextInput = new LabeledTextInput("Søg deltager");
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
     private final AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
+    private final AttributeDisplay firmaDisplay = new AttributeDisplay("Firma", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
-    private final LabeledListViewInput tilmeldingerDisplay = new LabeledListViewInput("Tilmeldte konferencer");
+    private final LabeledListViewInput tilmeldingerListview = new LabeledListViewInput("Tilmeldte konferencer");
 
     public SøgAlleDeltagere() {
         GridPane pane = new GridPane();
@@ -39,21 +40,26 @@ public class SøgAlleDeltagere extends Stage {
 
         Button søgDeltagerButton = new Button("Søg deltager");
 
-        informationBox.getChildren().addAll(deltagerTextInput, navnDisplay, tlfDisplay, ledsagerDisplay, tilmeldingerDisplay, søgDeltagerButton);
+        informationBox.getChildren().addAll(deltagerTextInput, navnDisplay, tlfDisplay, firmaDisplay, ledsagerDisplay, tilmeldingerListview, søgDeltagerButton);
         pane.add(informationBox, 0, 0);
 
         søgDeltagerButton.setOnAction(event -> søgning());
-        deltagerTextInput.getTextField().setOnAction(event-> søgning());
+        deltagerTextInput.getTextField().setOnAction(event -> søgning());
     }
 
     private void søgning() {
         Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
         navnDisplay.setValue(søgteNavn.getNavn() + "");
         tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
-        ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
-        tilmeldingerDisplay.getListView().getItems().clear();
+        if (søgteNavn.getFirma() != null) {
+            firmaDisplay.setValue(søgteNavn.getFirma() + "");
+        }
+        if (søgteNavn.getLedsager() != null) {
+            ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+        }
+        tilmeldingerListview.getListView().getItems().clear();
         for (Tilmelding tilmelding : søgteNavn.getTilmeldinger()) {
-            tilmeldingerDisplay.getListView().getItems().add(tilmelding.getKonference().getNavn());
+            tilmeldingerListview.getListView().getItems().add(tilmelding.getKonference().getNavn());
         }
     }
 }

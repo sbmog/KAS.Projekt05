@@ -42,7 +42,7 @@ public class Deltager extends Person {
     }
 
     public Tilmelding createTilmelding(LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
-        Tilmelding tilmelding = new Tilmelding(ankomstDato, this, afrejseDato, foredragsholder, konference);
+        Tilmelding tilmelding = new Tilmelding(this,ankomstDato, afrejseDato, foredragsholder, konference);
         this.addTilmelding(tilmelding);
         konference.addTilmelding(tilmelding);
         return tilmelding;
@@ -75,8 +75,6 @@ public class Deltager extends Person {
         return telefonNummer;
     }
 
-    public void setTelefonNummer(String telefon) {
-        }
 
     public ArrayList<Tilmelding> getTilmeldinger() {
         return tilmeldinger;

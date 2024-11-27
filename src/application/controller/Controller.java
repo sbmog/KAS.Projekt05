@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 public class Controller {
 
-// Beregn pris metoder!
-
     public static int getSamletPrisForDeltagelse(Tilmelding tilmelding) {
         return tilmelding.getSamletPrisForDeltagelse();
     }

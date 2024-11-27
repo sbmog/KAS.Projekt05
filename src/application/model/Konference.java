@@ -32,7 +32,7 @@ public class Konference {
     }
 
     public Tilmelding createTilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsHolder) {
-        Tilmelding tilmelding = new Tilmelding(ankomstDato, deltager, afrejseDato, foredragsHolder, this);
+        Tilmelding tilmelding = new Tilmelding(deltager, ankomstDato, afrejseDato, foredragsHolder, this);
         this.addTilmelding(tilmelding);
         deltager.addTilmelding(tilmelding);
         return tilmelding;

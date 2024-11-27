@@ -18,4 +18,9 @@ public class Firma {
             deltager.setFirma(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return navn + " (" + telefonNummer + ")";
+    }
 }

@@ -24,6 +24,7 @@ public class DeltagerTab extends GridPane {
     private final Konference selectedKonference;
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
     private final AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
+    private final AttributeDisplay firmaDisplay = new AttributeDisplay("Firma", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
     private final LabeledTextInput deltagerNavn = new LabeledTextInput("Søg deltager: ");
     private final LabeledListViewInput ledsagerUdflugtListview = new LabeledListViewInput("Ledsagers udflugter");
@@ -49,7 +50,7 @@ public class DeltagerTab extends GridPane {
         højreBoks.setSpacing(5);
         højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        højreBoks.getChildren().addAll(navnDisplay, tlfDisplay, ledsagerDisplay, ledsagerUdflugtListview);
+        højreBoks.getChildren().addAll(navnDisplay, tlfDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview);
         this.add(højreBoks, 1, 0);
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -57,6 +58,11 @@ public class DeltagerTab extends GridPane {
                 navnDisplay.setValue(newValue.toString());
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
                 tlfDisplay.setValue(newValue.getTelefonNummer());
+                if (newValue.getFirma() != null) {
+                    firmaDisplay.setValue(newValue.getFirma() + "");
+                } else {
+                    firmaDisplay.setValue("Intet firma");
+                }
                 if (newValue.getLedsager() != null) {
                     ledsagerDisplay.setValue(newValue.getLedsager().getNavn());
                     ledsagerUdflugtListview.getListView().getItems().clear();
@@ -64,7 +70,7 @@ public class DeltagerTab extends GridPane {
                     if (tilmelding != null) {
                         ledsagerUdflugtListview.getListView().getItems().clear();
                         tilmelding.getUdflugter().forEach(udflugt ->
-                                ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
+                                ledsagerUdflugtListview.getListView().getItems().add(udflugt.getNavn()));
                     }
                 } else {
                     ledsagerDisplay.setValue("Ingen ledsager");
@@ -73,14 +79,8 @@ public class DeltagerTab extends GridPane {
             }
         });
 
-//        Bør vi fjerne hbox til at holde button, hvis vi kun har en enkel button?
-
         Button opretTilmelding = new Button("Opret tilmelding");
-        HBox buttonBox = new HBox(10);
-        buttonBox.setPadding(new Insets(10));
-        buttonBox.getChildren().add(opretTilmelding);
-
-        this.add(buttonBox, 1, 1);
+        this.add(opretTilmelding, 1, 1);
         opretTilmelding.setOnAction(event -> {
             TilmeldPane tilmeldPane = new TilmeldPane(selectedKonference);
             if (!tilmeldPane.isShowing()) {
@@ -95,16 +95,24 @@ public class DeltagerTab extends GridPane {
         Deltager søgteNavn = Controller.søgDeltagerIKonference(selectedKonference, deltagerNavn.getInputValue());
         if (søgteNavn != null) {
             navnDisplay.setValue(søgteNavn.getNavn() + "");
-            tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
+            tlfDisplay.setValue(søgteNavn.getTelefonNummer());
+            if (søgteNavn.getFirma() != null) {
+                firmaDisplay.setValue(søgteNavn.getFirma() + "");
+            } else {
+                firmaDisplay.setValue("Intet firma");
+            }
             ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
             ledsagerUdflugtListview.getListView().getItems().clear();
             Tilmelding tilmelding = Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference);
             if (tilmelding != null) {
                 ledsagerUdflugtListview.getListView().getItems().clear();
                 tilmelding.getUdflugter().forEach(udflugt ->
-                        ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
+                        ledsagerUdflugtListview.getListView().getItems().add(udflugt.getNavn()));
+            } else {
+                ledsagerDisplay.setValue("Ingen ledsager");
+                ledsagerUdflugtListview.getListView().getItems().clear();
             }
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Deltager ikke fundet");
             alert.setHeaderText("Der kan ikke findes noget, som matcher søgningen");
