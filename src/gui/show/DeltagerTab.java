@@ -58,9 +58,9 @@ public class DeltagerTab extends GridPane {
                 navnDisplay.setValue(newValue.toString());
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
                 tlfDisplay.setValue(newValue.getTelefonNummer());
-                if (newValue.getFirma().toString() != null) {
-                    firmaDisplay.setValue(newValue.getFirma().toString());
-                }else {
+                if (newValue.getFirma() != null) {
+                    firmaDisplay.setValue(newValue.getFirma() + "");
+                } else {
                     firmaDisplay.setValue("Intet firma");
                 }
                 if (newValue.getLedsager() != null) {
@@ -70,7 +70,7 @@ public class DeltagerTab extends GridPane {
                     if (tilmelding != null) {
                         ledsagerUdflugtListview.getListView().getItems().clear();
                         tilmelding.getUdflugter().forEach(udflugt ->
-                                ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
+                                ledsagerUdflugtListview.getListView().getItems().add(udflugt.getNavn()));
                     }
                 } else {
                     ledsagerDisplay.setValue("Ingen ledsager");
@@ -107,7 +107,7 @@ public class DeltagerTab extends GridPane {
             if (tilmelding != null) {
                 ledsagerUdflugtListview.getListView().getItems().clear();
                 tilmelding.getUdflugter().forEach(udflugt ->
-                        ledsagerUdflugtListview.getListView().getItems().add(String.valueOf(udflugt)));
+                        ledsagerUdflugtListview.getListView().getItems().add(udflugt.getNavn()));
             } else {
                 ledsagerDisplay.setValue("Ingen ledsager");
                 ledsagerUdflugtListview.getListView().getItems().clear();

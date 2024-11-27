@@ -1,6 +1,5 @@
 package gui.component;
 
-import application.model.Konference;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
