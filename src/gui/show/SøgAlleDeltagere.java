@@ -10,8 +10,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -29,6 +29,10 @@ public class SøgAlleDeltagere extends Stage {
         pane.setPadding(new Insets(20));
         pane.setVgap(10);
         pane.setHgap(10);
+
+        BackgroundFill bgFill = new BackgroundFill(Color.TAN, new CornerRadii(0), new Insets(0));
+        Background bg = new Background(bgFill);
+        pane.setBackground(bg);
 
         Scene scene = new Scene(pane, 250, 500);
         this.setScene(scene);

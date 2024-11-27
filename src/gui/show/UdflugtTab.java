@@ -8,9 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class UdflugtTab extends GridPane {
     private Konference selectedKonference;
@@ -18,6 +17,10 @@ public class UdflugtTab extends GridPane {
 
     public UdflugtTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
+
+        BackgroundFill bgFill = new BackgroundFill(Color.PEACHPUFF, new CornerRadii(0), new Insets(0));
+        Background bg = new Background(bgFill);
+        this.setBackground(bg);
 
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);

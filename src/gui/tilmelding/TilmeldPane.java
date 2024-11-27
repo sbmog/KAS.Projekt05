@@ -7,9 +7,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.time.LocalDate;
 
@@ -44,6 +44,17 @@ public class TilmeldPane extends Stage {
         pane.setPadding(new Insets(20));
         pane.setVgap(10);
         pane.setHgap(10);
+
+        Image image = new Image("./application/baggrund1.png");
+        BackgroundImage bgImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        Background bg = new Background(bgImage);
+        pane.setBackground(bg);
 
         Scene scene = new Scene(pane, 700, 600);
         this.setScene(scene);
