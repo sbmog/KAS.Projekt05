@@ -12,11 +12,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
@@ -30,6 +31,22 @@ public class StartWindow extends Application {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
         pane.setVgap(10);
+
+//        BackgroundFill bgFill = new BackgroundFill(Color.MEDIUMSLATEBLUE, new CornerRadii(0), new Insets(0));
+//        Background bg = new Background(bgFill);
+//        pane.setBackground(bg);
+
+        Image image = new Image("./application/baggrund.jpg");
+        BackgroundImage bgImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+
+        Background bg = new Background(bgImage);
+        pane.setBackground(bg);
 
         Scene scene = new Scene(pane, 650, 450);
         primaryStage.setScene(scene);
@@ -99,7 +116,6 @@ public class StartWindow extends Application {
         });
 
         Button søgDeltagerButton = new Button("Søg deltager");
-//        pane.add(søgDeltagerButton,0,3);
 
         søgDeltagerButton.setOnAction(event -> {
             SøgAlleDeltagere søgDeltagerPane = new SøgAlleDeltagere();

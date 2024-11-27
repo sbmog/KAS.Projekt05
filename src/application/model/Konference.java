@@ -84,6 +84,10 @@ public class Konference {
         return navn;
     }
 
+    public ArrayList<Hotel> getHoteller() {
+        return hoteller;
+    }
+
     @Override
     public String toString() {
         return navn;
