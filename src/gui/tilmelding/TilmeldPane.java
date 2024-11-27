@@ -8,7 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.time.LocalDate;
@@ -32,7 +32,8 @@ public class TilmeldPane extends Stage {
     private CheckBox badCheckBox = new CheckBox();
     private CheckBox wifiCheckBox = new CheckBox();
     private CheckBox morgenmadCheckBox = new CheckBox();
-
+    private TextField navnFirmaTextField = new TextField();
+    private TextField telefonFirmaTextField = new TextField();
 
 
     public TilmeldPane(Konference konference) {
@@ -53,11 +54,9 @@ public class TilmeldPane extends Stage {
         pane.add(konferenceLabel, 0, 0);
         pane.add(konferenceComboBox, 1, 0);
 
-
         Label navnLabel = new Label("Navn:");
         pane.add(navnLabel, 0, 1);
         pane.add(navnTextField, 1, 1);
-
 
         Label adresseLabel = new Label("Adresse:");
         pane.add(adresseLabel, 0, 2);
@@ -79,9 +78,17 @@ public class TilmeldPane extends Stage {
         pane.add(firmaLabel, 0, 6);
         pane.add(firmaCheckBox, 1, 6);
 
+        Label firmaNavnLabel = new Label("Firma");
+        pane.add(firmaNavnLabel, 0, 7);
+        pane.add(navnFirmaTextField, 1, 7);
+
+        Label firmaTelefonLabel = new Label("Telefonnummer");
+        pane.add(firmaTelefonLabel, 0, 8);
+        pane.add(telefonFirmaTextField, 1, 8);
+
         Label hotelLabel = new Label("Vælg hotel");
-        pane.add(hotelLabel, 0, 7);
-        pane.add(hotelComboBox, 1, 7);
+        pane.add(hotelLabel, 0, 9);
+        pane.add(hotelComboBox, 1, 9);
 
         VBox hotelMulighederVbox = new VBox(5);
         hotelMulighederVbox.setAlignment(Pos.TOP_LEFT);
@@ -91,23 +98,23 @@ public class TilmeldPane extends Stage {
         pane.add(hotelMulighederVbox,2,7); //Fiks det
 
         Label ledsagerLabel = new Label("Ledsager");
-        pane.add(udflugtCheckBox, 1, 8);
-        pane.add(ledsagerLabel, 0, 8);
-        pane.add(ledsagerTextField, 1, 8);
+        pane.add(udflugtCheckBox, 1, 10);
+        pane.add(ledsagerLabel, 0, 10);
+        pane.add(ledsagerTextField, 1, 10);
 
 
         Label udflugtLabel = new Label("Vælg udflugt");
-        pane.add(udflugtLabel, 0, 9);
-        pane.add(udflugtListView, 1, 9);
+        pane.add(udflugtLabel, 0, 11);
+        pane.add(udflugtListView, 1, 11);
 
         totalOmkostningLabel = new Label("Total pris: 0 DKK");
-        pane.add(totalOmkostningLabel, 0, 10);
+        pane.add(totalOmkostningLabel, 0, 12);
         Button beregnButton = new Button("Beregn total pris");
-        pane.add(beregnButton, 1, 10);
+        pane.add(beregnButton, 1, 12);
         beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
 
         Button registrerButton = new Button("Tilmeld");
-        pane.add(registrerButton, 0, 11);
+        pane.add(registrerButton, 0, 13);
         registrerButton.setOnAction(event -> registrerDeltager());
     }
 
@@ -119,6 +126,8 @@ public class TilmeldPane extends Stage {
         udflugtCheckBox = new CheckBox("Er du foredragsholder?");
         ledsagerTextField.setPromptText("Indtast ledsagers navn (valgfrit)");
         deltagersAdresseTextField.setPromptText("Indtast adresse");
+        navnFirmaTextField.setPromptText("Indtast firma navn");
+        telefonFirmaTextField.setPromptText("Indtast telefonnummer");
 
         firmaCheckBox = new CheckBox();
         hotelComboBox = new ComboBox<>();
@@ -145,15 +154,13 @@ public class TilmeldPane extends Stage {
         }
     }
 
-
-
     private void beregnFuldeOmkostninger() {
         if (!ValideringsMetode.validerInput(konferenceComboBox, navnTextField, telefonTextField, ankomstDatoValg, afrejseDatoValg,deltagersAdresseTextField)) {
             return;
         }
         try {
             //TempDeltager for at kunne beregne prisen uden at registerer deltageren
-            Deltager midlertidligDeltager = new Deltager(navnTextField.getText(),null,telefonTextField.getText());
+            Deltager midlertidligDeltager = new Deltager(navnTextField.getText(),deltagersAdresseTextField.getText(),telefonTextField.getText());
             Konference selectedKonference = konferenceComboBox.getValue();
             Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager,ankomstDatoValg.getValue(),afrejseDatoValg.getValue(), udflugtCheckBox.isSelected(), selectedKonference);
 
@@ -169,7 +176,7 @@ public class TilmeldPane extends Stage {
             }
 
             if (firmaCheckBox.isSelected()) {
-                tempTilmelding.setFirma(true);
+                tempTilmelding.setFirma(new Firma("222222","leasy"));
             }
             Hotel selectedHotel = hotelComboBox.getValue();
             if (selectedHotel != null) {
@@ -211,8 +218,10 @@ public class TilmeldPane extends Stage {
                 nuværendeTilmelding.setLedsager(ledsager);
             }
             if (firmaCheckBox.isSelected()) {
-                nuværendeTilmelding.setFirma(true);
+                Firma firma = Controller.createFirma("88888888","leasy");
+                nuværendeTilmelding.setFirma(firma);
             }
+
             Hotel selectedHotel = hotelComboBox.getValue();
             if (selectedHotel != null) {
                 boolean badValgt = badCheckBox.isSelected();
@@ -229,6 +238,5 @@ public class TilmeldPane extends Stage {
         } catch (Exception ex) {
            ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Der opstod en fejl: " + ex.getMessage());
         }
-
     }
 }
