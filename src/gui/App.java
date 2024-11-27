@@ -6,9 +6,6 @@ import gui.randomGenerator.RandomGenerator;
 import javafx.application.Application;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public class App {
     public static void main(String[] args) {
@@ -38,7 +35,7 @@ public class App {
 
 
 
-        RandomGenerator.generateRandomDeltager();
+        RandomGenerator.opretRandomDeltager();
 
 
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);

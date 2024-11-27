@@ -12,7 +12,7 @@ public class RandomGenerator {
 
     private static final Random random = new Random();
 
-    public static Hotel generateRandomHotel(Konference konference) {
+    public static Hotel opretRandomHotel(Konference konference) {
         ArrayList<String> hotelNavne = new ArrayList<>(Arrays.asList(
                 "Hotel d'Angleterre", "Radisson Blu Royal Hotel", "Skt. Petri Hotel",
                 "Copenhagen Marriott Hotel", "Nimb Hotel", "Hotel Kong Arthur",
@@ -52,7 +52,7 @@ public class RandomGenerator {
         return Controller.createHotel(hotelNavn, address, enkeltRumsPris, dobbleRumsPris, morgenmadsPris, middagsmadsPris, aftensmadsPris, konference);
     }
 
-    public static Deltager generateRandomDeltager() {
+    public static Deltager opretRandomDeltager() {
         ArrayList<String> deltagerNavne = new ArrayList<>(Arrays.asList(
                 "Mads Hansen", "Søren Andersen", "Lise Sørensen", "Anne Møller", "Jens Nielsen", "Pia Jensen", "Marie Christensen", "Emil Frederiksen",
                 "Kasper Larsen", "Ida Poulsen", "Lars Thomsen", "Nina Jakobsen", "Peter Johansen", "Hanne Kristensen", "Tobias Mikkelsen", "Sofie Jeppesen",
@@ -79,7 +79,7 @@ public class RandomGenerator {
         return Controller.createDeltager(deltagerNavn, adresse, tlfNummer);
     }
 
-    public static Udflugt generateRandomUdflugt(Konference konference) {
+    public static Udflugt opretRandomUdflugt(Konference konference) {
         ArrayList<String> udflugtsNavne = new ArrayList<>(Arrays.asList(
                 "Rundvisning i Nyhavn og Kongens Nytorv", "Besøg på Nationalmuseet", "Slotstur på Kronborg Slot",
                 "Vandring gennem Den Gamle By i Aarhus", "Guidet tur i Ribe Domkirke", "Rundvisning på Christiansborg Slot",
@@ -113,7 +113,7 @@ public class RandomGenerator {
         return Controller.createUdflugt(udflugtsNavn, udflugtsAdresse, dato, price, konference);
     }
 
-    public static Ledsager generateRandomLedsager(Deltager deltager) {
+    public static Ledsager opretRandomLedsager(Deltager deltager) {
         ArrayList<String> ledsagerNavne = new ArrayList<>(Arrays.asList(
                 "Signe Knudsen", "Oliver Kristensen", "Julie Sørensen", "Simon Larsen", "Sofie Nielsen",
                 "Rasmus Andersen", "Freja Petersen", "Lucas Jensen", "Emilie Hansen", "Mikkel Johansen",
