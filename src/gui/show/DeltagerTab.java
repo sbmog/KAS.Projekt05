@@ -12,8 +12,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import application.model.Deltager;
 
 import java.time.format.DateTimeFormatter;
@@ -36,6 +36,8 @@ public class DeltagerTab extends GridPane {
 
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
+
+
 
         ListView<Deltager> deltagerListView = new ListView<>();
         deltagerListView.setMinWidth(300);
