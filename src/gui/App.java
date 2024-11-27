@@ -2,9 +2,13 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
+import gui.randomGenerator.RandomGenerator;
 import javafx.application.Application;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class App {
     public static void main(String[] args) {
@@ -24,6 +28,17 @@ public class App {
         Konference denProfessionelleSekretær = Controller.createKonference("Den professionelle sekretær", "Montus Business Academy, 2900 Hellerup", LocalDate.of(2025, 5, 13), LocalDate.of(2025, 5, 14), 3850);
         Konference salgskursusSalgetsPsykologi = Controller.createKonference("Salgskursus: Salgets Psykologi", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 2, 27), LocalDate.of(2025, 3, 2), 4100);
         Konference forhandlingsteknik = Controller.createKonference("Forhandlingsteknik", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 2), LocalDate.of(2025, 3, 6), 3200);
+        Konference personligEffektivitet = Controller.createKonference("Personlig effektivitet", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 6), LocalDate.of(2025, 3, 9), 3500);
+        Konference effektivitetOgTrivsel = Controller.createKonference("Effektivitet og trivsel", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 9), LocalDate.of(2025, 3, 13), 3800);
+        Konference personaleJura = Controller.createKonference("Personalejura", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 13), LocalDate.of(2025, 3, 16), 4200);
+        Konference arbejdsmiljøOgHelbred = Controller.createKonference("Arbejdsmiljø og helbred", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 16), LocalDate.of(2025, 3, 20), 3900);
+        Konference arbejdsret = Controller.createKonference("Arbejdsret", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 20), LocalDate.of(2025, 3, 23), 4300);
+        Konference personaleUdvikling = Controller.createKonference("Personaleudvikling", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 23), LocalDate.of(2025, 3, 27), 3800);
+
+
+
+
+        RandomGenerator.generateRandomDeltager();
 
 
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
