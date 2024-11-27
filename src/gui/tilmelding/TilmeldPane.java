@@ -177,7 +177,7 @@
 
                 if (!ledsagerInput.getInputValue().isEmpty()) {
                     Ledsager tempLedsager = Controller.createLedsager(ledsagerInput.getInputValue(), midlertidligDeltager);
-                    tempTilmelding.setLedsager(tempLedsager);
+                    midlertidligDeltager.setLedsager(tempLedsager);
                 }
 
                 Hotel selectedHotel = hotelComboBox.getValue();
@@ -207,7 +207,6 @@
             try {
                 Deltager deltager = Controller.createDeltager(navnInput.getInputValue(),adresseInput.getInputValue(),telefonInput.getInputValue());
                 Konference selectedKonference = konferenceComboBox.getValue();
-
                 nuværendeTilmelding = Controller.createTilmelding(deltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), selectedKonference);
 
                 ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
@@ -217,11 +216,11 @@
 
                 if (!ledsagerInput.getInputValue().isEmpty()) {
                     Ledsager ledsager = Controller.createLedsager(ledsagerInput.getInputValue(), deltager);
-                    nuværendeTilmelding.setLedsager(ledsager);
+                    deltager.setLedsager(ledsager);
                 }
                 if (firmaCheckBox.isSelected()) {
-                    Firma firma = Controller.createFirma("88888888","leasy");
-                    nuværendeTilmelding.setFirma(firma);
+                    Firma firma = Controller.createFirma(firmaTelefonInput.getInputValue(),firmaNavnInput.getInputValue());
+                    deltager.setFirma(firma);
                 }
 
                 Hotel selectedHotel = hotelComboBox.getValue();
