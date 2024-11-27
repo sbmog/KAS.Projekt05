@@ -1,6 +1,8 @@
 package gui.tilmelding;
 
 import application.model.Konference;
+import gui.component.LabeledDateInput;
+import gui.component.LabeledTextInput;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -8,26 +10,26 @@ import javafx.scene.control.TextField;
 
 public class ValideringsMetode {
 
-    public static boolean validerInput(ComboBox<Konference> konferenceComboBox, TextField navnTextField, TextField telefonTextField,
-                                       DatePicker ankomstDatoValg, DatePicker afrejseDatoValg, TextField adresse) {
+    public static boolean validerInput(ComboBox<Konference> konferenceComboBox, LabeledTextInput navnTextField, LabeledTextInput telefonTextField,
+                                       LabeledDateInput ankomstDatoValg, LabeledDateInput afrejseDatoValg, LabeledTextInput adresse) {
 
         if (konferenceComboBox.getValue() == null) {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Du skal vælge en konference!");
             return false;
         }
-        if (navnTextField.getText().isEmpty() || telefonTextField.getText().isEmpty()) {
+        if (navnTextField.getInputValue().isEmpty() || telefonTextField.getInputValue().isEmpty()) {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Navn og telefonnummer er påkrævet.");
             return false;
         }
-        if (adresse.getText().isEmpty()) {
+        if (adresse.getInputValue().isEmpty()) {
             showAlert(Alert.AlertType.ERROR,"Fejl","Du skal udfylde adresse.");
             return false;
         }
-        if (ankomstDatoValg.getValue() == null || afrejseDatoValg.getValue() == null) {
+        if (ankomstDatoValg.getInputValue() == null || afrejseDatoValg.getInputValue() == null) {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Vælg både ankomst- og afrejsedato.");
             return false;
         }
-        if (afrejseDatoValg.getValue().isBefore(ankomstDatoValg.getValue())) {
+        if (afrejseDatoValg.getInputValue().isBefore(ankomstDatoValg.getInputValue())) {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Afrejsedato skal være efter ankomstdato.");
             return false;
         }

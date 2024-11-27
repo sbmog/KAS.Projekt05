@@ -1,242 +1,235 @@
-package gui.tilmelding;
+    package gui.tilmelding;
+    
+    import application.controller.Controller;
+    import application.model.*;
+    import gui.component.AttributeDisplay;
+    import gui.component.LabeledDateInput;
+    import gui.component.LabeledListViewInput;
+    import gui.component.LabeledTextInput;
+    import javafx.collections.FXCollections;
+    import javafx.collections.ObservableList;
+    import javafx.geometry.Insets;
+    import javafx.geometry.Pos;
+    import javafx.geometry.VPos;
+    import javafx.scene.Scene;
+    import javafx.scene.control.*;
+    import javafx.scene.layout.GridPane;
+    
+    import javafx.scene.layout.HBox;
+    import javafx.scene.layout.VBox;
+    import javafx.stage.Stage;
+    import java.time.LocalDate;
 
-import application.controller.Controller;
-import application.model.*;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+    import static gui.tilmelding.ValideringsMetode.validerInput;
+    
+    public class TilmeldPane extends Stage {
+    
+        private final LabeledTextInput navnInput = new LabeledTextInput("Navn");
+        private final LabeledTextInput telefonInput = new LabeledTextInput("Telefonnummer");
+        private final LabeledTextInput adresseInput = new LabeledTextInput("Adresse");
+        private final LabeledDateInput ankomstDatoInput = new LabeledDateInput("Ankomstdato");
+        private final LabeledDateInput afrejseDatoInput = new LabeledDateInput("Afrejsedato");
+        private final CheckBox firmaCheckBox = new CheckBox("Er du tilknyttet firma?");
+        private final LabeledTextInput firmaNavnInput = new LabeledTextInput("Firma");
+        private final LabeledTextInput firmaTelefonInput = new LabeledTextInput("Telefonnummer");
+        private final ComboBox<Konference> konferenceComboBox = new ComboBox<>();
+        private final ComboBox<Hotel> hotelComboBox = new ComboBox<>();
+        private final CheckBox badCheckBox = new CheckBox("Ønsker du bad?");
+        private final CheckBox wifiCheckBox = new CheckBox("Ønsker du wifi?");
+        private final CheckBox morgenmadCheckBox = new CheckBox("Ønsker du morgenmad?");
+        private final LabeledTextInput ledsagerInput = new LabeledTextInput("Ledsager");
+        private final CheckBox ForedragsholderCheckBox = new CheckBox("Er du foredragsholder?");
+        private final LabeledListViewInput<Udflugt> udflugtListViewInput = new LabeledListViewInput("Vælg udflugt");
+        private final AttributeDisplay totalOmkostningDisplay = new AttributeDisplay("Total pris", "0 DKK");
+        private Tilmelding nuværendeTilmelding;
+    
+        public TilmeldPane(Konference konference) {
+            this.setTitle("Tilmeld Deltager");
+    
+            GridPane pane = new GridPane();
+            pane.setAlignment(Pos.TOP_LEFT);
+            pane.setPadding(new Insets(20));
+            pane.setVgap(15);
+            pane.setHgap(10);
+    
+            Scene scene = new Scene(pane, 500, 800);
+            this.setScene(scene);
+            this.show();
+            initializeFields(konference);
 
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import java.time.LocalDate;
+            VBox personligBox = new VBox(10,navnInput,telefonInput,adresseInput);
+            personligBox.setPadding(new Insets(10));
+            personligBox.setAlignment(Pos.TOP_LEFT);
+            pane.add(personligBox, 0, 0);
 
-import static gui.tilmelding.ValideringsMetode.validerInput;
+            Label konferenceLabel = new Label("vælg konference: ");
+            VBox konferenceVBox = new VBox(5,konferenceLabel,konferenceComboBox,ankomstDatoInput,afrejseDatoInput);
+            konferenceVBox.setAlignment(Pos.TOP_LEFT);
+            konferenceVBox.setPadding(new Insets(5));
 
-public class TilmeldPane extends Stage {
-    private TextField telefonTextField = new TextField();
-    private TextField navnTextField = new TextField();
-    private DatePicker ankomstDatoValg = new DatePicker();
-    private DatePicker afrejseDatoValg = new DatePicker();
-    private CheckBox udflugtCheckBox = new CheckBox();
-    private TextField ledsagerTextField = new TextField();
-    private ListView<Udflugt> udflugtListView = new ListView<>();
-    private Label totalOmkostningLabel;
-    private ComboBox<Konference> konferenceComboBox = new ComboBox<>();
-    private Tilmelding nuværendeTilmelding;
-    private TextField deltagersAdresseTextField = new TextField();
-    private CheckBox firmaCheckBox = new CheckBox();
-    private ComboBox<Hotel> hotelComboBox = new ComboBox<>();
-    private CheckBox badCheckBox = new CheckBox();
-    private CheckBox wifiCheckBox = new CheckBox();
-    private CheckBox morgenmadCheckBox = new CheckBox();
-    private TextField navnFirmaTextField = new TextField();
-    private TextField telefonFirmaTextField = new TextField();
+            pane.add(konferenceVBox,0, 1);
 
+            VBox firmaBox = new VBox(10, firmaCheckBox, firmaNavnInput, firmaTelefonInput);
+            firmaBox.setPadding(new Insets(10));
+            firmaBox.setAlignment(Pos.TOP_LEFT);
+            pane.add(firmaBox, 0, 2);
 
-    public TilmeldPane(Konference konference) {
-        this.setTitle("Tilmeld Deltager");
+            firmaNavnInput.setDisable(!firmaCheckBox.isSelected());
+            firmaTelefonInput.setDisable(!firmaCheckBox.isSelected());
 
-        GridPane pane = new GridPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(20));
-        pane.setVgap(10);
-        pane.setHgap(10);
+            firmaCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                firmaNavnInput.setDisable(!newValue);
+                firmaTelefonInput.setDisable(!newValue);
 
-        Scene scene = new Scene(pane, 700, 600);
-        this.setScene(scene);
-        this.show();
-        initializeFields(konference);
+            });
 
-        Label konferenceLabel = new Label("Vælg konference");
-        pane.add(konferenceLabel, 0, 0);
-        pane.add(konferenceComboBox, 1, 0);
+            VBox foredragsholderBox = new VBox(5, ForedragsholderCheckBox);
+            foredragsholderBox.setPadding(new Insets(5));
+            pane.add(foredragsholderBox,0,3);
 
-        Label navnLabel = new Label("Navn:");
-        pane.add(navnLabel, 0, 1);
-        pane.add(navnTextField, 1, 1);
+            VBox ledsagerBox = new VBox(10, ledsagerInput,udflugtListViewInput);
+            pane.add(ledsagerBox, 2, 2);
+            ledsagerBox.setPadding(new Insets(10));
+            ledsagerBox.setAlignment(Pos.TOP_LEFT);
 
-        Label adresseLabel = new Label("Adresse:");
-        pane.add(adresseLabel, 0, 2);
-        pane.add(deltagersAdresseTextField, 1, 2);
+            udflugtListViewInput.getListView().setDisable(ledsagerInput.getInputValue().isEmpty());
 
-        Label telefonLabel = new Label("Telefonnummer:");
-        pane.add(telefonLabel, 0, 3);
-        pane.add(telefonTextField, 1, 3);
+            ledsagerInput.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
+                udflugtListViewInput.getListView().setDisable(newValue.isEmpty());
+            });
 
-        Label ankomstDato = new Label("Ankomstdato");
-        pane.add(ankomstDato, 0, 4);
-        pane.add(ankomstDatoValg, 1, 4);
-
-        Label afrejseLabel = new Label("Afrejsedato:");
-        pane.add(afrejseLabel, 0, 5);
-        pane.add(afrejseDatoValg, 1, 5);
-
-        Label firmaLabel = new Label("Er du tilknyttet firma?");
-        pane.add(firmaLabel, 0, 6);
-        pane.add(firmaCheckBox, 1, 6);
-
-        Label firmaNavnLabel = new Label("Firma");
-        pane.add(firmaNavnLabel, 0, 7);
-        pane.add(navnFirmaTextField, 1, 7);
-
-        Label firmaTelefonLabel = new Label("Telefonnummer");
-        pane.add(firmaTelefonLabel, 0, 8);
-        pane.add(telefonFirmaTextField, 1, 8);
-
-        Label hotelLabel = new Label("Vælg hotel");
-        pane.add(hotelLabel, 0, 9);
-        pane.add(hotelComboBox, 1, 9);
-
-        VBox hotelMulighederVbox = new VBox(5);
-        hotelMulighederVbox.setAlignment(Pos.TOP_LEFT);
-        hotelMulighederVbox.setPadding(new Insets(5,0,5,0));
-        hotelMulighederVbox.getChildren().addAll(new Label("Valgfrie tilvalg"), badCheckBox, wifiCheckBox, morgenmadCheckBox);
-        hotelMulighederVbox.setMaxWidth(300);
-        pane.add(hotelMulighederVbox,2,7); //Fiks det
-
-        Label ledsagerLabel = new Label("Ledsager");
-        pane.add(udflugtCheckBox, 1, 10);
-        pane.add(ledsagerLabel, 0, 10);
-        pane.add(ledsagerTextField, 1, 10);
+            pane.add(hotelComboBox,2,0);
 
 
-        Label udflugtLabel = new Label("Vælg udflugt");
-        pane.add(udflugtLabel, 0, 11);
-        pane.add(udflugtListView, 1, 11);
+            VBox hotelOptionsBox = new VBox(5, badCheckBox, wifiCheckBox, morgenmadCheckBox);
+            pane.add(hotelOptionsBox, 2, 1);
+            hotelOptionsBox.setPadding(new Insets(5));
+            hotelOptionsBox.setAlignment(Pos.TOP_LEFT);
+            hotelOptionsBox.setPrefWidth(200);
 
-        totalOmkostningLabel = new Label("Total pris: 0 DKK");
-        pane.add(totalOmkostningLabel, 0, 12);
-        Button beregnButton = new Button("Beregn total pris");
-        pane.add(beregnButton, 1, 12);
-        beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
-
-        Button registrerButton = new Button("Tilmeld");
-        pane.add(registrerButton, 0, 13);
-        registrerButton.setOnAction(event -> registrerDeltager());
-    }
-
-    private void initializeFields(Konference konference) {
-        navnTextField.setPromptText("Indtast deltagers navn");
-        telefonTextField.setPromptText("Indtast telefonnummer");
-        ankomstDatoValg.setValue(LocalDate.now());
-        afrejseDatoValg.setValue(LocalDate.now().plusDays(1));
-        udflugtCheckBox = new CheckBox("Er du foredragsholder?");
-        ledsagerTextField.setPromptText("Indtast ledsagers navn (valgfrit)");
-        deltagersAdresseTextField.setPromptText("Indtast adresse");
-        navnFirmaTextField.setPromptText("Indtast firma navn");
-        telefonFirmaTextField.setPromptText("Indtast telefonnummer");
-
-        firmaCheckBox = new CheckBox();
-        hotelComboBox = new ComboBox<>();
-        hotelComboBox.getItems().addAll(Controller.getHoteller());
-        hotelComboBox.setPromptText("Vælg et hotel");
-
-        badCheckBox = new CheckBox("Ønsker du bad?");
-        wifiCheckBox = new CheckBox("Ønsker du wifi?");
-        morgenmadCheckBox = new CheckBox("Ønsker du morgenmad?");
-
-        udflugtListView.getItems().addAll(Controller.getUdflugter());
-        udflugtListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        udflugtListView.setMinWidth(300);
+            udflugtListViewInput.getListView().setPrefHeight(100);
+            udflugtListViewInput.getListView().setPrefWidth(200);
+            udflugtListViewInput.getListView().setEditable(false);
+            udflugtListViewInput.getListView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 
-        konferenceComboBox = new ComboBox<>();
-        konferenceComboBox.getItems().addAll(Controller.getKonferencer());
-        konferenceComboBox.setPromptText("Vælg en konference");
+            pane.add(totalOmkostningDisplay, 0, 7);
 
-        if (konference != null) {
-            konferenceComboBox.setValue(konference);
-        } else {
-            konferenceComboBox.setPromptText("Vælg en konference");
+            HBox buttonsBox = new HBox(8);
+            buttonsBox.setAlignment(Pos.CENTER);
+            Button beregnButton = new Button("Beregn total pris");
+            Button registrerButton = new Button("Tilmeld");
+            buttonsBox.getChildren().addAll(beregnButton, registrerButton);
+
+            // Button actions
+            beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
+            registrerButton.setOnAction(event -> registrerDeltager());
+
+            HBox buttonbox = new HBox(20,beregnButton,registrerButton);
+            buttonbox.setAlignment(Pos.CENTER);
+            pane.add(buttonbox, 0, 9, 2, 1);
+        }
+    
+    
+        private void initializeFields(Konference konference) {
+            konferenceComboBox.getItems().addAll(Controller.getKonferencer());
+
+            if (konference != null) {
+                konferenceComboBox.setValue(konference);
+            }
+
+            hotelComboBox.getItems().addAll(Controller.getHoteller());
+            ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(Controller.getUdflugter());
+            udflugtListViewInput.getListView().setItems(udflugter);
+    
+            ankomstDatoInput.getDatePicker().setValue(LocalDate.now());
+            afrejseDatoInput.getDatePicker().setValue(LocalDate.now().plusDays(1));
+    
+            }
+
+
+    
+        private void beregnFuldeOmkostninger() {
+            if (!validerInput(konferenceComboBox, navnInput, telefonInput, ankomstDatoInput, afrejseDatoInput,adresseInput)) {
+                return;
+            }
+            try {
+                //TempDeltager for at kunne beregne prisen uden at registerer deltageren
+                Deltager midlertidligDeltager = new Deltager(navnInput.getInputValue(),adresseInput.getInputValue(),telefonInput.getInputValue());
+                Konference selectedKonference = konferenceComboBox.getValue();
+                Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager,ankomstDatoInput.getInputValue(),afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), selectedKonference);
+    
+                //Tilføjer valgte udfluger for den midlertidling tilmelding.
+                ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
+                for (Udflugt udflugt : selectedUdflugter) {
+                    tempTilmelding.addUdflugt(udflugt);
+                }
+    
+                if (!ledsagerInput.getInputValue().isEmpty()) {
+                    Ledsager tempLedsager = Controller.createLedsager(ledsagerInput.getInputValue(), midlertidligDeltager);
+                    tempTilmelding.setLedsager(tempLedsager);
+                }
+
+                Hotel selectedHotel = hotelComboBox.getValue();
+                if (selectedHotel != null) {
+                    boolean badValgt = badCheckBox.isSelected();
+                    boolean wifiValgt = wifiCheckBox.isSelected();
+                    boolean morgenmadValgt = morgenmadCheckBox.isSelected();
+    
+                    tempTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
+                }
+    
+                //Beregner den fulde pris.
+                int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
+                totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
+    
+            } catch (Exception ex) {
+                ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke beregne omkostninger: " + ex.getMessage());
+            }
+        }
+    
+    
+        private void registrerDeltager() {
+            if (!validerInput(konferenceComboBox, navnInput, telefonInput,
+                    ankomstDatoInput, afrejseDatoInput,adresseInput)) {
+                return;
+            }
+            try {
+                Deltager deltager = Controller.createDeltager(navnInput.getInputValue(),adresseInput.getInputValue(),telefonInput.getInputValue());
+                Konference selectedKonference = konferenceComboBox.getValue();
+    
+                nuværendeTilmelding = Controller.createTilmelding(deltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), selectedKonference);
+
+                ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
+                for (Udflugt udflugt : selectedUdflugter) {
+                    nuværendeTilmelding.addUdflugt(udflugt);
+                }
+    
+                if (!ledsagerInput.getInputValue().isEmpty()) {
+                    Ledsager ledsager = Controller.createLedsager(ledsagerInput.getInputValue(), deltager);
+                    nuværendeTilmelding.setLedsager(ledsager);
+                }
+                if (firmaCheckBox.isSelected()) {
+                    Firma firma = Controller.createFirma("88888888","leasy");
+                    nuværendeTilmelding.setFirma(firma);
+                }
+    
+                Hotel selectedHotel = hotelComboBox.getValue();
+                if (selectedHotel != null) {
+                    boolean badValgt = badCheckBox.isSelected();
+                    boolean wifiValgt = wifiCheckBox.isSelected();
+                    boolean morgenmadValgt = morgenmadCheckBox.isSelected();
+    
+                    nuværendeTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
+                }
+
+    
+                int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
+    
+                ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION,"Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
+                this.close();
+            } catch (Exception ex) {
+               ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Der opstod en fejl: " + ex.getMessage());
+            }
         }
     }
-
-    private void beregnFuldeOmkostninger() {
-        if (!ValideringsMetode.validerInput(konferenceComboBox, navnTextField, telefonTextField, ankomstDatoValg, afrejseDatoValg,deltagersAdresseTextField)) {
-            return;
-        }
-        try {
-            //TempDeltager for at kunne beregne prisen uden at registerer deltageren
-            Deltager midlertidligDeltager = new Deltager(navnTextField.getText(),deltagersAdresseTextField.getText(),telefonTextField.getText());
-            Konference selectedKonference = konferenceComboBox.getValue();
-            Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager,ankomstDatoValg.getValue(),afrejseDatoValg.getValue(), udflugtCheckBox.isSelected(), selectedKonference);
-
-            //Tilføjer valgte udfluger for den midlertidling tilmelding.
-            ObservableList<Udflugt> selectedUdflugter = udflugtListView.getSelectionModel().getSelectedItems();
-            for (Udflugt udflugt : selectedUdflugter) {
-                tempTilmelding.addUdflugt(udflugt);
-            }
-
-            if (!ledsagerTextField.getText().isEmpty()) {
-                Ledsager tempLedsager = Controller.createLedsager(ledsagerTextField.getText(), midlertidligDeltager);
-                tempTilmelding.setLedsager(tempLedsager);
-            }
-
-            if (firmaCheckBox.isSelected()) {
-                tempTilmelding.setFirma(new Firma("222222","leasy"));
-            }
-            Hotel selectedHotel = hotelComboBox.getValue();
-            if (selectedHotel != null) {
-                boolean badValgt = badCheckBox.isSelected();
-                boolean wifiValgt = wifiCheckBox.isSelected();
-                boolean morgenmadValgt = morgenmadCheckBox.isSelected();
-
-                tempTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
-            }
-
-            //Beregner den fulde pris.
-            int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
-            totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
-
-        } catch (Exception ex) {
-            ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke beregne omkostninger: " + ex.getMessage());
-        }
-    }
-
-
-    private void registrerDeltager() {
-        if (!validerInput(konferenceComboBox, navnTextField, telefonTextField,
-                ankomstDatoValg, afrejseDatoValg,deltagersAdresseTextField)) {
-            return;
-        }
-        try {
-            Deltager deltager = Controller.createDeltager(navnTextField.getText(),deltagersAdresseTextField.getText(),telefonTextField.getText());
-            Konference selectedKonference = konferenceComboBox.getValue();
-
-            nuværendeTilmelding = Controller.createTilmelding(deltager, ankomstDatoValg.getValue(), afrejseDatoValg.getValue(), udflugtCheckBox.isSelected(), selectedKonference);
-
-            ObservableList<Udflugt> selectedUdflugter = udflugtListView.getSelectionModel().getSelectedItems();
-            for (Udflugt udflugt : selectedUdflugter) {
-                nuværendeTilmelding.addUdflugt(udflugt);
-            }
-
-            if (!ledsagerTextField.getText().isEmpty()) {
-                Ledsager ledsager = Controller.createLedsager(ledsagerTextField.getText(), deltager);
-                nuværendeTilmelding.setLedsager(ledsager);
-            }
-            if (firmaCheckBox.isSelected()) {
-                Firma firma = Controller.createFirma("88888888","leasy");
-                nuværendeTilmelding.setFirma(firma);
-            }
-
-            Hotel selectedHotel = hotelComboBox.getValue();
-            if (selectedHotel != null) {
-                boolean badValgt = badCheckBox.isSelected();
-                boolean wifiValgt = wifiCheckBox.isSelected();
-                boolean morgenmadValgt = morgenmadCheckBox.isSelected();
-
-                nuværendeTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
-            }
-
-            int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
-
-            ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION,"Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
-            this.close();
-        } catch (Exception ex) {
-           ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Der opstod en fejl: " + ex.getMessage());
-        }
-    }
-}

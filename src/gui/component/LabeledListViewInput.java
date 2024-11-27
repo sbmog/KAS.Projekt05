@@ -5,8 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
-public class LabeledListViewInput extends VBox {
-    private final ListView<String> listView = new ListView<>();
+public class LabeledListViewInput<T> extends VBox {
+    private final ListView<T> listView = new ListView<>();
 
     public LabeledListViewInput (String labelText){
         this.setStyle("-fx-border-color: lightgrey; -fx-border-width: 1; -fx-background-color: aliceblue;");
@@ -17,7 +17,7 @@ public class LabeledListViewInput extends VBox {
         this.getChildren().addAll(label,listView);
     }
 
-    public ListView<String> getListView() {
+    public ListView<T> getListView() {
         return listView;
     }
 }

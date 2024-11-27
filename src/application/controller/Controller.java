@@ -86,6 +86,7 @@ public class Controller {
         return konference;
     }
 
+
     public static ArrayList<Konference> getKonferencer() {
         return Storage.getKonferencer();
     }
