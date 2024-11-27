@@ -10,12 +10,10 @@
     import javafx.collections.ObservableList;
     import javafx.geometry.Insets;
     import javafx.geometry.Pos;
-    import javafx.geometry.VPos;
     import javafx.scene.Scene;
     import javafx.scene.control.*;
     import javafx.scene.image.Image;
     import javafx.scene.layout.*;
-
     import javafx.stage.Stage;
     import java.time.LocalDate;
 
@@ -50,7 +48,7 @@
             pane.setPadding(new Insets(20));
             pane.setVgap(15);
             pane.setHgap(10);
-
+///////////////////////////////////////////////////////////////////////////
             Image image = new Image("./application/baggrund1.png");
             BackgroundImage bgImage = new BackgroundImage(
                     image,
@@ -61,7 +59,7 @@
             );
             Background bg = new Background(bgImage);
             pane.setBackground(bg);
-
+//////////////////////////////////////////////////////////////////////////////
             Scene scene = new Scene(pane, 500, 800);
             this.setScene(scene);
             this.show();
@@ -138,17 +136,22 @@
             HBox buttonbox = new HBox(20,beregnButton,registrerButton);
             buttonbox.setAlignment(Pos.CENTER);
             pane.add(buttonbox, 0, 9, 2, 1);
+
         }
 
 
         private void initializeFields(Konference konference) {
             konferenceComboBox.getItems().addAll(Controller.getKonferencer());
-
+            konferenceComboBox.setPromptText("Vælg konference");
             if (konference != null) {
                 konferenceComboBox.setValue(konference);
             }
 
             hotelComboBox.getItems().addAll(Controller.getHoteller());
+            hotelComboBox.setPromptText("Vælg Hotel");
+
+
+
             ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(Controller.getUdflugter());
             udflugtListViewInput.getListView().setItems(udflugter);
 
