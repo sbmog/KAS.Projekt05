@@ -52,8 +52,9 @@ public class StartWindow extends Application {
         AttributeDisplay adresseDisplay = new AttributeDisplay("Adresse", "");
         AttributeDisplay startdatoDisplay = new AttributeDisplay("Startdato", "");
         AttributeDisplay slutdatoDisplay = new AttributeDisplay("Slutdato", "");
+        AttributeDisplay prisDisplay = new AttributeDisplay("Pris per dag", "");
 
-        detailsBox.getChildren().addAll(navnDisplay, adresseDisplay, startdatoDisplay, slutdatoDisplay);
+        detailsBox.getChildren().addAll(navnDisplay, adresseDisplay, startdatoDisplay, slutdatoDisplay, prisDisplay);
         pane.add(detailsBox, 1, 1);
 
         konferenceListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -63,6 +64,7 @@ public class StartWindow extends Application {
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
                 startdatoDisplay.setValue(newValue.getStartdato().format(longDateFormat));
                 slutdatoDisplay.setValue(newValue.getSlutdato().format(longDateFormat));
+                prisDisplay.setValue(String.valueOf(newValue.getPrisPrDagForKonference()));
             }
         });
 
