@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -18,12 +19,24 @@ public class UdflugtTab extends GridPane {
     public UdflugtTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
 
-        BackgroundFill bgFill = new BackgroundFill(Color.PEACHPUFF, new CornerRadii(0), new Insets(0));
-        Background bg = new Background(bgFill);
-        this.setBackground(bg);
+//        BackgroundFill bgFill = new BackgroundFill(Color.PEACHPUFF, new CornerRadii(0), new Insets(0));
+//        Background bg = new Background(bgFill);
+//        this.setBackground(bg);
 
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
+
+        Image image = new Image("./application/baggrund2.jpg");
+        BackgroundImage bgImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+
+        Background bg1 = new Background(bgImage);
+        this.setBackground(bg1);
 
         udflugtListView = new ListView<>();
         udflugtListView.setMinWidth(300);

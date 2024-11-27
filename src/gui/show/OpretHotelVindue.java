@@ -8,8 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class OpretHotelVindue extends Stage {
@@ -22,6 +22,18 @@ public class OpretHotelVindue extends Stage {
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
         pane.setAlignment(Pos.CENTER);
+
+        Image image = new Image("./application/baggrund3.jpg");
+        BackgroundImage bgImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+
+        Background bg = new Background(bgImage);
+        pane.setBackground(bg);
 
         VBox HotelVindueVBox = new VBox();
         LabeledTextInput navnInput = new LabeledTextInput("Navn:");
