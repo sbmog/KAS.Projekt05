@@ -9,13 +9,13 @@ public class Deltager extends Person {
     private Ledsager ledsager;
     private Firma firma;
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
+
     public Deltager(String navn, String adresse, String telefonNummer) {
         super(navn);
         this.adresse = adresse;
         this.telefonNummer = telefonNummer;
 
     }
-
 
     public Ledsager createLedsager(String navn) {
         if (this.ledsager != null) {

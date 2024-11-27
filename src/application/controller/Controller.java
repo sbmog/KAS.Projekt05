@@ -30,7 +30,6 @@ public class Controller {
             }
         }
         return resultatSøgning;
-
     }
 
     public static Deltager søgDeltagerIKonference(Konference konference, String søgteDeltager) {

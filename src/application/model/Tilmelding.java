@@ -15,7 +15,6 @@ public class Tilmelding {
     private boolean hotelBad = false;
     private boolean hotelWifi = false;
     private boolean hotelMorgenmad = false;
-    private Firma firma;
 
     public Tilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
         this.ankomstDato = ankomstDato;
@@ -52,10 +51,6 @@ public class Tilmelding {
     }
 
     public int getSamletPrisForDeltagelse() {
-        if (firma != null) {
-            return 0;
-        }
-
         int sum = 0;
         boolean dobbeltVærelse = false;
         Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
@@ -116,17 +111,6 @@ public class Tilmelding {
 
     public ArrayList<Udflugt> getUdflugter() {
         return udflugter;
-    }
-
-    public void setLedsager(Ledsager ledsager) {
-    }
-
-    public void setFirma(Firma firma) {
-        this.firma = firma;
-    }
-
-    public Firma getFirma() {
-        return firma;
     }
 }
 
