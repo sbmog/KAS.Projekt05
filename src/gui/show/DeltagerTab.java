@@ -28,6 +28,8 @@ public class DeltagerTab extends GridPane {
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
     private final LabeledTextInput deltagerNavn = new LabeledTextInput("Søg deltager: ");
     private final LabeledListViewInput ledsagerUdflugtListview = new LabeledListViewInput("Ledsagers udflugter");
+    private final AttributeDisplay prisDsiplay = new AttributeDisplay("Prisen for deltagelse", "");
+    private final AttributeDisplay deltagersPrisDisplay = new AttributeDisplay("Deltagers udgitfer", "");
 
     public DeltagerTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
@@ -50,13 +52,12 @@ public class DeltagerTab extends GridPane {
         højreBoks.setSpacing(5);
         højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview);
+        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview, prisDsiplay, deltagersPrisDisplay);
         this.add(højreBoks, 1, 0);
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());
-                DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
                 telefonNummerDisplay.setValue(newValue.getTelefonNummer());
                 adresseDisplay.setValue(newValue.getAdresse());
                 if (newValue.getFirma() != null) {
@@ -77,6 +78,8 @@ public class DeltagerTab extends GridPane {
                     ledsagerDisplay.setValue("Ingen ledsager");
                     ledsagerUdflugtListview.getListView().getItems().clear();
                 }
+                prisDsiplay.setValue(String.valueOf(Controller.getSamletPrisForDeltagelse(Controller.getTilmeldingForDeltager(newValue, selectedKonference))));
+                deltagersPrisDisplay.setValue(String.valueOf(Controller.getPrisDeltagersUdgift(Controller.getTilmeldingForDeltager(newValue, selectedKonference))));
             }
         });
 
@@ -114,6 +117,9 @@ public class DeltagerTab extends GridPane {
                 ledsagerDisplay.setValue("Ingen ledsager");
                 ledsagerUdflugtListview.getListView().getItems().clear();
             }
+            prisDsiplay.setValue(String.valueOf(Controller.getSamletPrisForDeltagelse(Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference))));
+            deltagersPrisDisplay.setValue(String.valueOf(Controller.getPrisDeltagersUdgift(Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference))));
+
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Deltager ikke fundet");
