@@ -44,7 +44,7 @@ public class TilmeldPane extends Stage {
         pane.setVgap(10);
         pane.setHgap(10);
 
-        Scene scene = new Scene(pane, 500, 500);
+        Scene scene = new Scene(pane, 700, 600);
         this.setScene(scene);
         this.show();
         initializeFields(konference);
@@ -83,11 +83,12 @@ public class TilmeldPane extends Stage {
         pane.add(hotelLabel, 0, 7);
         pane.add(hotelComboBox, 1, 7);
 
-        HBox hotelMulighederHbox = new HBox(5);
-        hotelMulighederHbox.setAlignment(Pos.TOP_LEFT);
-        hotelMulighederHbox.getChildren().addAll(new Label("Valgfrie tilvalg"), badCheckBox, wifiCheckBox, morgenmadCheckBox);
-        hotelMulighederHbox.setMaxWidth(300);
-        pane.add(hotelMulighederHbox,2,7); //Fiks det
+        VBox hotelMulighederVbox = new VBox(5);
+        hotelMulighederVbox.setAlignment(Pos.TOP_LEFT);
+        hotelMulighederVbox.setPadding(new Insets(5,0,5,0));
+        hotelMulighederVbox.getChildren().addAll(new Label("Valgfrie tilvalg"), badCheckBox, wifiCheckBox, morgenmadCheckBox);
+        hotelMulighederVbox.setMaxWidth(300);
+        pane.add(hotelMulighederVbox,2,7); //Fiks det
 
         Label ledsagerLabel = new Label("Ledsager");
         pane.add(udflugtCheckBox, 1, 8);
@@ -119,7 +120,7 @@ public class TilmeldPane extends Stage {
         ledsagerTextField.setPromptText("Indtast ledsagers navn (valgfrit)");
         deltagersAdresseTextField.setPromptText("Indtast adresse");
 
-        firmaCheckBox = new CheckBox("Er du tilknyttet firma?");
+        firmaCheckBox = new CheckBox();
         hotelComboBox = new ComboBox<>();
         hotelComboBox.getItems().addAll(Controller.getHoteller());
         hotelComboBox.setPromptText("Vælg et hotel");
@@ -132,6 +133,7 @@ public class TilmeldPane extends Stage {
         udflugtListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         udflugtListView.setMinWidth(300);
 
+
         konferenceComboBox = new ComboBox<>();
         konferenceComboBox.getItems().addAll(Controller.getKonferencer());
         konferenceComboBox.setPromptText("Vælg en konference");
@@ -141,8 +143,8 @@ public class TilmeldPane extends Stage {
         } else {
             konferenceComboBox.setPromptText("Vælg en konference");
         }
-
     }
+
 
 
     private void beregnFuldeOmkostninger() {
@@ -179,7 +181,7 @@ public class TilmeldPane extends Stage {
             }
 
             //Beregner den fulde pris.
-            int totalOmkostning = tempTilmelding.getSamletPrisForDeltagelse();
+            int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
             totalOmkostningLabel.setText("Total pris: " + totalOmkostning + " DKK");
 
         } catch (Exception ex) {
@@ -220,8 +222,9 @@ public class TilmeldPane extends Stage {
                 nuværendeTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-            int totalOmkostningForDeltager = nuværendeTilmelding.getSamletPrisForDeltagelse();
-           ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION,"Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
+            int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
+
+            ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION,"Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
             this.close();
         } catch (Exception ex) {
            ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Der opstod en fejl: " + ex.getMessage());
