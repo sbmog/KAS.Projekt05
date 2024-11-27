@@ -14,8 +14,16 @@ public class App {
     }
 
     public static void initStorage() {
-        Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 350);
-        Konference tedTalk = Controller.createKonference("Ted Talk", "AU", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 500);
+        Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet, 5000 Odense", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1500);
+        Konference tedTalk = Controller.createKonference("Ted Talk", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1900);
+        Konference hjerneOgLæring = Controller.createKonference("Hjerne og Læring", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2024, 11, 13), LocalDate.of(2024, 11, 18), 1700);
+        Konference teaterSomBrobygger = Controller.createKonference("Teater som brobygger", "Esbjerg Universitet, 6705 Esbjerg Ø", LocalDate.of(2025, 1, 3), LocalDate.of(2025, 1, 6), 1200);
+        Konference skoleudviklingGennemIt = Controller.createKonference("Skoleudvikling gennem it", "Aalborg Universitet, 9220 Aalborg Ø", LocalDate.of(2024, 12, 2), LocalDate.of(2024, 12, 6), 1350);
+        Konference relationelVelfærd = Controller.createKonference("Relationel velfærd", "Crecea, 8000 Aarhus C", LocalDate.of(2025, 5, 8), LocalDate.of(2025, 5, 10), 2800);
+        Konference altoxTemadag = Controller.createKonference("Altox Temadag", "Altox, 8000 Aarhus C", LocalDate.of(2025, 4, 2), LocalDate.of(2025, 4, 5), 3200);
+        Konference denProfessionelleSekretær = Controller.createKonference("Den professionelle sekretær", "Montus Business Academy, 2900 Hellerup", LocalDate.of(2025, 5, 13), LocalDate.of(2025, 5, 14), 3850);
+        Konference salgskursusSalgetsPsykologi = Controller.createKonference("Salgskursus: Salgets Psykologi", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 2, 27), LocalDate.of(2025, 3, 2), 4100);
+        Konference forhandlingsteknik = Controller.createKonference("Forhandlingsteknik", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 2), LocalDate.of(2025, 3, 6), 3200);
 
 
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
