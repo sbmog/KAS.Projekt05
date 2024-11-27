@@ -49,17 +49,24 @@ public class SøgAlleDeltagere extends Stage {
 
     private void søgning() {
         Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
-        navnDisplay.setValue(søgteNavn.getNavn() + "");
-        tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
-        if (søgteNavn.getFirma() != null) {
-            firmaDisplay.setValue(søgteNavn.getFirma() + "");
-        }
-        if (søgteNavn.getLedsager() != null) {
-            ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
-        }
-        tilmeldingerListview.getListView().getItems().clear();
-        for (Tilmelding tilmelding : søgteNavn.getTilmeldinger()) {
-            tilmeldingerListview.getListView().getItems().add(tilmelding.getKonference().getNavn());
+        if (søgteNavn != null) {
+            navnDisplay.setValue(søgteNavn.getNavn() + "");
+            tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
+            if (søgteNavn.getFirma() != null) {
+                firmaDisplay.setValue(søgteNavn.getFirma() + "");
+            }
+            if (søgteNavn.getLedsager() != null) {
+                ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+            }
+            tilmeldingerListview.getListView().getItems().clear();
+            for (Tilmelding tilmelding : søgteNavn.getTilmeldinger()) {
+                tilmeldingerListview.getListView().getItems().add(tilmelding.getKonference().getNavn());
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Deltager ikke fundet");
+            alert.setHeaderText("Der kan ikke findes noget, som matcher søgningen");
+            alert.showAndWait();
         }
     }
 }
