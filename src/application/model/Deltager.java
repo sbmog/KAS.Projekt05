@@ -79,5 +79,9 @@ public class Deltager extends Person {
     public ArrayList<Tilmelding> getTilmeldinger() {
         return tilmeldinger;
     }
+
+    public String getAdresse() {
+        return adresse;
+    }
 }
 

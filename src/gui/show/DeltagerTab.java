@@ -13,7 +13,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import application.model.Deltager;
 
@@ -23,7 +22,8 @@ import java.time.format.FormatStyle;
 public class DeltagerTab extends GridPane {
     private final Konference selectedKonference;
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
-    private final AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
+    private final AttributeDisplay telefonNummerDisplay = new AttributeDisplay("Telefon nummer", "");
+    private final AttributeDisplay adresseDisplay = new AttributeDisplay("Adresse", "");
     private final AttributeDisplay firmaDisplay = new AttributeDisplay("Firma", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
     private final LabeledTextInput deltagerNavn = new LabeledTextInput("Søg deltager: ");
@@ -50,14 +50,15 @@ public class DeltagerTab extends GridPane {
         højreBoks.setSpacing(5);
         højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        højreBoks.getChildren().addAll(navnDisplay, tlfDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview);
+        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview);
         this.add(højreBoks, 1, 0);
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.toString());
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
-                tlfDisplay.setValue(newValue.getTelefonNummer());
+                telefonNummerDisplay.setValue(newValue.getTelefonNummer());
+                adresseDisplay.setValue(newValue.getAdresse());
                 if (newValue.getFirma() != null) {
                     firmaDisplay.setValue(newValue.getFirma() + "");
                 } else {
@@ -95,7 +96,8 @@ public class DeltagerTab extends GridPane {
         Deltager søgteNavn = Controller.søgDeltagerIKonference(selectedKonference, deltagerNavn.getInputValue());
         if (søgteNavn != null) {
             navnDisplay.setValue(søgteNavn.getNavn() + "");
-            tlfDisplay.setValue(søgteNavn.getTelefonNummer());
+            telefonNummerDisplay.setValue(søgteNavn.getTelefonNummer());
+            adresseDisplay.setValue(søgteNavn.getAdresse());
             if (søgteNavn.getFirma() != null) {
                 firmaDisplay.setValue(søgteNavn.getFirma() + "");
             } else {
