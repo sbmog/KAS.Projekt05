@@ -4,6 +4,7 @@ import application.controller.Controller;
 import application.model.*;
 import gui.randomGenerator.RandomGenerator;
 import javafx.application.Application;
+import gui.randomGenerator.KonferenceManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,33 +34,12 @@ public class App {
         Konference arbejdsret = Controller.createKonference("Arbejdsret", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 20), LocalDate.of(2025, 3, 23), 4300);
         Konference personaleUdvikling = Controller.createKonference("Personaleudvikling", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 23), LocalDate.of(2025, 3, 27), 3800);
 
-        //ArrayList over de forskellige inputs til RandomGenerator
+//        //ArrayList over de forskellige inputs til RandomGenerator
+
         ArrayList<Konference> konferencer = Controller.getKonferencer();
-        ArrayList<Tilmelding> tilmeldinger = Controller.getTilmeldinger();
-
-        ArrayList<Hotel> hoteller = new ArrayList<>();
-        for (Konference konference : konferencer) {
-            hoteller.addAll(konference.getHoteller());
-        }
-        ArrayList<Deltager> deltagere = new ArrayList<>();
-        for (Tilmelding tilmelding : tilmeldinger) {
-            deltagere.add(tilmelding.getDeltager());
-        }
-
-
-        for (int i = 0; i < 3; i++) {
-            RandomGenerator.opretRandomHotel(havOgHimmel);
-        }
-
-        for (Konference konference : konferencer) {
-            for (int i = 0; i < 5; i++) {
-                RandomGenerator.opretRandomUdflugt(konference);
-            }
-        }
-
-        for (Deltager deltager : deltagere) {
-            RandomGenerator.opretRandomLedsager(deltager);
-        }
+        KonferenceManager konferenceManager = new KonferenceManager();
+//        konferenceManager.opretRandomDataForKonferencer(konferencer);
+        konferenceManager.opretRandomDataForEnkeltKonference(havOgHimmel);
 
 
 

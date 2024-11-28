@@ -45,11 +45,11 @@ public class RandomGenerator {
         String hotelNavn = hotelNavne.get(random.nextInt(hotelNavne.size()));
         String address = adresser.get(random.nextInt(adresser.size()));
         int enkeltRumsPris = 500 + random.nextInt(1000);
-        int dobbleRumsPris = 600 + random.nextInt(1000);
-        int morgenmadsPris = random.nextInt(200);
-        int middagsmadsPris = random.nextInt(200);
-        int aftensmadsPris = random.nextInt(200);
-        return Controller.createHotel(hotelNavn, address, enkeltRumsPris, dobbleRumsPris, morgenmadsPris, middagsmadsPris, aftensmadsPris, konference);
+        int dobbleRumsPris = enkeltRumsPris + 200 + random.nextInt(1000);
+        int badTillæg = 100 + random.nextInt(200);
+        int wifiTillæg = 30 + random.nextInt(200);
+        int morgenmadsPris = 200 + random.nextInt(200);
+        return Controller.createHotel(hotelNavn, address, enkeltRumsPris, dobbleRumsPris, badTillæg, wifiTillæg, morgenmadsPris, konference);
     }
 
     public static Deltager opretRandomDeltager() {
@@ -73,7 +73,7 @@ public class RandomGenerator {
                 "Lindegade 3, 6700 Esbjerg", "Ahornvej 7, 6000 Kolding", "Pilevej 1, 8000 Aarhus C", "Fasanvej 12, 2900 Hellerup",
                 "Lergravsvej 9, 9220 Aalborg Ø", "Teglværksvej 5, 8000 Aarhus C", "Blomstergade 14, 5000 Odense", "Fjordvej 18, 4000 Roskilde"
         ));
-        String tlfNummer = "12" + (random.nextInt(90000000) + 10000000);
+        String tlfNummer = "+45 " + (random.nextInt(90000000) + 10000000);
         String deltagerNavn = deltagerNavne.get(random.nextInt(deltagerNavne.size()));
         String adresse = adresser.get(random.nextInt(adresser.size()));
         return Controller.createDeltager(deltagerNavn, adresse, tlfNummer);
@@ -109,8 +109,8 @@ public class RandomGenerator {
         LocalDate dato = startDato.plusDays(random.nextInt((int) (slutDato.toEpochDay() - startDato.toEpochDay() + 1)));
         String udflugtsNavn = udflugtsNavne.get(random.nextInt(udflugtsNavne.size()));
         String udflugtsAdresse = udflugtsAdresser.get(random.nextInt(udflugtsAdresser.size()));
-        int price = 50 + random.nextInt(200);
-        return Controller.createUdflugt(udflugtsNavn, udflugtsAdresse, dato, price, konference);
+        int pris = 50 + random.nextInt(200);
+        return Controller.createUdflugt(udflugtsNavn, udflugtsAdresse, dato, pris, konference);
     }
 
     public static Ledsager opretRandomLedsager(Deltager deltager) {
