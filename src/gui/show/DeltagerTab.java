@@ -81,6 +81,7 @@ public class DeltagerTab extends GridPane {
                     ledsagerDisplay.setValue("Ingen ledsager");
                     ledsagerUdflugtListview.getListView().getItems().clear();
                 }
+                //todo tror vi har en fejl her, getsamletprisfordeltagelse, hver gang der trykkes på et navn kommer der en error.
                 prisDsiplay.setValue(String.valueOf(Controller.getSamletPrisForDeltagelse(Controller.getTilmeldingForDeltager(newValue, selectedKonference))));
                 deltagersPrisDisplay.setValue(String.valueOf(Controller.getPrisDeltagersUdgift(Controller.getTilmeldingForDeltager(newValue, selectedKonference))));
             }
