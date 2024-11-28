@@ -49,7 +49,7 @@ public class App {
 //        Hotel phønix = Controller.createHotel("Høtel Phønix", "XX", 700, 800, 200, 75, 0, havOgHimmel);
 //        Hotel tusindfryd = Controller.createHotel("Pension Tusindfryd", "XX", 500, 600, 0, 0, 100, havOgHimmel);
 
-//        Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
+        Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
 //        Udflugt egeskov = Controller.createUdflugt("Egeskov", "skovvej 1", LocalDate.of(2024, 12, 19), 75, havOgHimmel);
 //        Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);
 //
