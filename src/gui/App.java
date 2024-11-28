@@ -28,18 +28,19 @@ public class App {
         Konference salgskursusSalgetsPsykologi = Controller.createKonference("Salgskursus: Salgets Psykologi", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 2, 27), LocalDate.of(2025, 3, 2), 4100);
         Konference forhandlingsteknik = Controller.createKonference("Forhandlingsteknik", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 2), LocalDate.of(2025, 3, 6), 3200);
         Konference personligEffektivitet = Controller.createKonference("Personlig effektivitet", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 6), LocalDate.of(2025, 3, 9), 3500);
-        Konference effektivitetOgTrivsel = Controller.createKonference("Effektivitet og trivsel", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 9), LocalDate.of(2025, 3, 13), 3800);
-        Konference personaleJura = Controller.createKonference("Personalejura", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 13), LocalDate.of(2025, 3, 16), 4200);
-        Konference arbejdsmiljøOgHelbred = Controller.createKonference("Arbejdsmiljø og helbred", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 16), LocalDate.of(2025, 3, 20), 3900);
-        Konference arbejdsret = Controller.createKonference("Arbejdsret", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 20), LocalDate.of(2025, 3, 23), 4300);
-        Konference personaleUdvikling = Controller.createKonference("Personaleudvikling", "TACK International, 8000 Aarhus C", LocalDate.of(2025, 3, 23), LocalDate.of(2025, 3, 27), 3800);
+        Konference effektivitetOgTrivsel = Controller.createKonference("Effektivitet og trivsel", "Esbjerg Universitet, 6705 Esbjerg Ø", LocalDate.of(2025, 3, 9), LocalDate.of(2025, 3, 13), 3800);
+        Konference personaleJura = Controller.createKonference("Personalejura", "Odense Universitet, 5000 Odense", LocalDate.of(2025, 3, 13), LocalDate.of(2025, 3, 16), 4200);
+        Konference arbejdsmiljøOgHelbred = Controller.createKonference("Arbejdsmiljø og helbred", "Aalborg Universitet, 9220 Aalborg Ø", LocalDate.of(2025, 3, 16), LocalDate.of(2025, 3, 20), 3900);
+        Konference arbejdsret = Controller.createKonference("Arbejdsret", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2025, 3, 20), LocalDate.of(2025, 3, 23), 4300);
+        Konference personaleUdvikling = Controller.createKonference("Personaleudvikling", "Odense Universitet, 5000 Odense", LocalDate.of(2025, 3, 23), LocalDate.of(2025, 3, 27), 3800);
 
 //        //ArrayList over de forskellige inputs til RandomGenerator
 
         ArrayList<Konference> konferencer = Controller.getKonferencer();
         KonferenceManager konferenceManager = new KonferenceManager();
-//        konferenceManager.opretRandomDataForKonferencer(konferencer);
-        konferenceManager.opretRandomDataForEnkeltKonference(havOgHimmel);
+        konferenceManager.opretRandomDataForKonferencer(konferencer);
+//        konferenceManager.opretRandomDataForEnkeltKonference(havOgHimmel);
+//        konferenceManager.opretRandomDataForEnkeltKonference(tedTalk);
 
 
 
@@ -47,7 +48,7 @@ public class App {
 //        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
 //        Hotel phønix = Controller.createHotel("Høtel Phønix", "XX", 700, 800, 200, 75, 0, havOgHimmel);
 //        Hotel tusindfryd = Controller.createHotel("Pension Tusindfryd", "XX", 500, 600, 0, 0, 100, havOgHimmel);
-//
+
 //        Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
 //        Udflugt egeskov = Controller.createUdflugt("Egeskov", "skovvej 1", LocalDate.of(2024, 12, 19), 75, havOgHimmel);
 //        Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);

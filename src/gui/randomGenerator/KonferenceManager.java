@@ -16,6 +16,12 @@ public class KonferenceManager {
     }
 
     public void opretRandomDataForEnkeltKonference(Konference konference) {
+        //Udflugter
+        for (int i = 0; i < 3; i++) {
+            Udflugt udflugt = RandomGenerator.opretRandomUdflugt(konference);
+            konference.addUdflugt(udflugt);
+        }
+
         //Hoteller
         for (int i = 0; i < 5; i++) {
             Hotel hotel = RandomGenerator.opretRandomHotel(konference);
@@ -40,13 +46,5 @@ public class KonferenceManager {
                 }
             }
         }
-
-        //Udflugter
-        for (int i = 0; i < 3; i++) {
-            Udflugt udflugt = RandomGenerator.opretRandomUdflugt(konference);
-            konference.addUdflugt(udflugt);
-        }
-
-
     }
 }

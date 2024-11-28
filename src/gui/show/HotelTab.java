@@ -28,7 +28,7 @@ public class HotelTab extends GridPane {
 
         hotelListView = new ListView<>();
         hotelListView.setMinWidth(300);
-        hotelListView.getItems().setAll(Controller.getHoteller());
+        hotelListView.getItems().setAll(Controller.getHotellerForKonference(selectedKonference));
         this.add(hotelListView, 0, 0);
 
         VBox detailsBox = new VBox();
@@ -74,6 +74,6 @@ public class HotelTab extends GridPane {
     }
 
     private void updateHotelList() {
-        hotelListView.getItems().setAll(Controller.getHoteller());
+        hotelListView.getItems().setAll(Controller.getHotellerForKonference(selectedKonference));
     }
 }

@@ -40,7 +40,7 @@ public class UdflugtTab extends GridPane {
 
         udflugtListView = new ListView<>();
         udflugtListView.setMinWidth(300);
-        udflugtListView.getItems().setAll(Controller.getUdflugter());
+        udflugtListView.getItems().setAll(Controller.getUdflugterForKonference(selectedKonference));
         this.add(udflugtListView, 0, 0);
 
         VBox detailsBox = new VBox();
@@ -82,7 +82,7 @@ public class UdflugtTab extends GridPane {
     }
 
     private void updateUdflugtList() {
-        udflugtListView.getItems().setAll(Controller.getUdflugter());
+        udflugtListView.getItems().setAll(Controller.getUdflugterForKonference(selectedKonference));
     }
 }
 

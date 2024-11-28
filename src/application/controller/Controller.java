@@ -79,6 +79,10 @@ public class Controller {
         return Storage.getHoteller();
     }
 
+    public static ArrayList<Hotel> getHotellerForKonference(Konference konference) {
+        return konference.getHoteller();
+    }
+
     public static Konference createKonference(String navn, String adresse, LocalDate startDato, LocalDate slutDato, int prisPrDagForKonference) {
         Konference konference = new Konference(navn, adresse, startDato, slutDato, prisPrDagForKonference);
         Storage.addKonference(konference);
@@ -111,6 +115,10 @@ public class Controller {
 
     public static ArrayList<Udflugt> getUdflugter() {
         return Storage.getUdflugter();
+    }
+
+    public static ArrayList<Udflugt> getUdflugterForKonference(Konference konference) {
+        return konference.getUdflugter();
     }
 
     public static Tilmelding getTilmeldingForDeltager(Deltager deltager, Konference konference) {

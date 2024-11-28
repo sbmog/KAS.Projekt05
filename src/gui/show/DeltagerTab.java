@@ -30,6 +30,7 @@ public class DeltagerTab extends GridPane {
     private final LabeledListViewInput ledsagerUdflugtListview = new LabeledListViewInput("Ledsagers udflugter");
     private final AttributeDisplay prisDsiplay = new AttributeDisplay("Prisen for deltagelse", "");
     private final AttributeDisplay deltagersPrisDisplay = new AttributeDisplay("Deltagers udgitfer", "");
+    private final ListView<Deltager> deltagerListView;
 
     public DeltagerTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
@@ -39,7 +40,7 @@ public class DeltagerTab extends GridPane {
 
 
 
-        ListView<Deltager> deltagerListView = new ListView<>();
+        deltagerListView = new ListView<>();
         deltagerListView.setMinWidth(300);
         deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
 
@@ -92,6 +93,7 @@ public class DeltagerTab extends GridPane {
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
             }
+            updateDeltagerList();
         });
 
         deltagerNavn.getTextField().setOnAction(event -> søgning());
@@ -128,5 +130,8 @@ public class DeltagerTab extends GridPane {
             alert.setHeaderText("Der kan ikke findes noget, som matcher søgningen");
             alert.showAndWait();
         }
+    }
+    private void updateDeltagerList() {
+        deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
     }
 }
