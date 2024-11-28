@@ -29,7 +29,7 @@ public class TilmeldPane extends Stage {
     private final LabeledDateInput ankomstDatoInput = new LabeledDateInput("Ankomstdato");
     private final LabeledDateInput afrejseDatoInput = new LabeledDateInput("Afrejsedato");
     private final CheckBox firmaCheckBox = new CheckBox("Er du tilknyttet firma?");
-    private final LabeledTextInput firmaNavnInput = new LabeledTextInput("Firma");
+    private final LabeledTextInput firmaNavnInput = new LabeledTextInput("Firma navn");
     private final LabeledTextInput firmaTelefonInput = new LabeledTextInput("Telefonnummer");
     private final ComboBox<Konference> konferenceComboBox = new ComboBox<>();
     private final ComboBox<Hotel> hotelComboBox = new ComboBox<>();
@@ -62,7 +62,8 @@ public class TilmeldPane extends Stage {
         Background bg = new Background(bgImage);
         pane.setBackground(bg);
 //////////////////////////////////////////////////////////////////////////////
-        Scene scene = new Scene(pane, 500, 800);
+
+        Scene scene = new Scene(pane, 600, 850);
         this.setScene(scene);
         this.show();
         initializeFields(konference);
@@ -73,7 +74,7 @@ public class TilmeldPane extends Stage {
         pane.add(personligBox, 0, 0);
 
         Label konferenceLabel = new Label("vælg konference: ");
-        VBox konferenceVBox = new VBox(5, konferenceLabel, konferenceComboBox, ankomstDatoInput, afrejseDatoInput);
+        VBox konferenceVBox = new VBox(10, konferenceLabel, konferenceComboBox, ankomstDatoInput, afrejseDatoInput);
         konferenceVBox.setAlignment(Pos.TOP_LEFT);
         konferenceVBox.setPadding(new Insets(5));
 
@@ -93,12 +94,12 @@ public class TilmeldPane extends Stage {
 
         });
 
-        VBox foredragsholderBox = new VBox(5, ForedragsholderCheckBox);
+        VBox foredragsholderBox = new VBox(10, ForedragsholderCheckBox);
         foredragsholderBox.setPadding(new Insets(5));
         pane.add(foredragsholderBox, 0, 3);
 
         VBox ledsagerBox = new VBox(10, ledsagerInput, udflugtListViewInput);
-        pane.add(ledsagerBox, 2, 2);
+        pane.add(ledsagerBox, 2, 1);
         ledsagerBox.setPadding(new Insets(10));
         ledsagerBox.setAlignment(Pos.TOP_LEFT);
 
@@ -108,12 +109,9 @@ public class TilmeldPane extends Stage {
             udflugtListViewInput.getListView().setDisable(newValue.isEmpty());
         });
 
-        pane.add(hotelComboBox, 2, 0);
-
-
-        VBox hotelOptionsBox = new VBox(5, badCheckBox, wifiCheckBox, morgenmadCheckBox);
-        pane.add(hotelOptionsBox, 2, 1);
-        hotelOptionsBox.setPadding(new Insets(5));
+        VBox hotelOptionsBox = new VBox(10,hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox);
+        pane.add(hotelOptionsBox, 2, 0);
+        hotelOptionsBox.setPadding(new Insets(10,10,10,10));
         hotelOptionsBox.setAlignment(Pos.TOP_LEFT);
         hotelOptionsBox.setPrefWidth(200);
 
@@ -121,7 +119,6 @@ public class TilmeldPane extends Stage {
         udflugtListViewInput.getListView().setPrefWidth(200);
         udflugtListViewInput.getListView().setEditable(false);
         udflugtListViewInput.getListView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
 
         pane.add(totalOmkostningDisplay, 0, 7);
 
@@ -138,9 +135,7 @@ public class TilmeldPane extends Stage {
         HBox buttonbox = new HBox(20, beregnButton, registrerButton);
         buttonbox.setAlignment(Pos.CENTER);
         pane.add(buttonbox, 0, 9, 2, 1);
-
     }
-
 
     private void initializeFields(Konference konference) {
         konferenceComboBox.getItems().addAll(Controller.getKonferencer());
