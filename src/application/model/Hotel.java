@@ -58,6 +58,13 @@ public class Hotel {
         return adresse;
     }
 
+    public int getPrisForEnkeltVærelse() {
+        return prisForEnkeltVærelse;
+    }
+
+    public int getPrisForDobbeltVærelse() {
+        return prisForDobbeltVærelse;
+    }
 
     public int getBadTillæg() {
         return badTillæg;
