@@ -28,10 +28,16 @@ public class KonferenceManager {
             Tilmelding tilmelding = new Tilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(3), new Random().nextBoolean(), konference);
             konference.addTilmelding(tilmelding);
 
-            //Ledsager
+            // Tilføj tilfældigt en ledsager til nogle af deltagerne
             if (new Random().nextBoolean()) {
                 Ledsager ledsager = RandomGenerator.opretRandomLedsager(deltager);
                 deltager.setLedsager(ledsager);
+
+                // Ledsager vælger en tilfældig udflugt
+                if (!tilmelding.getUdflugter().isEmpty()) {
+                    Udflugt udflugt = tilmelding.getUdflugter().get(new Random().nextInt(tilmelding.getUdflugter().size()));
+                    tilmelding.addUdflugt(udflugt);
+                }
             }
         }
 
