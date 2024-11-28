@@ -66,6 +66,7 @@ public class Deltager extends Person {
         return firma;
     }
 
+
     @Override
     public String toString() {
         return getNavn();

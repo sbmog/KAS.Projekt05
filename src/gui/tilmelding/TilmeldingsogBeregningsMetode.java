@@ -19,12 +19,14 @@ public class TilmeldingsogBeregningsMetode {
                                                LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
                                                LabeledDateInput ankomstDatoInput, LabeledDateInput afrejseDatoInput, LabeledTextInput ledsagerInput,
                                                ComboBox<Hotel> hotelComboBox, CheckBox badCheckBox, CheckBox wifiCheckBox, CheckBox morgenmadCheckBox,
-                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay) {
+                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, CheckBox firmaCheckBox,boolean isForedragsholder) {
+
+
 
         try {
 
             Deltager midlertidligDeltager = new Deltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
-            Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), false, konference);
+            Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), isForedragsholder  , konference);
 
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
@@ -50,6 +52,17 @@ public class TilmeldingsogBeregningsMetode {
 
 
             int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
+            if (isForedragsholder) {
+                totalOmkostning -= tempTilmelding.getSamletPrisForDeltagelse();
+            }
+            if (firmaCheckBox.isSelected()) {
+                totalOmkostning = 0;
+            }
+
+            if (totalOmkostning < 0) {
+                totalOmkostning = 0 ;
+            }
+
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
 
         } catch (Exception ex) {
@@ -61,11 +74,11 @@ public class TilmeldingsogBeregningsMetode {
     public static void registrerDeltager(Konference konference, LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
                                          LabeledTextInput firmaNavnInput, LabeledTextInput firmaTelefonInput, CheckBox firmaCheckBox,
                                          ComboBox<Hotel> hotelComboBox, CheckBox badCheckBox, CheckBox wifiCheckBox, CheckBox morgenmadCheckBox,
-                                         LabeledTextInput ledsagerInput, LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay) {
+                                         LabeledTextInput ledsagerInput, LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay,boolean isForedragsholder) {
 
         try {
             Deltager deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
-            Tilmelding nuværendeTilmelding = Controller.createTilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(1), false, konference);
+            Tilmelding nuværendeTilmelding = Controller.createTilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(1), isForedragsholder, konference);
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
             for (Udflugt udflugt : selectedUdflugter) {
@@ -92,6 +105,18 @@ public class TilmeldingsogBeregningsMetode {
             }
 
             int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
+            if (isForedragsholder) {
+                totalOmkostningForDeltager -= nuværendeTilmelding.getSamletPrisForDeltagelse();
+            }
+            if (firmaCheckBox.isSelected()) {
+                totalOmkostningForDeltager = 0;
+            }
+
+            //Sørger for vi ikke kommer under 0.
+            if (totalOmkostningForDeltager < 0) {
+                totalOmkostningForDeltager = 0 ;
+            }
+
             ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION, "Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
 
         } catch (Exception ex) {
@@ -99,4 +124,3 @@ public class TilmeldingsogBeregningsMetode {
         }
     }
 }
-

@@ -5,8 +5,6 @@ import gui.component.LabeledDateInput;
 import gui.component.LabeledTextInput;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 
 public class ValideringsMetode {
 

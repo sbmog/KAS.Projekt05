@@ -47,7 +47,7 @@ public class TilmeldPane extends Stage {
 
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.TOP_LEFT);
-        pane.setPadding(new Insets(20));
+        pane.setPadding(new Insets(10));
         pane.setVgap(15);
         pane.setHgap(10);
 ///////////////////////////////////////////////////////////////////////////
@@ -69,7 +69,7 @@ public class TilmeldPane extends Stage {
         initializeFields(konference);
 
         VBox personligBox = new VBox(10, navnInput, telefonInput, adresseInput);
-        personligBox.setPadding(new Insets(10));
+        personligBox.setPadding(new Insets(5));
         personligBox.setAlignment(Pos.TOP_LEFT);
         pane.add(personligBox, 0, 0);
 
@@ -80,47 +80,10 @@ public class TilmeldPane extends Stage {
 
         pane.add(konferenceVBox, 0, 1);
 
-        VBox firmaBox = new VBox(10, firmaCheckBox, firmaNavnInput, firmaTelefonInput);
+        VBox firmaBox = new VBox(10,ForedragsholderCheckBox, firmaCheckBox, firmaNavnInput, firmaTelefonInput);
         firmaBox.setPadding(new Insets(10));
         firmaBox.setAlignment(Pos.TOP_LEFT);
         pane.add(firmaBox, 0, 2);
-
-        firmaNavnInput.setDisable(!firmaCheckBox.isSelected());
-        firmaTelefonInput.setDisable(!firmaCheckBox.isSelected());
-
-        firmaCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            firmaNavnInput.setDisable(!newValue);
-            firmaTelefonInput.setDisable(!newValue);
-
-        });
-
-        VBox foredragsholderBox = new VBox(10, ForedragsholderCheckBox);
-        foredragsholderBox.setPadding(new Insets(5));
-        pane.add(foredragsholderBox, 0, 3);
-
-        VBox ledsagerBox = new VBox(10, ledsagerInput, udflugtListViewInput);
-        pane.add(ledsagerBox, 2, 1);
-        ledsagerBox.setPadding(new Insets(10));
-        ledsagerBox.setAlignment(Pos.TOP_LEFT);
-
-        udflugtListViewInput.getListView().setDisable(ledsagerInput.getInputValue().isEmpty());
-
-        ledsagerInput.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
-            udflugtListViewInput.getListView().setDisable(newValue.isEmpty());
-        });
-
-        VBox hotelOptionsBox = new VBox(10,hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox);
-        pane.add(hotelOptionsBox, 2, 0);
-        hotelOptionsBox.setPadding(new Insets(10,10,10,10));
-        hotelOptionsBox.setAlignment(Pos.TOP_LEFT);
-        hotelOptionsBox.setPrefWidth(200);
-
-        udflugtListViewInput.getListView().setPrefHeight(100);
-        udflugtListViewInput.getListView().setPrefWidth(200);
-        udflugtListViewInput.getListView().setEditable(false);
-        udflugtListViewInput.getListView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        pane.add(totalOmkostningDisplay, 0, 7);
 
         HBox buttonsBox = new HBox(8);
         buttonsBox.setAlignment(Pos.CENTER);
@@ -135,18 +98,50 @@ public class TilmeldPane extends Stage {
         HBox buttonbox = new HBox(20, beregnButton, registrerButton);
         buttonbox.setAlignment(Pos.CENTER);
         pane.add(buttonbox, 0, 9, 2, 1);
+
+
+//        VBox foredragsholderBox = new VBox(10, ForedragsholderCheckBox);
+//        foredragsholderBox.setPadding(new Insets(5));
+//        pane.add(foredragsholderBox, 0, 3);
+
+        VBox ledsagerBox = new VBox(10, ledsagerInput, udflugtListViewInput);
+        pane.add(ledsagerBox, 2, 1);
+        ledsagerBox.setPadding(new Insets(10));
+
+
+        pane.add(totalOmkostningDisplay, 2, 3);
+
+        VBox hotelOptionsBox = new VBox(10, hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox);
+        pane.add(hotelOptionsBox, 2, 0);
+        hotelOptionsBox.setPadding(new Insets(5));
+
+        hotelOptionsBox.setPrefWidth(200);
+
+        udflugtListViewInput.getListView().setPrefHeight(100);
+        udflugtListViewInput.getListView().setPrefWidth(200);
+        udflugtListViewInput.getListView().setEditable(false);
+        udflugtListViewInput.getListView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
     }
 
     private void initializeFields(Konference konference) {
         konferenceComboBox.getItems().addAll(Controller.getKonferencer());
         konferenceComboBox.setPromptText("Vælg konference");
+
         if (konference != null) {
             konferenceComboBox.setValue(konference);
         }
 
+        konferenceComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                ankomstDatoInput.getDatePicker().setValue(newValue.getStartdato());
+                afrejseDatoInput.getDatePicker().setValue(newValue.getSlutdato());
+            }
+
+        });
+
         hotelComboBox.getItems().addAll(Controller.getHoteller());
         hotelComboBox.setPromptText("Vælg Hotel");
-
 
         ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(Controller.getUdflugter());
         udflugtListViewInput.getListView().setItems(udflugter);
@@ -154,28 +149,46 @@ public class TilmeldPane extends Stage {
         ankomstDatoInput.getDatePicker().setValue(LocalDate.now());
         afrejseDatoInput.getDatePicker().setValue(LocalDate.now().plusDays(1));
 
+
+        //Aktiver deaktiver list baseret på ledsager input
+        udflugtListViewInput.getListView().setDisable(ledsagerInput.getInputValue().isEmpty());
+        ledsagerInput.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
+            udflugtListViewInput.getListView().setDisable(newValue.isEmpty());
+        });
+
+            firmaNavnInput.setDisable(!firmaCheckBox.isSelected());
+            firmaTelefonInput.setDisable(!firmaCheckBox.isSelected());
+
+            firmaCheckBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                firmaNavnInput.setDisable(!newValue);
+                firmaTelefonInput.setDisable(!newValue);
+        });
     }
 
 
-    private void beregnFuldeOmkostninger() {
-        if (!validerInput(konferenceComboBox, navnInput, telefonInput, ankomstDatoInput, afrejseDatoInput, adresseInput)) {
-            return;
+        private void beregnFuldeOmkostninger () {
+            if (!validerInput(konferenceComboBox, navnInput, telefonInput, ankomstDatoInput, afrejseDatoInput, adresseInput)) {
+                return;
+            }
+            boolean isForedragsholder = ForedragsholderCheckBox.isSelected();
+            TilmeldingsogBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
+                    ankomstDatoInput, afrejseDatoInput, ledsagerInput, hotelComboBox, badCheckBox,
+                    wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, totalOmkostningDisplay, firmaCheckBox,isForedragsholder);
+
+
         }
-        TilmeldingsogBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
-                ankomstDatoInput, afrejseDatoInput, ledsagerInput, hotelComboBox, badCheckBox,
-                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, totalOmkostningDisplay);
 
-    }
+        private void registrerDeltager () {
+            if (!validerInput(konferenceComboBox, navnInput, telefonInput,
+                    ankomstDatoInput, afrejseDatoInput, adresseInput)) {
+                return;
+            }
+            boolean isForedragsholder = ForedragsholderCheckBox.isSelected();
+            TilmeldingsogBeregningsMetode.registrerDeltager(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
+                    firmaNavnInput, firmaTelefonInput, firmaCheckBox, hotelComboBox,
+                    badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, totalOmkostningDisplay,isForedragsholder);
 
-    private void registrerDeltager() {
-        if (!validerInput(konferenceComboBox, navnInput, telefonInput,
-                ankomstDatoInput, afrejseDatoInput, adresseInput)) {
-            return;
         }
-        TilmeldingsogBeregningsMetode.registrerDeltager(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
-                firmaNavnInput, firmaTelefonInput, firmaCheckBox, hotelComboBox,
-                badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, totalOmkostningDisplay);
-
     }
-}
+
 
