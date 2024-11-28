@@ -23,7 +23,14 @@ public class RandomGenerator {
                 "Copenhagen Strand Hotel", "Radisson Blu Scandinavia Hotel", "Scandic Falkoner",
                 "Best Western Hotel City", "CABINN City Hotel", "Hotel Guldsmeden",
                 "Hotel Østerport", "Hotel Tivoli", "The Huxley Copenhagen", "Hotel Løvenborg",
-                "Zleep Hotel Copenhagen Airport", "Hotel Nordklit"
+                "Zleep Hotel Copenhagen Airport", "Hotel Nordklit", "Hotel Phoenix Copenhagen", "Villa Copenhagen",
+                "Hotel Alexandra", "Wakeup Copenhagen Borgergade", "Wakeup Copenhagen Carsten Niebuhrs Gade",
+                "Hotel Sanders", "Hotel Ottilia", "Urban House Copenhagen by MEININGER", "Hotel Christian IV",
+                "Hotel Bethel", "Hotel Hebron", "Wakeup Copenhagen Bernstorffsgade", "Hotel Skt. Annæ", "Hotel Maritime",
+                "Comfort Hotel Vesterbro", "Hotel Rye 115", "Andersen Boutique Hotel", "Axel Guldsmeden",
+                "Brøchner Hotels' Bryggen Guldsmeden", "Copenhagen Admiral Hotel", "Hotel Windsor",
+                "Steel House Copenhagen", "Ascot Hotel", "Hotel Danmark by Brøchner Hotels", "First Hotel G & Suites",
+                "Copenhagen Island Hotel", "Hotel Absalon", "Scandic Sluseholmen", "Go Hotel City", "CPH Studio Hotel"
         ));
         ArrayList<String> adresser = new ArrayList<>(Arrays.asList(
                 "Kongens Nytorv 34, 1050 København K", "Hammerichsgade 1, 1611 København V",
@@ -54,24 +61,35 @@ public class RandomGenerator {
 
     public static Deltager opretRandomDeltager() {
         ArrayList<String> deltagerNavne = new ArrayList<>(Arrays.asList(
-                "Mads Hansen", "Søren Andersen", "Lise Sørensen", "Anne Møller", "Jens Nielsen", "Pia Jensen", "Marie Christensen", "Emil Frederiksen",
-                "Kasper Larsen", "Ida Poulsen", "Lars Thomsen", "Nina Jakobsen", "Peter Johansen", "Hanne Kristensen", "Tobias Mikkelsen", "Sofie Jeppesen",
-                "Jakob Knudsen", "Emma Mortensen", "Andreas Clausen", "Camilla Jørgensen", "Frederik Sørensen", "Katrine Rasmussen", "Martin Holm",
-                "Christina Laursen", "Thomas Olesen", "Julie Berg", "Rasmus Dahl", "Amalie Pedersen", "Mikkel Hansen", "Karla Skov", "Jonas Bruun",
-                "Sara Lind", "Victor Iversen", "Nikolaj Nygaard", "Louise Aagaard", "Alexander Skytte", "Caroline Brandt", "Sebastian Bang",
-                "Rebecca Falk", "Oliver Anker", "Helena Jensen", "Christian Bro", "Mathilde Riis", "Henrik Johansen", "Astrid Nielsen", "Maja Bjørn",
-                "Esben Holm", "Clara Krag", "Lucas Dreyer", "Line Bach", "Jon Andersen", "Isabella Gram", "Tobias Lorenzen", "Nina Berg",
-                "Patrick Vestergaard", "Laura Krogh", "Christoffer Dam", "Silke Hald", "Mads Nørgaard", "Viktor Enevold"
+                "Mads Hansen", "Søren Andersen", "Lise Sørensen", "Anne Møller", "Jens Nielsen", "Pia Jensen",
+                "Marie Christensen", "Emil Frederiksen", "Kasper Larsen", "Ida Poulsen", "Lars Thomsen", "Nina Jakobsen",
+                "Peter Johansen", "Hanne Kristensen", "Tobias Mikkelsen", "Sofie Jeppesen", "Jakob Knudsen",
+                "Emma Mortensen", "Andreas Clausen", "Camilla Jørgensen", "Frederik Sørensen", "Katrine Rasmussen",
+                "Martin Holm", "Christina Laursen", "Thomas Olesen", "Julie Berg", "Rasmus Dahl", "Amalie Pedersen",
+                "Mikkel Hansen", "Karla Skov", "Jonas Bruun", "Sara Lind", "Victor Iversen", "Nikolaj Nygaard",
+                "Louise Aagaard", "Alexander Skytte", "Caroline Brandt", "Sebastian Bang", "Rebecca Falk",
+                "Oliver Anker", "Helena Jensen", "Christian Bro", "Mathilde Riis", "Henrik Johansen", "Astrid Nielsen",
+                "Maja Bjørn", "Esben Holm", "Clara Krag", "Lucas Dreyer", "Line Bach", "Jon Andersen", "Isabella Gram",
+                "Tobias Lorenzen", "Nina Berg", "Patrick Vestergaard", "Laura Krogh", "Christoffer Dam", "Silke Hald",
+                "Mads Nørgaard", "Viktor Enevold", "Kasper Madsen", "Signe Holm", "Simon Kristiansen", "Mette Olsen",
+                "Anders Lund", "Pernille Friis", "Oscar Bjerregaard", "Thea Clausen", "Mathias Lundgaard",
+                "Cecilie Skovgaard", "Jonathan Bjørn", "Sofia Hvid", "Malthe Jepsen", "Emma Vester", "Laura Høj",
+                "Benjamin Bak", "Clara Simonsen", "Nikolaj Juhl", "Louise Thomsen", "Daniel Krogh", "Anna Fogh",
+                "Victoria Nyborg", "Alexander Borup", "Freja Bruun", "Lasse Vang", "Caroline Andersen", "Lucas Kjær",
+                "Julie Dalgaard", "Rasmus Winther", "Amalie Hede"
         ));
         ArrayList<String> adresser = new ArrayList<>(Arrays.asList(
-                "Fynsvej 12, 5000 Odense", "Jyllandsgade 5, 8000 Aarhus C", "Sjællandsvej 7, 4000 Roskilde", "Bakkegade 10, 6000 Kolding",
-                "Sønderbro 3, 6700 Esbjerg", "Strandvej 20, 2900 Hellerup", "Engvej 2, 8000 Aarhus C", "Skolevej 8, 9220 Aalborg Ø",
-                "Kastanievej 14, 5000 Odense", "Roskildevej 9, 4000 Roskilde", "Vestergade 11, 6000 Kolding", "Nyvej 13, 6700 Esbjerg",
-                "Nørregade 15, 2900 Hellerup", "Hovedgaden 18, 8000 Aarhus C", "Parkvej 6, 9220 Aalborg Ø", "Grønnegade 22, 5000 Odense",
-                "Bredgade 30, 4000 Roskilde", "Viborgvej 2, 8000 Aarhus C", "Strandvejen 25, 2900 Hellerup", "Østergade 40, 6700 Esbjerg",
-                "Midtgade 19, 6000 Kolding", "Nygårdsvej 50, 9220 Aalborg Ø", "Holmegade 60, 5000 Odense", "Stengade 80, 4000 Roskilde",
-                "Lindegade 3, 6700 Esbjerg", "Ahornvej 7, 6000 Kolding", "Pilevej 1, 8000 Aarhus C", "Fasanvej 12, 2900 Hellerup",
-                "Lergravsvej 9, 9220 Aalborg Ø", "Teglværksvej 5, 8000 Aarhus C", "Blomstergade 14, 5000 Odense", "Fjordvej 18, 4000 Roskilde"
+                "Fynsvej 12, 5000 Odense", "Jyllandsgade 5, 8000 Aarhus C", "Sjællandsvej 7, 4000 Roskilde",
+                "Bakkegade 10, 6000 Kolding", "Sønderbro 3, 6700 Esbjerg", "Strandvej 20, 2900 Hellerup",
+                "Engvej 2, 8000 Aarhus C", "Skolevej 8, 9220 Aalborg Ø", "Kastanievej 14, 5000 Odense",
+                "Roskildevej 9, 4000 Roskilde", "Vestergade 11, 6000 Kolding", "Nyvej 13, 6700 Esbjerg",
+                "Nørregade 15, 2900 Hellerup", "Hovedgaden 18, 8000 Aarhus C", "Parkvej 6, 9220 Aalborg Ø",
+                "Grønnegade 22, 5000 Odense", "Bredgade 30, 4000 Roskilde", "Viborgvej 2, 8000 Aarhus C",
+                "Strandvejen 25, 2900 Hellerup", "Østergade 40, 6700 Esbjerg", "Midtgade 19, 6000 Kolding",
+                "Nygårdsvej 50, 9220 Aalborg Ø", "Holmegade 60, 5000 Odense", "Stengade 80, 4000 Roskilde",
+                "Lindegade 3, 6700 Esbjerg", "Ahornvej 7, 6000 Kolding", "Pilevej 1, 8000 Aarhus C",
+                "Fasanvej 12, 2900 Hellerup", "Lergravsvej 9, 9220 Aalborg Ø", "Teglværksvej 5, 8000 Aarhus C",
+                "Blomstergade 14, 5000 Odense", "Fjordvej 18, 4000 Roskilde"
         ));
         String tlfNummer = "+45 " + (random.nextInt(90000000) + 10000000);
         String deltagerNavn = deltagerNavne.get(random.nextInt(deltagerNavne.size()));
@@ -119,7 +137,13 @@ public class RandomGenerator {
                 "Rasmus Andersen", "Freja Petersen", "Lucas Jensen", "Emilie Hansen", "Mikkel Johansen",
                 "Victoria Holm", "Lukas Knudsen", "Amalie Thomsen", "Jacob Laursen", "Katrine Poulsen",
                 "Oscar Bang", "Anna Larsen", "Theodor Sørensen", "Laura Knudsen", "Noah Nielsen",
-                "Alma Rasmussen", "Benjamin Olesen", "Lærke Møller", "Mathias Holm"
+                "Alma Rasmussen", "Benjamin Olesen", "Lærke Møller", "Mathias Holm", "Ida Mikkelsen", "William Jensen",
+                "Caroline Sørensen", "Tobias Larsen", "Emma Johansen", "Frederik Hansen", "Clara Petersen",
+                "Jonas Nielsen", "Helena Thomsen", "Malthe Andersen", "Astrid Knudsen", "Magnus Holm", "Maja Poulsen",
+                "Sebastian Laursen", "Sara Kristensen", "Elias Bang", "Alberte Rasmussen", "Victor Olesen",
+                "Nanna Møller", "Daniel Sørensen", "Pernille Andersen", "Kasper Johansen", "Louise Jensen",
+                "Alexander Larsen", "Nikolaj Hansen", "Mille Poulsen", "Karla Mikkelsen", "Jonathan Thomsen",
+                "Rebecca Bang", "Esben Knudsen"
         ));
         String ledsagerNavn = ledsagerNavne.get(random.nextInt(ledsagerNavne.size()));
         return deltager.createLedsager(ledsagerNavn);

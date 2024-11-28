@@ -31,14 +31,6 @@ public class Konference {
      return deltagere;
     }
 
-    public ArrayList<Udflugt> getUdflugter() {
-        ArrayList<Udflugt> udflugter = new ArrayList<>();
-        for (Tilmelding tilmelding : tilmeldinger) {
-            udflugter.addAll(tilmelding.getUdflugter());
-        }
-        return udflugter;
-    }
-
     public Tilmelding createTilmelding(Deltager deltager, LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsHolder) {
         Tilmelding tilmelding = new Tilmelding(deltager, ankomstDato, afrejseDato, foredragsHolder, this);
         this.addTilmelding(tilmelding);
@@ -94,6 +86,10 @@ public class Konference {
 
     public ArrayList<Hotel> getHoteller() {
         return hoteller;
+    }
+
+    public ArrayList<Udflugt> getUdflugter() {
+        return udflugter;
     }
 
     @Override
