@@ -3,12 +3,13 @@ import application.model.*;
 import gui.randomGenerator.RandomGenerator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class KonferenceManager {
 
-    public void opretRandomDataForKonferencer(List<Konference> konferencer) {
+    public void opretRandomDataForKonferencer(ArrayList<Konference> konferencer) {
         for (Konference konference : konferencer) {
             opretRandomDataForEnkeltKonference(konference);
         }
