@@ -9,9 +9,13 @@ public class Ledsager extends Person {
     }
 
     public void setDeltager(Deltager deltager) {
-        if (this.deltager!=deltager){
-            this.deltager=deltager;
+        if (this.deltager != deltager) {
+            this.deltager = deltager;
         }
+    }
+
+    public String toStringMedDeltager() {
+        return getNavn() + " (" + deltager.getNavn() + " " + deltager.getTelefonNummer() + ")";
     }
 
     @Override
