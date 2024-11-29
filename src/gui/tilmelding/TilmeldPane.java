@@ -87,6 +87,7 @@ public class TilmeldPane extends Stage {
         Button beregnButton = new Button("Beregn total pris");
         Button registrerButton = new Button("Tilmeld");
         buttonsBox.getChildren().addAll(beregnButton, registrerButton);
+        pane.add(buttonsBox,0,2);
 
         udflugtListViewInput.getListView().setPrefHeight(100);
         udflugtListViewInput.getListView().setPrefWidth(200);
