@@ -53,14 +53,10 @@ public class TilmeldingsogBeregningsMetode {
 
             int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
             if (isForedragsholder) {
-                totalOmkostning -= tempTilmelding.getSamletPrisForDeltagelse();
+                totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
             }
             if (firmaCheckBox.isSelected()) {
                 totalOmkostning = 0;
-            }
-
-            if (totalOmkostning < 0) {
-                totalOmkostning = 0 ;
             }
 
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
@@ -106,16 +102,13 @@ public class TilmeldingsogBeregningsMetode {
 
             int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
             if (isForedragsholder) {
-                totalOmkostningForDeltager -= nuværendeTilmelding.getSamletPrisForDeltagelse();
+                totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
             }
             if (firmaCheckBox.isSelected()) {
                 totalOmkostningForDeltager = 0;
             }
 
-            //Sørger for vi ikke kommer under 0.
-            if (totalOmkostningForDeltager < 0) {
-                totalOmkostningForDeltager = 0 ;
-            }
+
 
             ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION, "Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
 

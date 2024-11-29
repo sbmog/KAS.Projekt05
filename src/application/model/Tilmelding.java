@@ -68,37 +68,23 @@ public class Tilmelding {
         return sum;
     }
 
+
     public int getPrisDeltagersUdgift() {
-
-        //todo if (deltager.getfirma() != null   - skulle firma ikke være først ellers overwrite den?
-
-//        public int getPrisDeltagersUdgift() {
-//            if (deltager.getFirma() != null) {
-//                return 0;
-//            }
-//
-//            int sum = getSamletPrisForDeltagelse();
-//
-//            if (foredragsholder) {
-//                Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
-//                int antalDagePåKonferencen = ((int) antalDage.count() + 1);
-//                sum -= (antalDagePåKonferencen * konference.getPrisPrDagForKonference());
-//            }
-//
-//            return sum;
-//        }
+        if (deltager.getFirma() != null) {
+            return 0;
+        }
 
         int sum = getSamletPrisForDeltagelse();
+
         if (foredragsholder) {
             Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
             int antalDagePåKonferencen = ((int) antalDage.count() + 1);
             sum -= (antalDagePåKonferencen * konference.getPrisPrDagForKonference());
         }
-        if (deltager.getFirma() != null) {
-            sum = 0;
-        }
+
         return sum;
     }
+
 
     public boolean isHotelBad() {
         return hotelBad;
