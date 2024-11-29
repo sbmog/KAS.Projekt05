@@ -148,4 +148,5 @@ public class RandomGenerator {
         String ledsagerNavn = ledsagerNavne.get(random.nextInt(ledsagerNavne.size()));
         return deltager.createLedsager(ledsagerNavn);
     }
+
 }

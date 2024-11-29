@@ -1,4 +1,5 @@
 package gui.randomGenerator;
+import application.controller.Controller;
 import application.model.*;
 import gui.randomGenerator.RandomGenerator;
 
@@ -31,7 +32,7 @@ public class KonferenceManager {
         //Deltagere
         for (int i = 0; i < 10; i++) {
             Deltager deltager = RandomGenerator.opretRandomDeltager();
-            Tilmelding tilmelding = new Tilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(3), new Random().nextBoolean(), konference);
+            Tilmelding tilmelding = Controller.createTilmelding(deltager, konference.getStartdato(), konference.getSlutdato(), new Random().nextBoolean(), konference);
             konference.addTilmelding(tilmelding);
 
             // Tilføj tilfældigt en ledsager til nogle af deltagerne
@@ -44,6 +45,10 @@ public class KonferenceManager {
                     Udflugt udflugt = tilmelding.getUdflugter().get(new Random().nextInt(tilmelding.getUdflugter().size()));
                     tilmelding.addUdflugt(udflugt);
                 }
+                    if (tilmelding.getHotel() == null) {
+                        Hotel hotel = konference.getHoteller().get(new Random().nextInt(konference.getHoteller().size()));
+                        tilmelding.setHotel(hotel, new Random().nextBoolean(), new Random().nextBoolean(), new Random().nextBoolean());
+                    }
             }
         }
     }
