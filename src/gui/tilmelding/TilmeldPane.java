@@ -2,7 +2,6 @@ package gui.tilmelding;
 
 import application.controller.Controller;
 import application.model.*;
-import com.sun.tools.javac.Main;
 import gui.component.AttributeDisplay;
 import gui.component.LabeledDateInput;
 import gui.component.LabeledListViewInput;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import storage.Storage;
 
 import java.time.LocalDate;
-
 import static gui.tilmelding.ValideringsMetode.validerInput;
 
 public class TilmeldPane extends Stage {
@@ -95,6 +93,7 @@ public class TilmeldPane extends Stage {
         Button registrerButton = new Button("Tilmeld");
         buttonsBox.getChildren().addAll(beregnButton, registrerButton);
 
+        // Button actions
         beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
 
         registrerButton.setOnAction(event -> {
@@ -180,7 +179,6 @@ public class TilmeldPane extends Stage {
             firmaTelefonInput.setDisable(!newValue);
         });
     }
-
 
     private void beregnFuldeOmkostninger() {
         if (!validerInput(konferenceComboBox, navnInput, telefonInput, ankomstDatoInput, afrejseDatoInput, adresseInput)) {

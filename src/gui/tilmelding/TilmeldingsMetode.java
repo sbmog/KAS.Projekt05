@@ -12,7 +12,7 @@ public class TilmeldingsMetode {
 
         if (ledsagerNavn != null && !ledsagerNavn.isEmpty()) {
             Ledsager ledsager = Controller.createLedsager(ledsagerNavn, tilmelding.getDeltager());
-            tilmelding.setLedsager(ledsager);
+            tilmelding.getDeltager().setLedsager(ledsager);
 
             if (udflugter != null && !udflugter.isEmpty()) {
                 for (Udflugt udflugt : udflugter) {

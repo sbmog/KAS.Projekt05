@@ -24,12 +24,13 @@ public class DeltagerTab extends GridPane {
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
     private final AttributeDisplay telefonNummerDisplay = new AttributeDisplay("Telefon nummer", "");
     private final AttributeDisplay adresseDisplay = new AttributeDisplay("Adresse", "");
+    private final AttributeDisplay erForedragsholderDisplay = new AttributeDisplay("Er foredragsholder?", "");
     private final AttributeDisplay firmaDisplay = new AttributeDisplay("Firma", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
     private final LabeledTextInput deltagerNavn = new LabeledTextInput("Søg deltager: ");
     private final LabeledListViewInput ledsagerUdflugtListview = new LabeledListViewInput("Ledsagers udflugter");
     private final AttributeDisplay prisDsiplay = new AttributeDisplay("Prisen for deltagelse", "");
-    private final AttributeDisplay deltagersPrisDisplay = new AttributeDisplay("Deltagers udgitfer", "");
+    private final AttributeDisplay deltagersPrisDisplay = new AttributeDisplay("Deltagers udgifter", "");
     private final ListView<Deltager> deltagerListView;
 
     public DeltagerTab(Konference selectedKonference) {
@@ -37,8 +38,6 @@ public class DeltagerTab extends GridPane {
 
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
-
-
 
         deltagerListView = new ListView<>();
         deltagerListView.setMinWidth(300);
@@ -55,7 +54,7 @@ public class DeltagerTab extends GridPane {
         højreBoks.setSpacing(5);
         højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview, prisDsiplay, deltagersPrisDisplay);
+        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, erForedragsholderDisplay, firmaDisplay, ledsagerDisplay, ledsagerUdflugtListview, prisDsiplay, deltagersPrisDisplay);
         this.add(højreBoks, 1, 0);
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -73,6 +72,11 @@ public class DeltagerTab extends GridPane {
                     ledsagerUdflugtListview.getListView().getItems().clear();
                     Tilmelding tilmelding = Controller.getTilmeldingForDeltager(newValue, selectedKonference);
                     if (tilmelding != null) {
+                        if (tilmelding.isForedragsholder()) {
+                            erForedragsholderDisplay.setValue("Ja");
+                        } else {
+                            erForedragsholderDisplay.setValue("Nej");
+                        }
                         ledsagerUdflugtListview.getListView().getItems().clear();
                         tilmelding.getUdflugter().forEach(udflugt ->
                                 ledsagerUdflugtListview.getListView().getItems().add(udflugt.getNavn()));
@@ -81,7 +85,6 @@ public class DeltagerTab extends GridPane {
                     ledsagerDisplay.setValue("Ingen ledsager");
                     ledsagerUdflugtListview.getListView().getItems().clear();
                 }
-                //todo tror vi har en fejl her, getsamletprisfordeltagelse, hver gang der trykkes på et navn kommer der en error.
                 prisDsiplay.setValue(String.valueOf(Controller.getSamletPrisForDeltagelse(Controller.getTilmeldingForDeltager(newValue, selectedKonference))));
                 deltagersPrisDisplay.setValue(String.valueOf(Controller.getPrisDeltagersUdgift(Controller.getTilmeldingForDeltager(newValue, selectedKonference))));
             }
@@ -115,6 +118,11 @@ public class DeltagerTab extends GridPane {
             ledsagerUdflugtListview.getListView().getItems().clear();
             Tilmelding tilmelding = Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference);
             if (tilmelding != null) {
+                if (tilmelding.isForedragsholder()) {
+                    erForedragsholderDisplay.setValue("Ja");
+                } else {
+                    erForedragsholderDisplay.setValue("Nej");
+                }
                 ledsagerUdflugtListview.getListView().getItems().clear();
                 tilmelding.getUdflugter().forEach(udflugt ->
                         ledsagerUdflugtListview.getListView().getItems().add(udflugt.getNavn()));
@@ -132,6 +140,7 @@ public class DeltagerTab extends GridPane {
             alert.showAndWait();
         }
     }
+
     private void updateDeltagerList() {
         deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
     }
