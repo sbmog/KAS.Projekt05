@@ -19,10 +19,6 @@ public class HotelTab extends GridPane {
         this.selectedKonference = selectedKonference;
 
 
-        BackgroundFill bgFill = new BackgroundFill(Color.SIENNA, new CornerRadii(0), new Insets(0));
-        Background bg = new Background(bgFill);
-        this.setBackground(bg);
-
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
 

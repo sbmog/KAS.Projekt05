@@ -32,22 +32,6 @@ public class StartWindow extends Application {
         pane.setHgap(10);
         pane.setVgap(10);
 
-//        BackgroundFill bgFill = new BackgroundFill(Color.MEDIUMSLATEBLUE, new CornerRadii(0), new Insets(0));
-//        Background bg = new Background(bgFill);
-//        pane.setBackground(bg);
-
-        Image image = new Image("./application/baggrund.jpg");
-        BackgroundImage bgImage = new BackgroundImage(
-                image,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, true)
-        );
-
-        Background bg = new Background(bgImage);
-        pane.setBackground(bg);
-
         Scene scene = new Scene(pane, 650, 450);
         primaryStage.setScene(scene);
         primaryStage.show();

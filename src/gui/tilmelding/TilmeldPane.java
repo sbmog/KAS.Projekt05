@@ -49,18 +49,6 @@ public class TilmeldPane extends Stage {
         pane.setPadding(new Insets(10));
         pane.setVgap(2);
         pane.setHgap(2);
-///////////////////////////////////////////////////////////////////////////
-        Image image = new Image("./application/baggrund1.png");
-        BackgroundImage bgImage = new BackgroundImage(
-                image,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, true)
-        );
-        Background bg = new Background(bgImage);
-        pane.setBackground(bg);
-//////////////////////////////////////////////////////////////////////////////
 
         Scene scene = new Scene(pane, 500, 660);
         this.setScene(scene);
