@@ -41,9 +41,13 @@ public class KonferenceManager {
                 deltager.setLedsager(ledsager);
 
                 // Ledsager vælger en tilfældig udflugt
-                if (!tilmelding.getUdflugter().isEmpty()) {
-                    Udflugt udflugt = tilmelding.getUdflugter().get(new Random().nextInt(tilmelding.getUdflugter().size()));
+                if (tilmelding.getUdflugter().isEmpty()) {
+                    Udflugt udflugt = konference.getUdflugter().get(new Random().nextInt(konference.getUdflugter().size()));
                     tilmelding.addUdflugt(udflugt);
+                        if (new Random().nextBoolean()){
+                            Udflugt udflugt2 = konference.getUdflugter().get(new Random().nextInt(konference.getUdflugter().size()));
+                            tilmelding.addUdflugt(udflugt2);
+                        }
                 }
                     if (tilmelding.getHotel() == null) {
                         Hotel hotel = konference.getHoteller().get(new Random().nextInt(konference.getHoteller().size()));
