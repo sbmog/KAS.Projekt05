@@ -24,6 +24,10 @@ public class Tilmelding {
         this.konference = konference;
     }
 
+    public boolean isForedragsholder() {
+        return foredragsholder;
+    }
+
     public void setKonference(Konference konference) {
         if (this.konference != konference) {
             this.konference = konference;
