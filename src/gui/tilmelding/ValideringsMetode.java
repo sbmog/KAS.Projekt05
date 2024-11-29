@@ -15,8 +15,10 @@ public class ValideringsMetode {
             showAlert(Alert.AlertType.ERROR,"Fejl", "Du skal vælge en konference!");
             return false;
         }
-        if (navnTextField.getInputValue().isEmpty() || telefonTextField.getInputValue().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR,"Fejl", "Navn og telefonnummer er påkrævet.");
+        if (telefonTextField.getInputValue() != null) {
+            return true;
+        } else if(navnTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR,"Fejl", "Navn, telefonnummer og adresse er påkrævet.");
             return false;
         }
         if (adresse.getInputValue().isEmpty()) {

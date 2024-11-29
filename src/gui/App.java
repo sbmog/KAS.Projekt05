@@ -16,6 +16,7 @@ public class App {
     }
 
     public static void initStorage() {
+
         Konference havOgHimmel = Controller.createKonference("Hav og Himmel", "Odense Universitet, 5000 Odense", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1500);
         Konference tedTalk = Controller.createKonference("Ted Talk", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), 1900);
         Konference hjerneOgLæring = Controller.createKonference("Hjerne og Læring", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2024, 11, 13), LocalDate.of(2024, 11, 18), 1700);
