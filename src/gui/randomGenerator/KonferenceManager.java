@@ -49,10 +49,14 @@ public class KonferenceManager {
                             tilmelding.addUdflugt(udflugt2);
                         }
                 }
-                    if (tilmelding.getHotel() == null) {
-                        Hotel hotel = konference.getHoteller().get(new Random().nextInt(konference.getHoteller().size()));
-                        tilmelding.setHotel(hotel, new Random().nextBoolean(), new Random().nextBoolean(), new Random().nextBoolean());
-                    }
+                if (tilmelding.getHotel() == null) {
+                    Hotel hotel = konference.getHoteller().get(new Random().nextInt(konference.getHoteller().size()));
+                    tilmelding.setHotel(hotel, new Random().nextBoolean(), new Random().nextBoolean(), new Random().nextBoolean());
+                }
+                if (deltager.getFirma() == null) {
+                    Firma firma = RandomGenerator.opretRandomFirma();
+                    deltager.setFirma(firma);
+                }
             }
         }
     }
