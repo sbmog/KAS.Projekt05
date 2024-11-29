@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public class Controller {
 
     public static int getSamletPrisForDeltagelse(Tilmelding tilmelding) {
+        if (tilmelding == null) {
+            throw new IllegalArgumentException("Tilmelding cannot be null");
+        }
         return tilmelding.getSamletPrisForDeltagelse();
     }
 

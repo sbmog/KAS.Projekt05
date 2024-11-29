@@ -24,6 +24,10 @@ public class Tilmelding {
         this.konference = konference;
     }
 
+    public boolean isForedragsholder() {
+        return foredragsholder;
+    }
+
     public void setKonference(Konference konference) {
         if (this.konference != konference) {
             this.konference = konference;
@@ -51,6 +55,9 @@ public class Tilmelding {
     }
 
     public int getSamletPrisForDeltagelse() {
+        if (this == null) {
+            throw new NullPointerException("Tilmelding object is null");
+        }
         int sum = 0;
         boolean dobbeltVærelse = false;
         Stream<LocalDate> antalDage = ankomstDato.datesUntil(afrejseDato);
@@ -116,6 +123,10 @@ public class Tilmelding {
 
     public ArrayList<Udflugt> getUdflugter() {
         return udflugter;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
     }
 }
 

@@ -67,6 +67,8 @@ public class App {
         ArrayList<Konference> konferencer = Controller.getKonferencer();
         KonferenceManager konferenceManager = new KonferenceManager();
         konferenceManager.opretRandomDataForKonferencer(konferencer);
+
+
     }
 
     public static void testGetSamletPrisForDeltagelse() {
