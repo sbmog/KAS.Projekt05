@@ -17,7 +17,7 @@ public class KonferenceOversigt extends Stage {
         tabPane.getTabs().add(new Tab("Hotel", new HotelTab(konference)));
         tabPane.getTabs().add(new Tab("Udflugt", new UdflugtTab(konference)));
 
-        Scene scene = new Scene(tabPane, 600, 600);
+        Scene scene = new Scene(tabPane, 600, 650);
         this.setScene(scene);
         this.setTitle("Konference Administrations System - " + konference.getNavn());
     }
