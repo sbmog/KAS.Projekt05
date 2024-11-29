@@ -2,6 +2,7 @@ package gui.tilmelding;
 
 import application.controller.Controller;
 import application.model.*;
+import com.sun.tools.javac.Main;
 import gui.component.AttributeDisplay;
 import gui.component.LabeledDateInput;
 import gui.component.LabeledListViewInput;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import storage.Storage;
 
 import java.time.LocalDate;
+
 import static gui.tilmelding.ValideringsMetode.validerInput;
 
 public class TilmeldPane extends Stage {
@@ -80,27 +82,32 @@ public class TilmeldPane extends Stage {
 
         pane.add(konferenceVBox, 0, 1);
 
-        VBox firmaBox = new VBox(10, ForedragsholderCheckBox, firmaCheckBox, firmaNavnInput, firmaTelefonInput);
+        Button søgButton = new Button("Søg");
+        VBox firmaBox = new VBox(10, ForedragsholderCheckBox, firmaCheckBox, firmaNavnInput, firmaTelefonInput, søgButton);
         firmaBox.setPadding(new Insets(10));
         firmaBox.setAlignment(Pos.TOP_LEFT);
         pane.add(firmaBox, 0, 2);
 
         HBox buttonsBox = new HBox(8);
+
         buttonsBox.setAlignment(Pos.CENTER);
         Button beregnButton = new Button("Beregn total pris");
         Button registrerButton = new Button("Tilmeld");
         buttonsBox.getChildren().addAll(beregnButton, registrerButton);
 
-        // Button actions
         beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
+
         registrerButton.setOnAction(event -> {
+            registrerDeltager();
+        });
+
+        søgButton.setOnAction(event -> {
             for (Deltager deltager : Storage.getDeltagere()) {
-                if (telefonInput.equals(deltager.getTelefonNummer())) {
-                    nuværendeTilmelding = new Tilmelding(deltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), konference);
+                if (telefonInput.getInputValue().equals(deltager.getTelefonNummer())) {
+                    Controller.createTilmelding(deltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), konference);
                     return;
                 }
             }
-            registrerDeltager();
         });
 
 
@@ -173,6 +180,7 @@ public class TilmeldPane extends Stage {
             firmaTelefonInput.setDisable(!newValue);
         });
     }
+
 
     private void beregnFuldeOmkostninger() {
         if (!validerInput(konferenceComboBox, navnInput, telefonInput, ankomstDatoInput, afrejseDatoInput, adresseInput)) {
