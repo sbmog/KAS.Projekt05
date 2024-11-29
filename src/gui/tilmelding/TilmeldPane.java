@@ -100,16 +100,6 @@ public class TilmeldPane extends Stage {
             registrerDeltager();
         });
 
-        søgButton.setOnAction(event -> {
-            for (Deltager deltager : Storage.getDeltagere()) {
-                if (telefonInput.getInputValue().equals(deltager.getTelefonNummer())) {
-                    Controller.createTilmelding(deltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), konference);
-                    return;
-                }
-            }
-        });
-
-
         HBox buttonbox = new HBox(20, beregnButton, registrerButton);
         buttonbox.setAlignment(Pos.CENTER);
         pane.add(buttonbox, 0, 9, 2, 1);

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import storage.Storage;
 
 import java.time.LocalDate;
 
@@ -19,27 +20,21 @@ public class TilmeldingsogBeregningsMetode {
                                                LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
                                                LabeledDateInput ankomstDatoInput, LabeledDateInput afrejseDatoInput, LabeledTextInput ledsagerInput,
                                                ComboBox<Hotel> hotelComboBox, CheckBox badCheckBox, CheckBox wifiCheckBox, CheckBox morgenmadCheckBox,
-                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, CheckBox firmaCheckBox,boolean isForedragsholder) {
-
-
+                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, CheckBox firmaCheckBox, boolean isForedragsholder) {
 
         try {
-
             Deltager midlertidligDeltager = new Deltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
-            Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), isForedragsholder  , konference);
-
+            Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), isForedragsholder, konference);
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
             for (Udflugt udflugt : selectedUdflugter) {
                 tempTilmelding.addUdflugt(udflugt);
             }
 
-
             if (!ledsagerInput.getInputValue().isEmpty()) {
                 Ledsager tempLedsager = Controller.createLedsager(ledsagerInput.getInputValue(), midlertidligDeltager);
                 midlertidligDeltager.setLedsager(tempLedsager);
             }
-
 
             Hotel selectedHotel = hotelComboBox.getValue();
             if (selectedHotel != null) {
@@ -50,11 +45,7 @@ public class TilmeldingsogBeregningsMetode {
                 tempTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-
             int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
-            if (isForedragsholder) {
-                totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
-            }
             if (firmaCheckBox.isSelected()) {
                 totalOmkostning = 0;
             }
@@ -66,15 +57,27 @@ public class TilmeldingsogBeregningsMetode {
         }
     }
 
-
     public static void registrerDeltager(Konference konference, LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
                                          LabeledTextInput firmaNavnInput, LabeledTextInput firmaTelefonInput, CheckBox firmaCheckBox,
                                          ComboBox<Hotel> hotelComboBox, CheckBox badCheckBox, CheckBox wifiCheckBox, CheckBox morgenmadCheckBox,
-                                         LabeledTextInput ledsagerInput, LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay,boolean isForedragsholder) {
+                                         LabeledTextInput ledsagerInput, LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, boolean isForedragsholder) {
 
         try {
-            Deltager deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
-            Tilmelding nuværendeTilmelding = Controller.createTilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(1), isForedragsholder, konference);
+            Deltager deltager = null;
+            Tilmelding nuværendeTilmelding;
+
+            for (Deltager søgteDeltager : Storage.getDeltagere()) {
+                if (søgteDeltager.getTelefonNummer().equalsIgnoreCase(telefonInput.getInputValue())) {
+                    deltager = søgteDeltager;
+                    break;
+                }
+            }
+
+            if (deltager == null) {
+                deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
+            }
+
+            nuværendeTilmelding = Controller.createTilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(1), isForedragsholder, konference);
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
             for (Udflugt udflugt : selectedUdflugter) {
@@ -84,6 +87,7 @@ public class TilmeldingsogBeregningsMetode {
             if (!ledsagerInput.getInputValue().isEmpty()) {
                 Ledsager ledsager = Controller.createLedsager(ledsagerInput.getInputValue(), deltager);
                 deltager.setLedsager(ledsager);
+
             }
 
             if (firmaCheckBox.isSelected()) {
@@ -101,14 +105,9 @@ public class TilmeldingsogBeregningsMetode {
             }
 
             int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
-            if (isForedragsholder) {
-                totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
-            }
             if (firmaCheckBox.isSelected()) {
                 totalOmkostningForDeltager = 0;
             }
-
-
 
             ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION, "Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
 
