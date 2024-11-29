@@ -15,8 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import storage.Storage;
-
 import java.time.LocalDate;
 import static gui.tilmelding.ValideringsMetode.validerInput;
 
@@ -39,7 +37,6 @@ public class TilmeldPane extends Stage {
     private final CheckBox ForedragsholderCheckBox = new CheckBox("Er du foredragsholder?");
     private final LabeledListViewInput<Udflugt> udflugtListViewInput = new LabeledListViewInput("Vælg udflugt");
     private final AttributeDisplay totalOmkostningDisplay = new AttributeDisplay("Total pris", "0 DKK");
-    private Tilmelding nuværendeTilmelding;
 
 
     public TilmeldPane(Konference konference) {
@@ -93,16 +90,7 @@ public class TilmeldPane extends Stage {
 
         // Button actions
         beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
-        registrerButton.setOnAction(event -> {
-            for (Deltager deltager : Storage.getDeltagere()) {
-                if (telefonInput.equals(deltager.getTelefonNummer())) {
-                    nuværendeTilmelding = new Tilmelding(deltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), ForedragsholderCheckBox.isSelected(), konference);
-                    return;
-                }
-            }
-            registrerDeltager();
-        });
-
+        registrerButton.setOnAction(event -> registrerDeltager());
 
         HBox buttonbox = new HBox(20, beregnButton, registrerButton);
         buttonbox.setAlignment(Pos.CENTER);

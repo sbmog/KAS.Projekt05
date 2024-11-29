@@ -33,12 +33,40 @@ public class App {
         Konference arbejdsret = Controller.createKonference("Arbejdsret", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2025, 3, 20), LocalDate.of(2025, 3, 23), 4300);
         Konference personaleUdvikling = Controller.createKonference("Personaleudvikling", "Odense Universitet, 5000 Odense", LocalDate.of(2025, 3, 23), LocalDate.of(2025, 3, 27), 3800);
 
+        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
+        Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
+        Udflugt egeskov = Controller.createUdflugt("Egeskov", "skovvej 1", LocalDate.of(2024, 12, 19), 75, havOgHimmel);
+        Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);
+
+
+        Deltager finnMadsen = Controller.createDeltager("Finn Madsen", "XX", "12341234");
+        Tilmelding finnTilmelding = Controller.createTilmelding(finnMadsen, LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+
+        Deltager nielsPetersen = Controller.createDeltager("Niels Petersen", "XX", "11223344");
+        nielsPetersen.setFirma(Controller.createFirma("888888","Sørensens Blomster"));
+        Tilmelding nielsTilmelding = nielsPetersen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+        nielsTilmelding.setHotel(denHvideSvane, false, false, false);
+
+        Deltager peterSommer = Controller.createDeltager("Peter Sommer", "XX", "43214321");
+        Tilmelding peterTilmelding = peterSommer.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
+        peterTilmelding.setHotel(denHvideSvane, false, true, false);
+        Ledsager mieSommer = peterSommer.createLedsager("Mie Sommer");
+        peterTilmelding.addUdflugt(egeskov);
+        peterTilmelding.addUdflugt(trapholt);
+
+        Deltager loneJensen = Controller.createDeltager("Lone Jensen", "XX", "10203040");
+        Tilmelding loneTilmeling = loneJensen.createTilmelding(LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), true, havOgHimmel);
+        loneTilmeling.setHotel(denHvideSvane, false, true, false);
+        Ledsager janMadsen = loneJensen.createLedsager("Jan Madsen");
+        loneTilmeling.addUdflugt(egeskov);
+        loneTilmeling.addUdflugt(byrundTur);
+
+
         //Implementerering af RandomGenerator og KonferenceManager
         //Opretter random hoteller, deltagere, ledsagere og udflugter for konferencerne
         ArrayList<Konference> konferencer = Controller.getKonferencer();
         KonferenceManager konferenceManager = new KonferenceManager();
         konferenceManager.opretRandomDataForKonferencer(konferencer);
-
     }
 
     public static void testGetSamletPrisForDeltagelse() {
