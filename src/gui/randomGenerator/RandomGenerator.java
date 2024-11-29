@@ -59,6 +59,20 @@ public class RandomGenerator {
         return Controller.createHotel(hotelNavn, address, enkeltRumsPris, dobbleRumsPris, badTillæg, wifiTillæg, morgenmadsPris, konference);
     }
 
+    public static Firma opretRandomFirma(){
+        String tlfNummer = "+45 " + (random.nextInt(90000000) + 10000000);
+        ArrayList<String> firmaNavne = new ArrayList<>(Arrays.asList(
+                "Novo Nordisk", "Mærsk", "Carlsberg", "Vestas Wind Systems", "LEGO Group", "Danske Bank", "Arla Foods",
+                "ISS World Services", "GN Store Nord", "Coloplast", "FLSmidth", "Pandora", "Tryg", "Rockwool",
+                "DSV", "Topdanmark", "Ørsted", "SimCorp", "SAS", "Netcompany", "Lundbeck", "Bang & Olufsen",
+                "Ecco", "Jyske Bank", "NKT", "Chr. Hansen", "Hempel", "Danfoss", "Velux", "Kamstrup", "Nilfisk",
+                "Solar", "Grundfos", "Falck", "Færch Plast", "Palsgaard", "Hartmann", "Scandic Hotels", "Brødrene Dahl",
+                "Louis Poulsen", "Toms Gruppen", "Bavarian Nordic", "Fiberline Composites", "HusCompagniet",
+                "Rambøll", "Kvik", "Unibrew", "Royal Greenland", "Carsoe", "LM Wind Power"
+        ));
+        return Controller.createFirma(tlfNummer, firmaNavne.get(random.nextInt(firmaNavne.size())));
+    }
+
     public static Deltager opretRandomDeltager() {
         ArrayList<String> deltagerNavne = new ArrayList<>(Arrays.asList(
                 "Mads Hansen", "Søren Andersen", "Lise Sørensen", "Anne Møller", "Jens Nielsen", "Pia Jensen",

@@ -30,10 +30,6 @@ public class SøgAlleDeltagere extends Stage {
         pane.setVgap(10);
         pane.setHgap(10);
 
-        BackgroundFill bgFill = new BackgroundFill(Color.TAN, new CornerRadii(0), new Insets(0));
-        Background bg = new Background(bgFill);
-        pane.setBackground(bg);
-
         Scene scene = new Scene(pane, 250, 500);
         this.setScene(scene);
         this.show();
