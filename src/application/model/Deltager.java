@@ -14,7 +14,6 @@ public class Deltager extends Person {
         super(navn);
         this.adresse = adresse;
         this.telefonNummer = telefonNummer;
-
     }
 
     public Ledsager createLedsager(String navn) {
@@ -42,7 +41,7 @@ public class Deltager extends Person {
     }
 
     public Tilmelding createTilmelding(LocalDate ankomstDato, LocalDate afrejseDato, boolean foredragsholder, Konference konference) {
-        Tilmelding tilmelding = new Tilmelding(this,ankomstDato, afrejseDato, foredragsholder, konference);
+        Tilmelding tilmelding = new Tilmelding(this, ankomstDato, afrejseDato, foredragsholder, konference);
         this.addTilmelding(tilmelding);
         konference.addTilmelding(tilmelding);
         return tilmelding;
@@ -83,6 +82,13 @@ public class Deltager extends Person {
 
     public String getAdresse() {
         return adresse;
+    }
+
+    public String toStringMedLedsager() {
+        if (ledsager != null) {
+            return getNavn() + " og " + ledsager;
+        }
+        return getNavn();
     }
 }
 

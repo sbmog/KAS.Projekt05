@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -74,7 +75,9 @@ public class StartWindow extends Application {
 
         vælgKonferenceButton.setOnAction(event -> {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
-            if (selectedKonference != null) {
+            if (selectedKonference == null) {
+                showAlert(Alert.AlertType.ERROR,"Fejl", "Vælg en konference");
+            }else{
                 KonferenceOversigt konferenceOversigt = new KonferenceOversigt(selectedKonference);
                 if (!konferenceOversigt.isShowing()) {
                     konferenceOversigt.showAndWait();
@@ -112,5 +115,11 @@ public class StartWindow extends Application {
         buttonBox.setPadding(new Insets(10));
         buttonBox.getChildren().addAll(søgDeltagerButton, tilmeldingsButton, vælgKonferenceButton);
         pane.add(buttonBox, 0, 3);
+    }
+    public static void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

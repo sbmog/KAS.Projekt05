@@ -24,6 +24,10 @@ public class Hotel {
         konference.addHotel(this);
     }
 
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return tilmeldinger;
+    }
+
     public void addTilmelding(Tilmelding tilmelding, boolean updateTilmelding) {
         if (!tilmeldinger.contains(tilmelding)) {
             tilmeldinger.add(tilmelding);

@@ -4,12 +4,12 @@ import application.controller.Controller;
 import application.model.Hotel;
 import application.model.Konference;
 import gui.component.AttributeDisplay;
+import gui.component.LabeledListViewInput;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 public class HotelTab extends GridPane {
     private Konference selectedKonference;
@@ -17,7 +17,6 @@ public class HotelTab extends GridPane {
 
     public HotelTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
-
 
         this.setPadding(new Insets(5));
         this.setAlignment(Pos.CENTER);
@@ -35,10 +34,11 @@ public class HotelTab extends GridPane {
         AttributeDisplay prisForEnkeltVærelseDisplay = new AttributeDisplay("Pris for enkelt værelse", "");
         AttributeDisplay prisForDobbeltVærelseDisplay = new AttributeDisplay("Pris for dobbelt værelse", "");
         AttributeDisplay prisForBadDisplay = new AttributeDisplay("Pris for bad", "");
-        AttributeDisplay prisForWifiDisplay = new AttributeDisplay("Pris for wifi","");
-        AttributeDisplay prisMorgenMadDisplay = new AttributeDisplay("Pris for Morgenmad","");
+        AttributeDisplay prisForWifiDisplay = new AttributeDisplay("Pris for wifi", "");
+        AttributeDisplay prisMorgenMadDisplay = new AttributeDisplay("Pris for Morgenmad", "");
+        LabeledListViewInput<String> listeOverOvernattende = new LabeledListViewInput<>("Overnattende");
 
-        detailsBox.getChildren().addAll(navnDisplay, adresseDisplay, prisForEnkeltVærelseDisplay, prisForDobbeltVærelseDisplay , prisForBadDisplay, prisForWifiDisplay, prisMorgenMadDisplay);
+        detailsBox.getChildren().addAll(navnDisplay, adresseDisplay, prisForEnkeltVærelseDisplay, prisForDobbeltVærelseDisplay, prisForBadDisplay, prisForWifiDisplay, prisMorgenMadDisplay, listeOverOvernattende);
         this.add(detailsBox, 1, 0);
 
         hotelListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -50,6 +50,9 @@ public class HotelTab extends GridPane {
                 prisForBadDisplay.setValue(String.valueOf(newValue.getBadTillæg()));
                 prisForWifiDisplay.setValue(String.valueOf(newValue.getWifiTillæg()));
                 prisMorgenMadDisplay.setValue(String.valueOf(newValue.getMorgenmadsTillæg()));
+                listeOverOvernattende.getListView().getItems().clear();
+                newValue.getTilmeldinger().forEach(tilmelding ->
+                        listeOverOvernattende.getListView().getItems().add(tilmelding.getDeltager().toStringMedLedsager()));
             }
         });
 
