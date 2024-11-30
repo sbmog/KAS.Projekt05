@@ -7,17 +7,18 @@ import gui.component.AttributeDisplay;
 import gui.component.LabeledListViewInput;
 import gui.component.LabeledTextInput;
 import gui.tilmelding.TilmeldPane;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
+
 import javafx.scene.layout.*;
 import application.model.Deltager;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
+
 
 public class DeltagerTab extends GridPane {
     private final Konference selectedKonference;
@@ -153,6 +154,34 @@ public class DeltagerTab extends GridPane {
     }
 
     private void updateDeltagerList() {
-        deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
+        ObservableList<Deltager> deltagere = FXCollections.observableArrayList(
+                Controller.getDeltagerForKonference(selectedKonference)
+        );
+
+        sorterDeltagerVedNavn(deltagere);
+
+        deltagerListView.getItems().setAll(deltagere);
+    }
+
+
+    public static ObservableList<Deltager> sorterDeltagerVedNavn(ObservableList<Deltager> deltagere) {
+        Deltager[] deltagereArray = deltagere.toArray(new Deltager[0]);
+        int n = deltagereArray.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                String navn1 = deltagereArray[j].getNavn().toLowerCase();
+                String navn2 = deltagereArray[j + 1].getNavn().toLowerCase();
+                if (navn1.compareTo(navn2) > 0) {
+
+                    Deltager temp = deltagereArray[j];
+                    deltagereArray[j] = deltagereArray[j + 1];
+                    deltagereArray[j + 1] = temp;
+                }
+            }
+        }
+
+        deltagere.setAll(deltagereArray);
+        return deltagere;
     }
 }
