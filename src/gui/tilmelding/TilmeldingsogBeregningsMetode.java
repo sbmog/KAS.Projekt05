@@ -55,7 +55,7 @@ public class TilmeldingsogBeregningsMetode {
             }
 
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
-            deltagerOmkostningsDisplay.setValue("Total pris" + deltagersPris + " DKK");
+            deltagerOmkostningsDisplay.setValue("Total pris: " + deltagersPris + " DKK");
         } catch (Exception ex) {
             ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke beregne omkostninger: " + ex.getMessage());
         }
