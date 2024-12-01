@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 
 import java.time.LocalDate;
+
 import static gui.tilmelding.ValideringsMetode.validerInput;
 
 public class TilmeldPane extends Stage {
@@ -39,8 +40,7 @@ public class TilmeldPane extends Stage {
     private final CheckBox ForedragsholderCheckBox = new CheckBox("Er du foredragsholder?");
     private final LabeledListViewInput<Udflugt> udflugtListViewInput = new LabeledListViewInput("Vælg udflugt");
     private final AttributeDisplay fuldePrisFordeltagelse = new AttributeDisplay("Total pris", "0 DKK");
-    private final AttributeDisplay prisForDeltager = new AttributeDisplay("Deltagers pris","0 DKK");
-
+    private final AttributeDisplay prisForDeltager = new AttributeDisplay("Deltagers pris", "0 DKK");
 
 
     public TilmeldPane(Konference konference) {
@@ -58,14 +58,14 @@ public class TilmeldPane extends Stage {
         initializeFields(konference);
 
         Label konferenceLabel = new Label("vælg konference: ");
-        VBox venstreVBox = new VBox(10, navnInput, telefonInput, adresseInput, konferenceLabel, konferenceComboBox, ankomstDatoInput, afrejseDatoInput,ForedragsholderCheckBox,firmaCheckBox,firmaNavnInput,firmaTelefonInput);
+        VBox venstreVBox = new VBox(10, navnInput, telefonInput, adresseInput, konferenceLabel, konferenceComboBox, ankomstDatoInput, afrejseDatoInput, ForedragsholderCheckBox, firmaCheckBox, firmaNavnInput, firmaTelefonInput);
         venstreVBox.setPadding(new Insets(5));
         venstreVBox.setAlignment(Pos.TOP_LEFT);
         venstreVBox.setPrefHeight(200);
         venstreVBox.setPrefWidth(200);
         pane.add(venstreVBox, 0, 0);
 
-        VBox højreVBox = new VBox(10, hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox,ledsagerInput,udflugtListViewInput,fuldePrisFordeltagelse,prisForDeltager);
+        VBox højreVBox = new VBox(10, hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisFordeltagelse, prisForDeltager);
         pane.add(højreVBox, 1, 0);
         højreVBox.setAlignment(Pos.TOP_LEFT);
         højreVBox.setPadding(new Insets(5));
@@ -77,7 +77,7 @@ public class TilmeldPane extends Stage {
         Button beregnButton = new Button("Beregn total pris");
         Button registrerButton = new Button("Tilmeld");
         buttonsBox.getChildren().addAll(beregnButton, registrerButton);
-        pane.add(buttonsBox,0,2);
+        pane.add(buttonsBox, 0, 2);
 
         udflugtListViewInput.getListView().setPrefHeight(100);
         udflugtListViewInput.getListView().setPrefWidth(200);
@@ -97,19 +97,23 @@ public class TilmeldPane extends Stage {
             konferenceComboBox.setValue(konference);
         }
 
+        hotelComboBox.setPromptText("Vælg Hotel");
         konferenceComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 ankomstDatoInput.getDatePicker().setValue(newValue.getStartdato());
                 afrejseDatoInput.getDatePicker().setValue(newValue.getSlutdato());
             }
-
         });
+        if (konference != null) {
+            hotelComboBox.getItems().clear();
+            hotelComboBox.getItems().addAll(Controller.getHotellerForKonference(konference));
+        }
+        //todo tilføj en listener så hvis der ikke er valgt en konference i tidligere pane, så skal den updatere når der vælges en konference.
 
-        hotelComboBox.getItems().addAll(Controller.getHoteller());
-        hotelComboBox.setPromptText("Vælg Hotel");
-
-        ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(Controller.getUdflugter());
-        udflugtListViewInput.getListView().setItems(udflugter);
+        if (konference != null) {
+            ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(Controller.getUdflugterForKonference(konference));
+            udflugtListViewInput.getListView().setItems(udflugter);
+        }
 
         ankomstDatoInput.getDatePicker().setValue(LocalDate.now());
         afrejseDatoInput.getDatePicker().setValue(LocalDate.now().plusDays(1));
@@ -138,9 +142,7 @@ public class TilmeldPane extends Stage {
 
         TilmeldingsogBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 ankomstDatoInput, afrejseDatoInput, ledsagerInput, hotelComboBox, badCheckBox,
-                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisFordeltagelse, firmaCheckBox, isForedragsholder);
-
-
+                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisFordeltagelse, prisForDeltager, firmaCheckBox, isForedragsholder);
 
     }
 

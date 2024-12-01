@@ -20,7 +20,7 @@ public class TilmeldingsogBeregningsMetode {
                                                LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
                                                LabeledDateInput ankomstDatoInput, LabeledDateInput afrejseDatoInput, LabeledTextInput ledsagerInput,
                                                ComboBox<Hotel> hotelComboBox, CheckBox badCheckBox, CheckBox wifiCheckBox, CheckBox morgenmadCheckBox,
-                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, CheckBox firmaCheckBox, boolean isForedragsholder) {
+                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, AttributeDisplay deltagerOmkostningsDisplay, CheckBox firmaCheckBox, boolean isForedragsholder) {
 
         try {
             Deltager midlertidligDeltager = new Deltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
@@ -45,13 +45,17 @@ public class TilmeldingsogBeregningsMetode {
                 tempTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-            int totalOmkostning = tempTilmelding.getPrisDeltagersUdgift();
+
+            int totalOmkostning = tempTilmelding.getSamletPrisForDeltagelse();
+            int deltagersPris = tempTilmelding.getPrisDeltagersUdgift();
+
+
             if (firmaCheckBox.isSelected()) {
                 totalOmkostning = 0;
             }
 
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
-
+            deltagerOmkostningsDisplay.setValue("Total pris" + deltagersPris + " DKK");
         } catch (Exception ex) {
             ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke beregne omkostninger: " + ex.getMessage());
         }
@@ -104,7 +108,7 @@ public class TilmeldingsogBeregningsMetode {
                 nuværendeTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-            int totalOmkostningForDeltager = nuværendeTilmelding.getPrisDeltagersUdgift();
+            int totalOmkostningForDeltager = nuværendeTilmelding.getSamletPrisForDeltagelse();
             if (firmaCheckBox.isSelected()) {
                 totalOmkostningForDeltager = 0;
             }

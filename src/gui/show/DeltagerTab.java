@@ -19,7 +19,6 @@ import javafx.scene.layout.*;
 import application.model.Deltager;
 
 
-
 public class DeltagerTab extends GridPane {
     private final Konference selectedKonference;
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
@@ -35,6 +34,7 @@ public class DeltagerTab extends GridPane {
     private final AttributeDisplay deltagersPrisDisplay = new AttributeDisplay("Deltagers udgifter", "");
     private final ListView<Deltager> deltagerListView;
 
+
     public DeltagerTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
 
@@ -45,6 +45,11 @@ public class DeltagerTab extends GridPane {
         deltagerListView.setMinWidth(300);
         deltagerListView.setPrefHeight(500);
         deltagerListView.getItems().setAll(Controller.getDeltagerForKonference(selectedKonference));
+
+        //initiere sorteringsmetoden
+        ObservableList<Deltager> deltagere = FXCollections.observableArrayList(Controller.getDeltagerForKonference(selectedKonference));
+        SorteringsMetode.sorterNavne(deltagere);
+        deltagerListView.getItems().setAll(deltagere);
 
         VBox venstreBoks = new VBox();
         venstreBoks.setSpacing(5);
@@ -59,6 +64,7 @@ public class DeltagerTab extends GridPane {
 
         højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, erForedragsholderDisplay, firmaDisplay, hotelDisplay, ledsagerDisplay, ledsagerUdflugtListview, prisDsiplay, deltagersPrisDisplay);
         this.add(højreBoks, 1, 0);
+
 
         deltagerListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -104,7 +110,7 @@ public class DeltagerTab extends GridPane {
             if (!tilmeldPane.isShowing()) {
                 tilmeldPane.showAndWait();
             }
-            updateDeltagerList();
+            // updateDeltagerList();
         });
 
         deltagerNavn.getTextField().setOnAction(event -> søgning());
@@ -145,43 +151,30 @@ public class DeltagerTab extends GridPane {
             prisDsiplay.setValue(String.valueOf(Controller.getSamletPrisForDeltagelse(Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference))));
             deltagersPrisDisplay.setValue(String.valueOf(Controller.getPrisDeltagersUdgift(Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference))));
 
+
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Deltager ikke fundet");
             alert.setHeaderText("Der kan ikke findes noget, som matcher søgningen");
             alert.showAndWait();
         }
-    }
 
-    private void updateDeltagerList() {
-        ObservableList<Deltager> deltagere = FXCollections.observableArrayList(
-                Controller.getDeltagerForKonference(selectedKonference)
-        );
-
-        sorterDeltagerVedNavn(deltagere);
-
-        deltagerListView.getItems().setAll(deltagere);
-    }
-
-
-    public static ObservableList<Deltager> sorterDeltagerVedNavn(ObservableList<Deltager> deltagere) {
-        Deltager[] deltagereArray = deltagere.toArray(new Deltager[0]);
-        int n = deltagereArray.length;
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                String navn1 = deltagereArray[j].getNavn().toLowerCase();
-                String navn2 = deltagereArray[j + 1].getNavn().toLowerCase();
-                if (navn1.compareTo(navn2) > 0) {
-
-                    Deltager temp = deltagereArray[j];
-                    deltagereArray[j] = deltagereArray[j + 1];
-                    deltagereArray[j + 1] = temp;
-                }
-            }
-        }
-
-        deltagere.setAll(deltagereArray);
-        return deltagere;
     }
 }
+
+
+    //todo er denne metode nødvendig
+//    private void updateDeltagerList() {
+//
+//        ObservableList<Deltager> deltagere = FXCollections.observableArrayList(
+//                Controller.getDeltagerForKonference(selectedKonference)
+//        );
+//
+//        SorteringsMetode.sorterVedGivetNavn(deltagere);
+//
+//       deltagerListView.getItems().setAll(deltagere);
+//
+//    }
+//
+//
+//}
