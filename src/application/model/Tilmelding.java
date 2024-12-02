@@ -128,6 +128,10 @@ public class Tilmelding {
     public Hotel getHotel() {
         return hotel;
     }
+
+    public String toStringKonferenceMedPris() {
+        return konference + " (" + getSamletPrisForDeltagelse() + ")";
+    }
 }
 
 
