@@ -25,24 +25,40 @@ public class Controller {
         return deltager;
     }
 
-    public static Deltager søgDeltagerAlle(String søgteDeltager) {
-        Deltager resultatSøgning = null;
-        for (Deltager deltager : Storage.getDeltagere()) {
-            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
-                resultatSøgning = deltager;
-            }
+    public static Deltager søgDeltagerAlle(String name) {
+        Deltager deltager = null;
+        int left = 0;
+        int right = Storage.getDeltagere().size() - 1;
+        while (deltager == null && left <= right) {
+            int middle = (left+right) / 2;
+            Deltager k = Storage.getDeltagere().get(middle);
+            if (k.getNavn().compareTo(name) == 0)
+                deltager = k;
+            else if (k.getNavn().compareTo(name) > 0)
+                right = middle - 1;
+            else
+                left = middle + 1;
         }
-        return resultatSøgning;
+        return deltager;
     }
 
-    public static Deltager søgDeltagerIKonference(Konference konference, String søgteDeltager) {
-        for (Deltager deltager : getDeltagerForKonference(konference)) {
-            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
-                return deltager;
-            }
+    public static Deltager søgDeltagerIKonference(Konference konference, String name) {
+        Deltager deltager = null;
+        int left = 0;
+        int right = getDeltagerForKonference(konference).size() - 1;
+        while (deltager == null && left <= right) {
+            int middle = (left+right) / 2;
+            Deltager k =getDeltagerForKonference(konference).get(middle);
+            if (k.getNavn().compareTo(name) == 0)
+                deltager = k;
+            else if (k.getNavn().compareTo(name) > 0)
+                right = middle - 1;
+            else
+                left = middle + 1;
         }
-        return null;
+        return deltager;
     }
+
 
     public static ArrayList<Deltager> getDeltagerForKonference(Konference konference) {
         return konference.getDeltagere();

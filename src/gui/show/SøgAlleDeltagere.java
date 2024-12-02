@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import storage.Storage;
 
 
 public class SøgAlleDeltagere extends Stage {
