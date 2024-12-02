@@ -22,7 +22,7 @@ public class SøgAlleDeltagere extends Stage {
     private final AttributeDisplay tlfDisplay = new AttributeDisplay("Telefon nummer", "");
     private final AttributeDisplay firmaDisplay = new AttributeDisplay("Firma", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
-    private final LabeledListViewInput tilmeldingerListview = new LabeledListViewInput("Tilmeldte konferencer");
+    private final LabeledListViewInput<String> tilmeldingerListview = new LabeledListViewInput<>("Tilmeldte konferencer (pris)");
 
     public SøgAlleDeltagere() {
         GridPane pane = new GridPane();
@@ -55,13 +55,17 @@ public class SøgAlleDeltagere extends Stage {
             tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
             if (søgteNavn.getFirma() != null) {
                 firmaDisplay.setValue(søgteNavn.getFirma() + "");
+            }else {
+                firmaDisplay.setValue("Intet firma");
             }
             if (søgteNavn.getLedsager() != null) {
                 ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+            }else {
+                ledsagerDisplay.setValue("Ingen ledsager");
             }
             tilmeldingerListview.getListView().getItems().clear();
             for (Tilmelding tilmelding : søgteNavn.getTilmeldinger()) {
-                tilmeldingerListview.getListView().getItems().add(tilmelding.getKonference().getNavn());
+                tilmeldingerListview.getListView().getItems().add(tilmelding.toStringKonferenceMedPris());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);

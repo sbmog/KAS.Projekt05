@@ -38,7 +38,7 @@ public class TilmeldPane extends Stage {
     private final CheckBox morgenmadCheckBox = new CheckBox("Ønsker du morgenmad?");
     private final LabeledTextInput ledsagerInput = new LabeledTextInput("Ledsager");
     private final CheckBox ForedragsholderCheckBox = new CheckBox("Er du foredragsholder?");
-    private final LabeledListViewInput<Udflugt> udflugtListViewInput = new LabeledListViewInput("Vælg udflugt");
+    private final LabeledListViewInput<Udflugt> udflugtListViewInput = new LabeledListViewInput<>("Vælg udflugt");
     private final AttributeDisplay fuldePrisFordeltagelse = new AttributeDisplay("Total pris", "0 DKK");
     private final AttributeDisplay prisForDeltager = new AttributeDisplay("Deltagers pris", "0 DKK");
 
@@ -57,7 +57,7 @@ public class TilmeldPane extends Stage {
         this.show();
         initializeFields(konference);
 
-        Label konferenceLabel = new Label("vælg konference: ");
+        Label konferenceLabel = new Label("Konference: ");
         VBox venstreVBox = new VBox(10, navnInput, telefonInput, adresseInput, konferenceLabel, konferenceComboBox, ankomstDatoInput, afrejseDatoInput, ForedragsholderCheckBox, firmaCheckBox, firmaNavnInput, firmaTelefonInput);
         venstreVBox.setPadding(new Insets(5));
         venstreVBox.setAlignment(Pos.TOP_LEFT);
@@ -102,13 +102,16 @@ public class TilmeldPane extends Stage {
             if (newValue != null) {
                 ankomstDatoInput.getDatePicker().setValue(newValue.getStartdato());
                 afrejseDatoInput.getDatePicker().setValue(newValue.getSlutdato());
-            }
+                hotelComboBox.getItems().clear();
+                hotelComboBox.getItems().addAll(newValue.getHoteller());
+                udflugtListViewInput.getListView().getItems().clear();
+                ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(newValue.getUdflugter());
+                udflugtListViewInput.getListView().setItems(udflugter);            }
         });
         if (konference != null) {
             hotelComboBox.getItems().clear();
             hotelComboBox.getItems().addAll(Controller.getHotellerForKonference(konference));
         }
-        //todo tilføj en listener så hvis der ikke er valgt en konference i tidligere pane, så skal den updatere når der vælges en konference.
 
         if (konference != null) {
             ObservableList<Udflugt> udflugter = FXCollections.observableArrayList(Controller.getUdflugterForKonference(konference));
@@ -143,7 +146,6 @@ public class TilmeldPane extends Stage {
         TilmeldingsogBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 ankomstDatoInput, afrejseDatoInput, ledsagerInput, hotelComboBox, badCheckBox,
                 wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisFordeltagelse, prisForDeltager, firmaCheckBox, isForedragsholder);
-
     }
 
     private void registrerDeltager() {
@@ -155,7 +157,6 @@ public class TilmeldPane extends Stage {
         TilmeldingsogBeregningsMetode.registrerDeltager(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 firmaNavnInput, firmaTelefonInput, firmaCheckBox, hotelComboBox,
                 badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisFordeltagelse, isForedragsholder);
-
         this.close();
     }
 }
