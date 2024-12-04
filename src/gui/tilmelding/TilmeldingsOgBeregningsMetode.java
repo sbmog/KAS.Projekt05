@@ -24,11 +24,12 @@ public class TilmeldingsOgBeregningsMetode {
 
         try {
             Deltager midlertidligDeltager = new Deltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
-            Tilmelding tempTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), isForedragsholder, konference);
+            Tilmelding midlertidligTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), isForedragsholder, konference);
+
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
             for (Udflugt udflugt : selectedUdflugter) {
-                tempTilmelding.addUdflugt(udflugt);
+                midlertidligTilmelding.addUdflugt(udflugt);
             }
 
             if (!ledsagerInput.getInputValue().isEmpty()) {
@@ -42,16 +43,13 @@ public class TilmeldingsOgBeregningsMetode {
                 boolean wifiValgt = wifiCheckBox.isSelected();
                 boolean morgenmadValgt = morgenmadCheckBox.isSelected();
 
-                tempTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
+                midlertidligTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-            int totalOmkostning = tempTilmelding.getSamletPrisForDeltagelse();
-            int deltagersPris = tempTilmelding.getPrisDeltagersUdgift();
+            int totalOmkostning = midlertidligTilmelding.getSamletPrisForDeltagelse();
+            int deltagersPris = midlertidligTilmelding.getPrisDeltagersUdgift();
 
 
-            if (firmaCheckBox.isSelected()) {
-                totalOmkostning = 0;
-            }
 
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
             deltagerOmkostningsDisplay.setValue("At betale: " + deltagersPris + " DKK");
@@ -80,6 +78,11 @@ public class TilmeldingsOgBeregningsMetode {
                 deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
             }
 
+            if (firmaCheckBox.isSelected()) {
+                Firma firma = Controller.createFirma(firmaTelefonInput.getInputValue(), firmaNavnInput.getInputValue());
+                deltager.setFirma(firma);
+            }
+
             nuværendeTilmelding = Controller.createTilmelding(deltager, LocalDate.now(), LocalDate.now().plusDays(1), isForedragsholder, konference);
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
@@ -92,10 +95,6 @@ public class TilmeldingsOgBeregningsMetode {
                 deltager.setLedsager(ledsager);
             }
 
-            if (firmaCheckBox.isSelected()) {
-                Firma firma = Controller.createFirma(firmaTelefonInput.getInputValue(), firmaNavnInput.getInputValue());
-                deltager.setFirma(firma);
-            }
 
             Hotel selectedHotel = hotelComboBox.getValue();
             if (selectedHotel != null) {
@@ -107,10 +106,6 @@ public class TilmeldingsOgBeregningsMetode {
             }
 
             int totalOmkostningForDeltager = nuværendeTilmelding.getSamletPrisForDeltagelse();
-            if (firmaCheckBox.isSelected()) {
-                totalOmkostningForDeltager = 0;
-            }
-
             ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION, "Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
 
         } catch (Exception ex) {

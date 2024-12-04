@@ -153,6 +153,7 @@ public class TilmeldPane extends Stage {
             return;
         }
         boolean isForedragsholder = ForedragsholderCheckBox.isSelected();
+
         TilmeldingsOgBeregningsMetode.registrerDeltager(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 firmaNavnInput, firmaTelefonInput, firmaCheckBox, hotelComboBox,
                 badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisForDeltagelse, isForedragsholder);

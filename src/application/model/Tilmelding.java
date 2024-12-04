@@ -60,9 +60,6 @@ public class Tilmelding {
     }
 
     public int getSamletPrisForDeltagelse() {
-        if (this == null) {
-            throw new NullPointerException("Tilmelding object is null");
-        }
         int sum = 0;
         boolean dobbeltVærelse = false;
         sum += konference.getPrisPrDagForKonference() * getAntalDagePåKonferencen();
