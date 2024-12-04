@@ -29,6 +29,7 @@ public class SøgAlleDeltagere extends Stage {
         pane.setHgap(10);
 
         Scene scene = new Scene(pane, 250, 500);
+        this.setTitle("Søg deltager");
         this.setScene(scene);
         this.show();
 
