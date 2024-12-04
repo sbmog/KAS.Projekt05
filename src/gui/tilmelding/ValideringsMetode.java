@@ -1,18 +1,15 @@
 package gui.tilmelding;
 
-import application.model.Deltager;
 import application.model.Konference;
 import gui.component.LabeledDateInput;
 import gui.component.LabeledTextInput;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import storage.Storage;
 
 public class ValideringsMetode {
 
     public static boolean validerInput(ComboBox<Konference> konferenceComboBox, LabeledTextInput navnTextField, LabeledTextInput telefonTextField,
                                        LabeledDateInput ankomstDatoValg, LabeledDateInput afrejseDatoValg, LabeledTextInput adresse) {
-
 
         if (konferenceComboBox.getValue() == null) {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Du skal vælge en konference!");
@@ -38,9 +35,6 @@ public class ValideringsMetode {
         }
         return true;
     }
-
-
-
 
     public static void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
