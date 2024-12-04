@@ -51,10 +51,10 @@ public class Controller {
         ArrayList<Deltager> sorteretListe = new ArrayList<>(Controller.getDeltagerForKonference(konference));
         SorteringsMetode.sorterNavneArrayListe(sorteretListe);
         int left = 0;
-        int right = getDeltagerForKonference(konference).size() - 1;
+        int right = sorteretListe.size() - 1;
         while (deltager == null && left <= right) {
             int middle = (left+right) / 2;
-            Deltager k =getDeltagerForKonference(konference).get(middle);
+            Deltager k = sorteretListe.get(middle);
             if (k.getNavn().compareToIgnoreCase(name) == 0)
                 deltager = k;
             else if (k.getNavn().compareToIgnoreCase(name) > 0)
