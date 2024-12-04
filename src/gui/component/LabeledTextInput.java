@@ -1,7 +1,6 @@
 package gui.component;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -16,7 +15,6 @@ public class LabeledTextInput extends VBox {
         Label label = new Label(labelText);
         label.setStyle("-fx-font-weight: bold;");
         this.getChildren().addAll(label, textField);
-
     }
 
     public String getInputValue() {

@@ -114,7 +114,6 @@ public class Controller {
         return konference;
     }
 
-
     public static ArrayList<Konference> getKonferencer() {
         return Storage.getKonferencer();
     }
@@ -145,8 +144,6 @@ public class Controller {
     public static ArrayList<Udflugt> getUdflugterForKonference(Konference konference) {
         return konference.getUdflugter();
     }
-
-
 
     public static Tilmelding getTilmeldingForDeltager(Deltager deltager, Konference konference) {
         if (deltager != null && konference != null) {

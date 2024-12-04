@@ -13,19 +13,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 public class StartWindow extends Application {
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Konference adminstrations system");
+        primaryStage.setTitle("Konference administrations system");
 
         GridPane pane = new GridPane();
         pane.setAlignment(Pos.CENTER);
@@ -66,18 +63,17 @@ public class StartWindow extends Application {
                 DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
                 startdatoDisplay.setValue(newValue.getStartdato().format(longDateFormat));
                 slutdatoDisplay.setValue(newValue.getSlutdato().format(longDateFormat));
-                prisDisplay.setValue(String.valueOf(newValue.getPrisPrDagForKonference()));
+                prisDisplay.setValue((newValue.getPrisPrDagForKonference()) + " DKK");
             }
         });
 
         Button vælgKonferenceButton = new Button("Se konferencedetaljer");
 
-
         vælgKonferenceButton.setOnAction(event -> {
             Konference selectedKonference = konferenceListView.getSelectionModel().getSelectedItem();
             if (selectedKonference == null) {
-                showAlert(Alert.AlertType.ERROR,"Fejl", "Vælg en konference");
-            }else{
+                showAlert(Alert.AlertType.ERROR, "Fejl", "Vælg en konference");
+            } else {
                 KonferenceOversigt konferenceOversigt = new KonferenceOversigt(selectedKonference);
                 if (!konferenceOversigt.isShowing()) {
                     konferenceOversigt.showAndWait();
@@ -94,7 +90,7 @@ public class StartWindow extends Application {
                 if (!tilmeldPane.isShowing()) {
                     tilmeldPane.showAndWait();
                 }
-            }else {
+            } else {
                 TilmeldPane tilmeldPane = new TilmeldPane(null);
                 if (!tilmeldPane.isShowing()) {
                     tilmeldPane.showAndWait();
@@ -116,6 +112,7 @@ public class StartWindow extends Application {
         buttonBox.getChildren().addAll(søgDeltagerButton, tilmeldingsButton, vælgKonferenceButton);
         pane.add(buttonBox, 0, 3);
     }
+
     public static void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

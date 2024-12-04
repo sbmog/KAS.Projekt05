@@ -1,7 +1,7 @@
 package application.model;
 
 public class Person {
-    private String navn;
+    private final String navn;
 
     public Person(String navn) {
         this.navn = navn;

@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Tilmelding {
-    private LocalDate ankomstDato;
-    private LocalDate afrejseDato;
+    private final LocalDate ankomstDato;
+    private final LocalDate afrejseDato;
     private boolean foredragsholder = false;
     private Deltager deltager;
     private Hotel hotel;
     private Konference konference;
-    private ArrayList<Udflugt> udflugter = new ArrayList<>();
+    private final ArrayList<Udflugt> udflugter = new ArrayList<>();
     private boolean hotelBad = false;
     private boolean hotelWifi = false;
     private boolean hotelMorgenmad = false;
@@ -75,7 +75,6 @@ public class Tilmelding {
         return sum;
     }
 
-
     public int getPrisDeltagersUdgift() {
         if (deltager.getFirma() != null) {
             return 0;
@@ -92,7 +91,6 @@ public class Tilmelding {
         return sum;
     }
 
-
     public boolean isHotelBad() {
         return hotelBad;
     }
@@ -108,7 +106,6 @@ public class Tilmelding {
     public Deltager getDeltager() {
         return deltager;
     }
-
 
     public void addUdflugt(Udflugt udflugt) {
         if (!udflugter.contains(udflugt)) {
@@ -130,7 +127,7 @@ public class Tilmelding {
     }
 
     public String toStringKonferenceMedPris() {
-        return konference + " (" + getSamletPrisForDeltagelse() + ")";
+        return konference + " (" + getSamletPrisForDeltagelse() + " DKK )";
     }
 }
 

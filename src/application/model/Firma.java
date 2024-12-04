@@ -3,9 +3,9 @@ package application.model;
 import java.util.ArrayList;
 
 public class Firma {
-    private String navn;
-    private String telefonNummer;
-    private ArrayList<Deltager> deltagere = new ArrayList<>();
+    private final String navn;
+    private final String telefonNummer;
+    private final ArrayList<Deltager> deltagere = new ArrayList<>();
 
     public Firma(String telefonNummer, String navn) {
         this.telefonNummer = telefonNummer;

@@ -2,7 +2,6 @@ package gui;
 
 import application.controller.Controller;
 import application.model.*;
-import gui.randomGenerator.RandomGenerator;
 import javafx.application.Application;
 import gui.randomGenerator.KonferenceManager;
 
@@ -34,11 +33,10 @@ public class App {
         Konference arbejdsret = Controller.createKonference("Arbejdsret", "Aarhus Universitet, 8000 Aarhus C", LocalDate.of(2025, 3, 20), LocalDate.of(2025, 3, 23), 4300);
         Konference personaleUdvikling = Controller.createKonference("Personaleudvikling", "Odense Universitet, 5000 Odense", LocalDate.of(2025, 3, 23), LocalDate.of(2025, 3, 27), 3800);
 
-        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "XX", 1050, 1250, 0, 50, 0, havOgHimmel);
-        Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
-        Udflugt egeskov = Controller.createUdflugt("Egeskov", "skovvej 1", LocalDate.of(2024, 12, 19), 75, havOgHimmel);
-        Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);
-
+        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "Svanevej 11, Odense", 1050, 1250, 0, 50, 0, havOgHimmel);
+        Udflugt byrundTur = Controller.createUdflugt("Byrundtur", "Midtby 1, Odense", LocalDate.of(2024, 12, 18), 125, havOgHimmel);
+        Udflugt egeskov = Controller.createUdflugt("Egeskov", "Skovvej 1", LocalDate.of(2024, 12, 19), 75, havOgHimmel);
+        Udflugt trapholt = Controller.createUdflugt("Trapholt Museum", "Museumvej 1, Kolding", LocalDate.of(2024, 12, 20), 200, havOgHimmel);
 
         Deltager finnMadsen = Controller.createDeltager("Finn Madsen", "XX", "12341234");
         Tilmelding finnTilmelding = Controller.createTilmelding(finnMadsen, LocalDate.of(2024, 12, 16), LocalDate.of(2024, 12, 18), false, havOgHimmel);
@@ -68,8 +66,6 @@ public class App {
         ArrayList<Konference> konferencer = Controller.getKonferencer();
         KonferenceManager konferenceManager = new KonferenceManager();
         konferenceManager.opretRandomDataForKonferencer(konferencer);
-
-
     }
 
     public static void testGetSamletPrisForDeltagelse() {

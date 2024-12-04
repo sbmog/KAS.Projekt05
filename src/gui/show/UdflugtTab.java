@@ -2,7 +2,6 @@ package gui.show;
 
 import application.controller.Controller;
 import application.model.Konference;
-import application.model.Ledsager;
 import application.model.Udflugt;
 import gui.component.AttributeDisplay;
 import gui.component.LabeledListViewInput;
@@ -12,8 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+
 public class UdflugtTab extends GridPane {
-    private Konference selectedKonference;
+    private final Konference selectedKonference;
     private ListView<Udflugt> udflugtListView = new ListView<>();
 
     public UdflugtTab(Konference selectedKonference) {
@@ -43,8 +45,9 @@ public class UdflugtTab extends GridPane {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.getNavn());
                 adresseDisplay.setValue(newValue.getAdresse());
-                datoForUdflugt.setValue(String.valueOf(newValue.getDato()));
-                prisForUdflugt.setValue(String.valueOf(newValue.getPris()));
+                DateTimeFormatter longDateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
+                datoForUdflugt.setValue((newValue.getDato().format(longDateFormat)));
+                prisForUdflugt.setValue((newValue.getPris()) + " DKK");
                 deltagerForUdflugten.getListView().getItems().clear();
                 newValue.getTilmeldinger().forEach(tilmelding ->
                         deltagerForUdflugten.getListView().getItems().add(tilmelding.getDeltager().getLedsager().toStringMedDeltager()));

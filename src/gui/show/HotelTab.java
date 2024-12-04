@@ -12,8 +12,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 
 public class HotelTab extends GridPane {
-    private Konference selectedKonference;
-    private ListView<Hotel> hotelListView;
+    private final Konference selectedKonference;
+    private final ListView<Hotel> hotelListView;
 
     public HotelTab(Konference selectedKonference) {
         this.selectedKonference = selectedKonference;
@@ -46,11 +46,11 @@ public class HotelTab extends GridPane {
             if (newValue != null) {
                 navnDisplay.setValue(newValue.getNavn());
                 adresseDisplay.setValue(newValue.getAdresse());
-                prisForEnkeltVærelseDisplay.setValue(String.valueOf(newValue.getPrisForEnkeltVærelse()));
-                prisForDobbeltVærelseDisplay.setValue(String.valueOf(newValue.getPrisForDobbeltVærelse()));
-                prisForBadDisplay.setValue(String.valueOf(newValue.getBadTillæg()));
-                prisForWifiDisplay.setValue(String.valueOf(newValue.getWifiTillæg()));
-                prisMorgenMadDisplay.setValue(String.valueOf(newValue.getMorgenmadsTillæg()));
+                prisForEnkeltVærelseDisplay.setValue((newValue.getPrisForEnkeltVærelse()) + " DKK");
+                prisForDobbeltVærelseDisplay.setValue((newValue.getPrisForDobbeltVærelse()) + " DKK");
+                prisForBadDisplay.setValue((newValue.getBadTillæg()) + " DKK");
+                prisForWifiDisplay.setValue((newValue.getWifiTillæg()) + " DKK");
+                prisMorgenMadDisplay.setValue((newValue.getMorgenmadsTillæg()) + " DKK");
                 listeOverOvernattende.getListView().getItems().clear();
                 newValue.getTilmeldinger().forEach(tilmelding ->
                         listeOverOvernattende.getListView().getItems().add(tilmelding.getDeltager().toStringMedLedsager()));
@@ -74,6 +74,6 @@ public class HotelTab extends GridPane {
     }
 
     private void updateHotelList() {
-        hotelListView.getItems().setAll(Controller.getHotellerForKonference(selectedKonference)); // Duplikeret med linje 26
+        hotelListView.getItems().setAll(Controller.getHotellerForKonference(selectedKonference));
     }
 }

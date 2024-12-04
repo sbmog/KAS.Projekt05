@@ -14,7 +14,7 @@ import storage.Storage;
 
 import java.time.LocalDate;
 
-public class TilmeldingsogBeregningsMetode {
+public class TilmeldingsOgBeregningsMetode {
 
     public static void beregnFuldeOmkostninger(Konference konference,
                                                LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
@@ -45,7 +45,6 @@ public class TilmeldingsogBeregningsMetode {
                 tempTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-
             int totalOmkostning = tempTilmelding.getSamletPrisForDeltagelse();
             int deltagersPris = tempTilmelding.getPrisDeltagersUdgift();
 
@@ -55,7 +54,7 @@ public class TilmeldingsogBeregningsMetode {
             }
 
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
-            deltagerOmkostningsDisplay.setValue("Total pris: " + deltagersPris + " DKK");
+            deltagerOmkostningsDisplay.setValue("At betale: " + deltagersPris + " DKK");
         } catch (Exception ex) {
             ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke beregne omkostninger: " + ex.getMessage());
         }
@@ -91,7 +90,6 @@ public class TilmeldingsogBeregningsMetode {
             if (!ledsagerInput.getInputValue().isEmpty()) {
                 Ledsager ledsager = Controller.createLedsager(ledsagerInput.getInputValue(), deltager);
                 deltager.setLedsager(ledsager);
-
             }
 
             if (firmaCheckBox.isSelected()) {

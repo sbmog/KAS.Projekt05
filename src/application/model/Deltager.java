@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Deltager extends Person {
-    private String adresse;
-    private String telefonNummer;
+    private final String adresse;
+    private final String telefonNummer;
     private Ledsager ledsager;
     private Firma firma;
-    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
     public Deltager(String navn, String adresse, String telefonNummer) {
         super(navn);
@@ -24,13 +24,6 @@ public class Deltager extends Person {
         this.ledsager = newLedsager;
         setLedsager(newLedsager);
         return newLedsager;
-    }
-
-    public void removeLedsager() {
-        if (this.ledsager != null) {
-            this.ledsager.setDeltager(null);
-            this.ledsager = null;
-        }
     }
 
     public void setFirma(Firma firma) {
@@ -65,7 +58,6 @@ public class Deltager extends Person {
         return firma;
     }
 
-
     @Override
     public String toString() {
         return getNavn();
@@ -74,7 +66,6 @@ public class Deltager extends Person {
     public String getTelefonNummer() {
         return telefonNummer;
     }
-
 
     public ArrayList<Tilmelding> getTilmeldinger() {
         return tilmeldinger;

@@ -32,7 +32,6 @@ public class ValideringsMetode {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Afrejsedato skal være efter ankomstdato.");
             return false;
         }
-
         return true;
     }
 

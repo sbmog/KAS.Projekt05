@@ -39,7 +39,7 @@ public class TilmeldPane extends Stage {
     private final LabeledTextInput ledsagerInput = new LabeledTextInput("Ledsager");
     private final CheckBox ForedragsholderCheckBox = new CheckBox("Er du foredragsholder?");
     private final LabeledListViewInput<Udflugt> udflugtListViewInput = new LabeledListViewInput<>("Vælg udflugt");
-    private final AttributeDisplay fuldePrisFordeltagelse = new AttributeDisplay("Total pris", "0 DKK");
+    private final AttributeDisplay fuldePrisForDeltagelse = new AttributeDisplay("Total pris", "0 DKK");
     private final AttributeDisplay prisForDeltager = new AttributeDisplay("Deltagers pris", "0 DKK");
 
 
@@ -65,7 +65,7 @@ public class TilmeldPane extends Stage {
         venstreVBox.setPrefWidth(200);
         pane.add(venstreVBox, 0, 0);
 
-        VBox højreVBox = new VBox(10, hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisFordeltagelse, prisForDeltager);
+        VBox højreVBox = new VBox(10, hotelComboBox, badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisForDeltagelse, prisForDeltager);
         pane.add(højreVBox, 1, 0);
         højreVBox.setAlignment(Pos.TOP_LEFT);
         højreVBox.setPadding(new Insets(5));
@@ -84,7 +84,6 @@ public class TilmeldPane extends Stage {
         udflugtListViewInput.getListView().setEditable(false);
         udflugtListViewInput.getListView().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        // Button actions
         beregnButton.setOnAction(event -> beregnFuldeOmkostninger());
         registrerButton.setOnAction(event -> registrerDeltager());
     }
@@ -143,9 +142,9 @@ public class TilmeldPane extends Stage {
 
         boolean isForedragsholder = ForedragsholderCheckBox.isSelected();
 
-        TilmeldingsogBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
+        TilmeldingsOgBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 ankomstDatoInput, afrejseDatoInput, ledsagerInput, hotelComboBox, badCheckBox,
-                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisFordeltagelse, prisForDeltager, firmaCheckBox, isForedragsholder);
+                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisForDeltagelse, prisForDeltager, firmaCheckBox, isForedragsholder);
     }
 
     private void registrerDeltager() {
@@ -154,9 +153,9 @@ public class TilmeldPane extends Stage {
             return;
         }
         boolean isForedragsholder = ForedragsholderCheckBox.isSelected();
-        TilmeldingsogBeregningsMetode.registrerDeltager(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
+        TilmeldingsOgBeregningsMetode.registrerDeltager(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 firmaNavnInput, firmaTelefonInput, firmaCheckBox, hotelComboBox,
-                badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisFordeltagelse, isForedragsholder);
+                badCheckBox, wifiCheckBox, morgenmadCheckBox, ledsagerInput, udflugtListViewInput, fuldePrisForDeltagelse, isForedragsholder);
         this.close();
     }
 }

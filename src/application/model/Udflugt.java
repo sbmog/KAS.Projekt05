@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Udflugt {
-    private String navn;
-    private String adresse;
-    private LocalDate dato;
-    private int pris;
+    private final String navn;
+    private final String adresse;
+    private final LocalDate dato;
+    private final int pris;
 
-    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 
     public Udflugt(String navn, String adresse, LocalDate dato, int pris, Konference konference) {
         this.navn = navn;

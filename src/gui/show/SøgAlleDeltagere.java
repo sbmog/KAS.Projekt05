@@ -11,10 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import storage.Storage;
-
 
 public class SøgAlleDeltagere extends Stage {
     private final LabeledTextInput deltagerTextInput = new LabeledTextInput("Søg deltager");
@@ -51,15 +48,15 @@ public class SøgAlleDeltagere extends Stage {
     private void søgning() {
         Deltager søgteNavn = Controller.søgDeltagerAlle(deltagerTextInput.getInputValue());
         if (søgteNavn != null) {
-            navnDisplay.setValue(søgteNavn.getNavn() + "");
-            tlfDisplay.setValue(søgteNavn.getTelefonNummer() + "");
+            navnDisplay.setValue(søgteNavn.getNavn());
+            tlfDisplay.setValue(søgteNavn.getTelefonNummer());
             if (søgteNavn.getFirma() != null) {
-                firmaDisplay.setValue(søgteNavn.getFirma() + "");
+                firmaDisplay.setValue(String.valueOf(søgteNavn.getFirma()));
             }else {
                 firmaDisplay.setValue("Intet firma");
             }
             if (søgteNavn.getLedsager() != null) {
-                ledsagerDisplay.setValue(søgteNavn.getLedsager() + "");
+                ledsagerDisplay.setValue(String.valueOf(søgteNavn.getLedsager()));
             }else {
                 ledsagerDisplay.setValue("Ingen ledsager");
             }

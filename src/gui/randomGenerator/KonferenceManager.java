@@ -1,11 +1,9 @@
 package gui.randomGenerator;
+
 import application.controller.Controller;
 import application.model.*;
-import gui.randomGenerator.RandomGenerator;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class KonferenceManager {

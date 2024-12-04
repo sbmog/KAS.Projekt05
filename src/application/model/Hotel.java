@@ -3,13 +3,13 @@ package application.model;
 import java.util.ArrayList;
 
 public class Hotel {
-    private String navn;
-    private String adresse;
-    private int prisForEnkeltVærelse;
-    private int prisForDobbeltVærelse;
-    private int badTillæg;
-    private int wifiTillæg;
-    private int morgenmadsTillæg;
+    private final String navn;
+    private final String adresse;
+    private final int prisForEnkeltVærelse;
+    private final int prisForDobbeltVærelse;
+    private final int badTillæg;
+    private final int wifiTillæg;
+    private final int morgenmadsTillæg;
 
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
 

@@ -4,16 +4,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Konference {
-    private String navn;
-    private String adresse;
-    private LocalDate startDato;
-    private LocalDate slutDato;
+    private final String navn;
+    private final String adresse;
+    private final LocalDate startDato;
+    private final LocalDate slutDato;
 
-    private int prisPrDagForKonference;
+    private final int prisPrDagForKonference;
 
-    private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
-    private ArrayList<Hotel> hoteller = new ArrayList<>();
-    private ArrayList<Udflugt> udflugter = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
+    private final ArrayList<Hotel> hoteller = new ArrayList<>();
+    private final ArrayList<Udflugt> udflugter = new ArrayList<>();
 
     public Konference(String navn, String adresse, LocalDate startDato, LocalDate slutDato, int prisPrDagForKonference) {
         this.navn = navn;

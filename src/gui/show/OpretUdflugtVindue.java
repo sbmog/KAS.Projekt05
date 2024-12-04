@@ -16,16 +16,13 @@ import javafx.scene.layout.VBox;
 import java.time.LocalDate;
 
 public class OpretUdflugtVindue extends Stage {
-    private Konference selectedKonference;
 
     public OpretUdflugtVindue(Konference selectedKonference) {
-        this.selectedKonference = selectedKonference;
         this.setTitle("Opret Udflugt til: " + selectedKonference.getNavn());
 
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(10));
         pane.setAlignment(Pos.CENTER);
-
 
         VBox UdflugtVindueVBox = new VBox();
         LabeledTextInput navnInput = new LabeledTextInput("Navn:");
@@ -58,7 +55,6 @@ public class OpretUdflugtVindue extends Stage {
                 this.close();
             }
         });
-
 
         Scene scene = new Scene(pane);
         this.setScene(scene);
