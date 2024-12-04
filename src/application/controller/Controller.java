@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.*;
+import gui.show.SorteringsMetode;
 import storage.Storage;
 
 import java.time.LocalDate;
@@ -25,24 +26,45 @@ public class Controller {
         return deltager;
     }
 
-    public static Deltager søgDeltagerAlle(String søgteDeltager) {
-        Deltager resultatSøgning = null;
-        for (Deltager deltager : Storage.getDeltagere()) {
-            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
-                resultatSøgning = deltager;
-            }
+    public static Deltager søgDeltagerAlle(String name) {
+        Deltager deltager = null;
+        ArrayList<Deltager> sorteretListe = new ArrayList<>(Storage.getDeltagere());
+        SorteringsMetode.sorterNavneArrayListe(sorteretListe);
+        int left = 0;
+        int right = Storage.getDeltagere().size() - 1;
+        while (deltager == null && left <= right) {
+            int middle = (left+right) / 2;
+
+            Deltager k = sorteretListe.get(middle);
+            if (k.getNavn().compareToIgnoreCase(name) == 0)
+                deltager = k;
+            else if (k.getNavn().compareToIgnoreCase(name) > 0)
+                right = middle - 1;
+            else
+                left = middle + 1;
         }
-        return resultatSøgning;
+        return deltager;
     }
 
-    public static Deltager søgDeltagerIKonference(Konference konference, String søgteDeltager) {
-        for (Deltager deltager : getDeltagerForKonference(konference)) {
-            if (søgteDeltager.equalsIgnoreCase(deltager.getNavn())) {
-                return deltager;
-            }
+    public static Deltager søgDeltagerIKonference(Konference konference, String name) {
+        Deltager deltager = null;
+        ArrayList<Deltager> sorteretListe = new ArrayList<>(Controller.getDeltagerForKonference(konference));
+        SorteringsMetode.sorterNavneArrayListe(sorteretListe);
+        int left = 0;
+        int right = getDeltagerForKonference(konference).size() - 1;
+        while (deltager == null && left <= right) {
+            int middle = (left+right) / 2;
+            Deltager k =getDeltagerForKonference(konference).get(middle);
+            if (k.getNavn().compareToIgnoreCase(name) == 0)
+                deltager = k;
+            else if (k.getNavn().compareToIgnoreCase(name) > 0)
+                right = middle - 1;
+            else
+                left = middle + 1;
         }
-        return null;
+        return deltager;
     }
+
 
     public static ArrayList<Deltager> getDeltagerForKonference(Konference konference) {
         return konference.getDeltagere();
@@ -123,6 +145,8 @@ public class Controller {
     public static ArrayList<Udflugt> getUdflugterForKonference(Konference konference) {
         return konference.getUdflugter();
     }
+
+
 
     public static Tilmelding getTilmeldingForDeltager(Deltager deltager, Konference konference) {
         if (deltager != null && konference != null) {
