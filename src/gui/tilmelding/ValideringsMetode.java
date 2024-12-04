@@ -15,16 +15,15 @@ public class ValideringsMetode {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Du skal vælge en konference!");
             return false;
         }
-        if (telefonTextField.getInputValue() != null) {
-            return true;
+        if (navnTextField.getInputValue().isEmpty() || telefonTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Fejl", "Navn, telefonnummer og adresse er påkrævet.");
+            return false;
+
         } else if (navnTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Navn, telefonnummer og adresse er påkrævet.");
             return false;
         }
-        if (adresse.getInputValue().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Fejl", "Du skal udfylde adresse.");
-            return false;
-        }
+
         if (ankomstDatoValg.getInputValue() == null || afrejseDatoValg.getInputValue() == null) {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Vælg både ankomst- og afrejsedato.");
             return false;
