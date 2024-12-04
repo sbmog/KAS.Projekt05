@@ -127,6 +127,7 @@ public class DeltagerTab extends GridPane {
                 firmaDisplay.setValue("Intet firma");
             }
             Tilmelding tilmelding = Controller.getTilmeldingForDeltager(søgteNavn, selectedKonference);
+            antalDageDisplay.setValue(String.valueOf(tilmelding.getAntalDagePåKonferencen()));
             if (tilmelding.isForedragsholder()) {
                 erForedragsholderDisplay.setValue("Ja");
             } else {
