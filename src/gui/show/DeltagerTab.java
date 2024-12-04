@@ -24,7 +24,7 @@ public class DeltagerTab extends GridPane {
     private final AttributeDisplay navnDisplay = new AttributeDisplay("Navn", "");
     private final AttributeDisplay telefonNummerDisplay = new AttributeDisplay("Telefon nummer", "");
     private final AttributeDisplay adresseDisplay = new AttributeDisplay("Adresse", "");
-    private final AttributeDisplay erForedragsholderDisplay = new AttributeDisplay("Er foredragsholder?", "");
+    private final AttributeDisplay erForedragsholderDisplay = new AttributeDisplay("Foredragsholder", "");
     private final AttributeDisplay firmaDisplay = new AttributeDisplay("Firma", "");
     private final AttributeDisplay hotelDisplay = new AttributeDisplay("Hotel", "");
     private final AttributeDisplay ledsagerDisplay = new AttributeDisplay("Ledsager", "");
