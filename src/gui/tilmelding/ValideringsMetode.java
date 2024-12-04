@@ -1,20 +1,31 @@
 package gui.tilmelding;
 
+import application.model.Deltager;
 import application.model.Konference;
 import gui.component.LabeledDateInput;
 import gui.component.LabeledTextInput;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import storage.Storage;
 
 public class ValideringsMetode {
 
     public static boolean validerInput(ComboBox<Konference> konferenceComboBox, LabeledTextInput navnTextField, LabeledTextInput telefonTextField,
                                        LabeledDateInput ankomstDatoValg, LabeledDateInput afrejseDatoValg, LabeledTextInput adresse) {
 
+
         if (konferenceComboBox.getValue() == null) {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Du skal vælge en konference!");
             return false;
         }
+        for (Deltager søgteDeltager : Storage.getDeltagere()) {
+            if (søgteDeltager.getTelefonNummer().equalsIgnoreCase(telefonTextField.getInputValue())) {
+                return true;
+            } else
+                showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke finde deltager med indtastede telefonnummer.");
+            return false;
+        }
+
         if (navnTextField.getInputValue().isEmpty() || telefonTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Navn, telefonnummer og adresse er påkrævet.");
             return false;
