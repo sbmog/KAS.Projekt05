@@ -1,17 +1,17 @@
 package gui.tilmelding;
 
-import application.model.Deltager;
+
 import application.model.Konference;
 import gui.component.LabeledDateInput;
 import gui.component.LabeledTextInput;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import storage.Storage;
 
 public class ValideringsMetode {
 
     public static boolean validerInput(ComboBox<Konference> konferenceComboBox, LabeledTextInput navnTextField, LabeledTextInput telefonTextField,
-                                       LabeledDateInput ankomstDatoValg, LabeledDateInput afrejseDatoValg, LabeledTextInput adresse) {
+                                       LabeledDateInput ankomstDatoValg, LabeledDateInput afrejseDatoValg, LabeledTextInput adresse, CheckBox firmaCheckBox, LabeledTextInput firmaNavnInput,LabeledTextInput firmaTelefonInput) {
 
 
         if (konferenceComboBox.getValue() == null) {
@@ -19,25 +19,41 @@ public class ValideringsMetode {
             return false;
         }
 
-        if (navnTextField.getInputValue().isEmpty() || telefonTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Fejl", "Navn, telefonnummer og adresse er påkrævet.");
+        if (navnTextField.getInputValue().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Fejl", "Navn er påkrævet.");
             return false;
-
-        } else if (navnTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Fejl", "Navn, telefonnummer og adresse er påkrævet.");
+        }
+        if (telefonTextField.getInputValue().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Fejl", "Telefonnummer er påkrævet.");
+            return false;
+        }
+        if (adresse.getInputValue().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Fejl", "Adresse er påkrævet.");
             return false;
         }
 
-        if (ankomstDatoValg.getInputValue() == null || afrejseDatoValg.getInputValue() == null) {
-            showAlert(Alert.AlertType.ERROR, "Fejl", "Vælg både ankomst- og afrejsedato.");
-            return false;
+        if (firmaCheckBox.isSelected()) {
+            if (firmaNavnInput.getInputValue().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Fejl", "Firma navn er påkrævet.");
+                return false;
+            }
+            if (firmaTelefonInput.getInputValue().isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Fejl", "Firma telefonnummer er påkrævet.");
+                return false;
+            }
         }
-        if (afrejseDatoValg.getInputValue().isBefore(ankomstDatoValg.getInputValue())) {
-            showAlert(Alert.AlertType.ERROR, "Fejl", "Afrejsedato skal være efter ankomstdato.");
-            return false;
+
+            if (ankomstDatoValg.getInputValue() == null || afrejseDatoValg.getInputValue() == null) {
+                showAlert(Alert.AlertType.ERROR, "Fejl", "Vælg både ankomst- og afrejsedato.");
+                return false;
+            }
+            if (afrejseDatoValg.getInputValue().isBefore(ankomstDatoValg.getInputValue())) {
+                showAlert(Alert.AlertType.ERROR, "Fejl", "Afrejsedato skal være efter ankomstdato.");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
+
 
 
 
