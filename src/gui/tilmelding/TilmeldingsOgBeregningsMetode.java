@@ -31,8 +31,6 @@ public class TilmeldingsOgBeregningsMetode {
                 midlertidligDeltager.setFirma(firma);
             }
 
-
-
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
             for (Udflugt udflugt : selectedUdflugter) {
                 midlertidligTilmelding.addUdflugt(udflugt);
@@ -52,10 +50,8 @@ public class TilmeldingsOgBeregningsMetode {
                 midlertidligTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-
             int totalOmkostning = midlertidligTilmelding.getSamletPrisForDeltagelse();
             int deltagersPris = midlertidligTilmelding.getPrisDeltagersUdgift();
-
 
 
             totalOmkostningDisplay.setValue("Total pris: " + totalOmkostning + " DKK");
@@ -80,7 +76,6 @@ public class TilmeldingsOgBeregningsMetode {
                     break;
                 }
             }
-
             if (deltager == null) {
                 deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
             }
@@ -112,8 +107,7 @@ public class TilmeldingsOgBeregningsMetode {
                 nuværendeTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
 
-            int totalOmkostningForDeltager = nuværendeTilmelding.getSamletPrisForDeltagelse();
-            ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION, "Succes", "Deltageren er nu tilmeldt konferencen. Total pris: " + totalOmkostningForDeltager + " DKK");
+            ValideringsMetode.showAlert(Alert.AlertType.CONFIRMATION, "Succes", "Deltageren er nu tilmeldt konferencen.");
 
         } catch (Exception ex) {
             ValideringsMetode.showAlert(Alert.AlertType.ERROR, "Fejl", "Der opstod en fejl: " + ex.getMessage());
