@@ -18,13 +18,6 @@ public class ValideringsMetode {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Du skal vælge en konference!");
             return false;
         }
-        for (Deltager søgteDeltager : Storage.getDeltagere()) {
-            if (søgteDeltager.getTelefonNummer().equalsIgnoreCase(telefonTextField.getInputValue())) {
-                return true;
-            } else
-                showAlert(Alert.AlertType.ERROR, "Fejl", "Kunne ikke finde deltager med indtastede telefonnummer.");
-            return false;
-        }
 
         if (navnTextField.getInputValue().isEmpty() || telefonTextField.getInputValue().isEmpty() || adresse.getInputValue().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Fejl", "Navn, telefonnummer og adresse er påkrævet.");
@@ -45,6 +38,9 @@ public class ValideringsMetode {
         }
         return true;
     }
+
+
+
 
     public static void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);

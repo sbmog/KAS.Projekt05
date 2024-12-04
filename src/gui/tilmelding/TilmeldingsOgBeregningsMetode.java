@@ -70,12 +70,7 @@ public class TilmeldingsOgBeregningsMetode {
             Deltager deltager = null;
             Tilmelding nuværendeTilmelding;
 
-            for (Deltager søgteDeltager : Storage.getDeltagere()) {
-                if (søgteDeltager.getTelefonNummer().equalsIgnoreCase(telefonInput.getInputValue())) {
-                    deltager = søgteDeltager;
-                    break;
-                }
-            }
+
             if (deltager == null) {
                 deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
             }
