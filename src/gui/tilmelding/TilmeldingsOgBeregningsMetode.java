@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import storage.Storage;
+
 
 import java.time.LocalDate;
 
@@ -67,13 +67,10 @@ public class TilmeldingsOgBeregningsMetode {
                                          LabeledTextInput ledsagerInput, LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, boolean isForedragsholder) {
 
         try {
-            Deltager deltager = null;
+            Deltager deltager;
             Tilmelding nuværendeTilmelding;
+            deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
 
-
-            if (deltager == null) {
-                deltager = Controller.createDeltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
-            }
 
             if (firmaCheckBox.isSelected()) {
                 Firma firma = Controller.createFirma(firmaTelefonInput.getInputValue(), firmaNavnInput.getInputValue());
