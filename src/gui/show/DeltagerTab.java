@@ -32,6 +32,7 @@ public class DeltagerTab extends GridPane {
     private final LabeledListViewInput<Udflugt> ledsagerUdflugtListview = new LabeledListViewInput<>("Ledsagers udflugter");
     private final AttributeDisplay prisDisplay = new AttributeDisplay("Prisen for deltagelse", "");
     private final AttributeDisplay deltagersPrisDisplay = new AttributeDisplay("Deltagers udgifter", "");
+    private final AttributeDisplay antalDageDisplay = new AttributeDisplay("Antal dage tilmeldt", "");
 
 
     public DeltagerTab(Konference selectedKonference) {
@@ -61,7 +62,7 @@ public class DeltagerTab extends GridPane {
         højreBoks.setSpacing(5);
         højreBoks.setPadding(new Insets(0, 5, 10, 10));
 
-        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay, erForedragsholderDisplay, firmaDisplay, hotelDisplay, ledsagerDisplay, ledsagerUdflugtListview, prisDisplay, deltagersPrisDisplay);
+        højreBoks.getChildren().addAll(navnDisplay, telefonNummerDisplay, adresseDisplay,antalDageDisplay, erForedragsholderDisplay, firmaDisplay, hotelDisplay, ledsagerDisplay, ledsagerUdflugtListview, prisDisplay, deltagersPrisDisplay);
         this.add(højreBoks, 1, 0);
 
 
@@ -76,6 +77,7 @@ public class DeltagerTab extends GridPane {
                     firmaDisplay.setValue("Intet firma");
                 }
                 Tilmelding tilmelding = Controller.getTilmeldingForDeltager(newValue, selectedKonference);
+                antalDageDisplay.setValue(String.valueOf(tilmelding.getAntalDagePåKonferencen()));
                 if (tilmelding.isForedragsholder()) {
                     erForedragsholderDisplay.setValue("Ja");
                 } else {
