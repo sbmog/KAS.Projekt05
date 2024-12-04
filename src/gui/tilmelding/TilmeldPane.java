@@ -14,9 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
 import java.time.LocalDate;
-
 import static gui.tilmelding.ValideringsMetode.validerInput;
 
 public class TilmeldPane extends Stage {

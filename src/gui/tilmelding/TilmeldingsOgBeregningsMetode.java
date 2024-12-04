@@ -10,8 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-
-
 import java.time.LocalDate;
 
 public class TilmeldingsOgBeregningsMetode {
