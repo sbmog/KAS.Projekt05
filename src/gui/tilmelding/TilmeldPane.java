@@ -144,7 +144,7 @@ public class TilmeldPane extends Stage {
 
         TilmeldingsOgBeregningsMetode.beregnFuldeOmkostninger(konferenceComboBox.getValue(), navnInput, telefonInput, adresseInput,
                 ankomstDatoInput, afrejseDatoInput, ledsagerInput, hotelComboBox, badCheckBox,
-                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisForDeltagelse, prisForDeltager, firmaCheckBox, isForedragsholder);
+                wifiCheckBox, morgenmadCheckBox, udflugtListViewInput, fuldePrisForDeltagelse, prisForDeltager, firmaCheckBox, isForedragsholder,firmaTelefonInput,firmaNavnInput);
     }
 
     private void registrerDeltager() {

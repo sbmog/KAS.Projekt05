@@ -20,11 +20,17 @@ public class TilmeldingsOgBeregningsMetode {
                                                LabeledTextInput navnInput, LabeledTextInput telefonInput, LabeledTextInput adresseInput,
                                                LabeledDateInput ankomstDatoInput, LabeledDateInput afrejseDatoInput, LabeledTextInput ledsagerInput,
                                                ComboBox<Hotel> hotelComboBox, CheckBox badCheckBox, CheckBox wifiCheckBox, CheckBox morgenmadCheckBox,
-                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, AttributeDisplay deltagerOmkostningsDisplay, CheckBox firmaCheckBox, boolean isForedragsholder) {
+                                               LabeledListViewInput<Udflugt> udflugtListViewInput, AttributeDisplay totalOmkostningDisplay, AttributeDisplay deltagerOmkostningsDisplay, CheckBox firmaCheckBox, boolean isForedragsholder, LabeledTextInput firmaTelefonInput, LabeledTextInput firmaNavnInput) {
 
         try {
             Deltager midlertidligDeltager = new Deltager(navnInput.getInputValue(), adresseInput.getInputValue(), telefonInput.getInputValue());
             Tilmelding midlertidligTilmelding = new Tilmelding(midlertidligDeltager, ankomstDatoInput.getInputValue(), afrejseDatoInput.getInputValue(), isForedragsholder, konference);
+
+            if (firmaCheckBox.isSelected()) {
+                Firma firma = Controller.createFirma(firmaTelefonInput.getInputValue(), firmaNavnInput.getInputValue());
+                midlertidligDeltager.setFirma(firma);
+            }
+
 
 
             ObservableList<Udflugt> selectedUdflugter = udflugtListViewInput.getListView().getSelectionModel().getSelectedItems();
@@ -45,6 +51,7 @@ public class TilmeldingsOgBeregningsMetode {
 
                 midlertidligTilmelding.setHotel(selectedHotel, badValgt, wifiValgt, morgenmadValgt);
             }
+
 
             int totalOmkostning = midlertidligTilmelding.getSamletPrisForDeltagelse();
             int deltagersPris = midlertidligTilmelding.getPrisDeltagersUdgift();
