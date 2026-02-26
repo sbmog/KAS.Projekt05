@@ -27,3 +27,6 @@ Som det første store projekt på uddannelsen har fokus været på:
 2. **Controller Pattern:** Sikring af, at GUI'en ikke indeholder forretningslogik, men kommunikerer gennem en central Controller.
 3. **Validering:** Implementering af input-validering for at sikre korrekte data ved tilmelding.
 4. **Kodestandarder:** Fokus på læsbar kode, navngivningskonventioner og struktur.
+
+## Forfattere
+Karsten Kirkegaard, Simon Dideriksen, Anders Bo Jensen og Sidse Borch Mogensen
