@@ -1,32 +1,32 @@
-# KAS - Konference Administrations System
+# KAS - Conference Management System
 
-Dette projekt er mit første semesterprojekt på Datamatikeruddannelsen. Formålet var at designe og implementere et system til administration af internationale konferencer, hotelbookinger og udflugter.
+This project was my first semester project in the Computer Science program. The objective was to design and implement a system for managing international conferences, hotel bookings, and excursions.
 
-## Projektbeskrivelse
-Systemet erstatter manuelle tilmeldingsblanketter med en digital løsning, der automatiserer håndteringen af deltagere, ledsagere og komplekse prisberegninger. Projektet har haft særligt fokus på korrekt implementering af klassemodeller og forretningslogik.
+## Project Description
+The system replaces manual registration forms with a digital solution that automates the handling of participants, companions, and complex price calculations. The project focused specifically on the correct implementation of class models and business logic.
 
-### Hovedfunktioner
-* **Konferencestyring:** Oprettelse og administration af konferencer med specifikke lokationer, datoer og priser.
-* **Tilmeldingssystem:** Håndtering af deltagere (herunder foredragsholdere med særregler) og deres ledsagere.
-* **Hotel- og Udflugtsbooking:** Mulighed for at tilknytte hoteller til konferencer og booke specifikke udflugter for ledsagere.
-* **Avanceret Prisberegning:** Automatisk beregning af samlede omkostninger baseret på:
-    * Konferencegebyr (undtaget for foredragsholdere).
-    * Hotelovernatninger med tillæg (f.eks. for ledsager og ekstra services).
-    * Tilmeldte udflugter.
-* **Administrativ Oversigt:** Generering af lister over deltagere for specifikke hoteller og udflugter.
+### Key Features
+* **Conference Management:** Creation and administration of conferences with specific locations, dates, and pricing.
+* **Registration System:** Handling of participants (including keynote speakers with special rules) and their companions.
+* **Hotel and Excursion Booking:** Ability to link hotels to conferences and book specific excursions for companions.
+* **Advanced Price Calculation:** Automatic calculation of total costs based on:
+    * Conference fees (waived for keynote speakers).
+    * Hotel stays with supplements (e.g., for companions and extra services).
+    * Registered excursions.
+* **Administrative Overview:** Generation of participant lists for specific hotels and excursions.
 
-## Teknisk Stack
-* **Sprog:** Java (JDK)
-* **GUI:** JavaFX (brugergrænseflade til administration og tilmelding)
-* **Arkitektur:** Layered Architecture (GUI, Controller, Model, Storage)
-* **Værktøjer:** IntelliJ IDEA, Git, UML (Klassediagrammer)
+## Technical Stack
+* **Language:** Java (JDK)
+* **GUI:** JavaFX (user interface for administration and registration)
+* **Architecture:** Layered Architecture (GUI, Controller, Model, Storage)
+* **Tools:** IntelliJ IDEA, Git, UML (Class Diagrams)
 
-## Udviklingsfokus
-Som det første store projekt på uddannelsen har fokus været på:
-1. **Objektorienteret Design:** Korrekt brug af nedarvning (Person, Deltager, Ledsager) og associationer (1..* og 0..*).
-2. **Controller Pattern:** Sikring af, at GUI'en ikke indeholder forretningslogik, men kommunikerer gennem en central Controller.
-3. **Validering:** Implementering af input-validering for at sikre korrekte data ved tilmelding.
-4. **Kodestandarder:** Fokus på læsbar kode, navngivningskonventioner og struktur.
+## Development Focus
+As the first major project of the program, the focus was on:
+1. **Object-Oriented Design:** Correct use of inheritance (Person, Participant, Companion) and associations (1..* and 0..*).
+2. **Controller Pattern:** Ensuring the GUI does not contain business logic but communicates through a central Controller.
+3. **Validation:** Implementation of input validation to ensure correct data during registration.
+4. **Coding Standards:** Emphasis on readable code, naming conventions, and structure.
 
-## Forfattere
-Karsten Kirkegaard, Simon Dideriksen, Anders Bo Jensen og Sidse Borch Mogensen
+## Authors
+Karsten Kirkegaard, Simon Dideriksen, Anders Bo Jensen, and Sidse Borch Mogensen
